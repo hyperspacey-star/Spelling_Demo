@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Ready For School: Spelling & TV Time Bank</title>
+    <!-- Confetti Library for Mastery Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #gameContainer {
+            max-width: 680px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid #4a90e2;
+        }
+        h1 { color: #4a90e2; margin-bottom: 5px; }
+        .piggy-bank {
+            background: #fff0f5;
+            border: 3px solid #ff69b4;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px auto;
+            box-shadow: 0px 4px 10px rgba(255,105,180,0.2);
+        }
+        .piggy-bank h3 { margin: 0 0 10px 0; color: #d63384; }
+        .piggy-btn {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+        .piggy-btn:hover { transform: scale(1.05); }
+        select, .action-btn, .admin-btn, .promo-btn {
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #4a90e2;
+            margin: 8px;
+            cursor: pointer;
+        }
+        .action-btn {
+            background-color: #4a90e2;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+        .action-btn:hover { background-color: #357abd; }
+        .admin-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            font-size: 0.9em;
+        }
+        .promo-btn {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0px 4px 10px rgba(37, 117, 252, 0.3);
+            transition: transform 0.1s;
+        }
+        .promo-btn:hover { transform: scale(1.03); }
+        #wordDisplay {
+            font-size: 2.8em;
+            letter-spacing: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        #livesDisplay { font-size: 1.8em; margin: 15px 0; }
+        #keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .key, .review-btn {
+            font-size: 1.2em;
+            font-weight: bold;
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            border: none;
+            background-color: #e0f7fa;
+            color: #00796b;
+            cursor: pointer;
+            box-shadow: 0px 3px 0px #b2ebf2;
+        }
+        .key:active { transform: translateY(3px); box-shadow: none; }
+        .review-btn {
+            width: auto;
+            min-width: 120px;
+            padding: 10px 15px;
+            margin: 10px;
+            background-color: #f1f8e9;
+            color: #33691e;
+            box-shadow: 0px 4px 0px #c5e1a5;
+        }
+        .correct-choice { background-color: #a5d6a7 !important; color: #1b5e20 !important; }
+        .wrong-choice { background-color: #ef9a9a !important; color: #b71c1c !important; opacity: 0.6; }
+        #message, #reportMessage { font-size: 1.3em; font-weight: bold; color: #27ae60; margin: 15px 0; }
+        .screen { display: none; }
+        
+        /* Profile Selector Bar */
+        #profileBar {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Advertising Table Styles */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        .pricing-table th, .pricing-table td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        .pricing-table th { background-color: #f1f8ff; color: #0d6efd; }
+        .pricing-table tr:nth-child(even) { background-color: #f8f9fa; }
+
+        /* PRINT ONLY STYLES FOR REPORT CARD */
+        #printableReport { display: none; }
+        @media print {
+            body * { visibility: hidden; }
+            #printableReport, #printableReport * { visibility: visible; }
+            #printableReport {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                text-align: left;
+                padding: 30px;
+                font-family: 'Times New Roman', serif;
+                color: black;
+                background: white;
+            }
+            .cert-header { text-align: center; border-bottom: 3px double #333; padding-bottom: 15px; margin-bottom: 20px; }
+            .cert-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            .cert-table th, .cert-table td { border: 1px solid #333; padding: 8px; text-align: left; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <!-- PROFILE BAR (Visible on Start Screen) -->
+    <div id="profileBar" class="no-print">
+        <label for="profileSelect" style="font-weight: bold;">👤 Current Player:</label>
+        <select id="profileSelect" onchange="switchProfile()"></select>
+        <button class="action-btn" style="padding: 5px 10px; font-size: 0.9em;" onclick="createNewProfile()">➕ New Child</button>
+    </div>
+
+    <!-- PIGGY BANK DASHBOARD -->
+    <div class="piggy-bank no-print">
+        <h3>🐷 <span id="bankPlayerName">My</span> TV Time Bank</h3>
+        <p style="font-size: 1.2em; margin: 5px 0;">
+            <strong>Saved:</strong> <span id="bankBalance">$0.00</span> 
+            (<span id="tvMinutes">0</span> mins of TV!)
+        </p>
+        <p style="color: #666; font-size: 0.9em; margin: 5px 0;">
+            ⏳ <span id="nextCoinCountdown">Play for 15 more minutes to earn $0.25!</span>
+        </p>
+        <button class="piggy-btn" onclick="redeemTVTime()">📺 Spend $0.25 for 15 Mins TV</button>
+    </div>
+
+    <!-- START SCREEN -->
+    <div id="startScreen" class="screen" style="display: block;">
+        <h1>🎒 Get Ready For School! 🎒</h1>
+        <p>Select your grade level and start practicing for the new school year!</p>
+        <select id="categorySelect"></select><br>
+        <button class="action-btn" onclick="startGame()">Start Practice! 🚀</button><br><br>
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+        <button class="promo-btn" onclick="openUpgradeScreen()">✨ Order Custom Weekly School Lists ✨</button><br>
+        <button class="admin-btn" onclick="openAdminDashboard()">⚙️ Parent Admin</button>
+    </div>
+
+    <!-- MAIN SPELLING GAME AREA -->
+    <div id="gameArea" class="screen">
+        <div id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
+        <button id="audioBtn" class="action-btn" onclick="playCurrentAudio()">🔊 Hear Word</button>
+        <div id="wordDisplay">_ _ _ _</div>
+        <div id="message"></div>
+        <div id="keyboard"></div>
+        <button id="nextBtn" class="action-btn" style="display: none; margin: 20px auto;" onclick="processNext()">Next Word ➡️</button>
+    </div>
+
+    <!-- MULTIPLE CHOICE REVIEW AREA -->
+    <div id="reviewArea" class="screen">
+        <h2 style="color: #e67e22;">🔄 Review Missed Words</h2>
+        <p id="reviewInstructions"></p>
+        <button class="action-btn" onclick="playCurrentAudio()">🔊 Hear Word</button>
+        <div id="reviewOptions" style="margin: 20px 0;"></div>
+        <button id="nextReviewBtn" class="action-btn" style="display: none; margin: 20px auto;" onclick="nextReview()">Next Word ➡️</button>
+    </div>
+
+    <!-- END SCREEN -->
+    <div id="endScreen" class="screen">
+        <h1>🎉 List Completed! 🎉</h1>
+        <p style="font-size: 1.5em;">First-Try Perfect Score: <strong id="reportScore"></strong></p>
+        <div id="reportMessage"></div>
+        <button class="action-btn" onclick="location.reload()">Back to Menu 🏠</button>
+    </div>
+
+    <!-- PARENT ADMIN DASHBOARD -->
+    <div id="adminScreen" class="screen no-print">
+        <h2 style="color: #d63384;">⚙️ Parent Admin Dashboard</h2>
+        <p>Managing records for: <strong id="adminPlayerName" style="color: #4a90e2;"></strong></p>
+        
+        <div style="background: #f8f9fa; border: 2px solid #ced4da; border-radius: 10px; padding: 15px; margin: 15px 0;">
+            <h3>💰 Bank Administration</h3>
+            <p>Current Balance: <strong id="adminBalance">$0.00</strong></p>
+            <button class="action-btn" style="background: #28a745;" onclick="adminAdjustBalance(0.25)">➕ Add $0.25</button>
+            <button class="action-btn" style="background: #ffc107; color: #333;" onclick="adminAdjustBalance(-0.25)">➖ Subtract $0.25</button>
+            <button class="action-btn" style="background: #dc3545;" onclick="adminResetBalance()">🔄 Reset to $0.00</button>
+        </div>
+
+        <!-- INTEGRATED ADVERT IN PARENT DASHBOARD -->
+        <div style="background: #f1f8ff; border: 2px solid #0d6efd; border-radius: 10px; padding: 15px; margin: 15px 0; text-align: left;">
+            <h3 style="color: #0d6efd; margin-top: 0; text-align: center;">🚀 Want Next Week's School Homework Automated?</h3>
+            <p style="font-size: 0.95em; text-align: center;">Stop the Sunday night spelling battles! We can take your child's actual weekly school spelling list and load it into this game with studio-quality AI teacher voice audio.</p>
+            <div style="text-align: center;">
+                <button class="promo-btn" style="font-size: 1em;" onclick="openUpgradeScreen()">View Custom Homework Pricing & Order ➡️</button>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; border: 2px solid #ced4da; border-radius: 10px; padding: 15px; margin: 15px 0;">
+            <h3>📊 Academic Records & Printing</h3>
+            <p>Generate an official bank statement and mastery report card.</p>
+            <button class="piggy-btn" style="background: #17a2b8;" onclick="printReportCard()">🖨️ Print Bank Statement & Report Card</button>
+        </div>
+
+        <button class="action-btn" onclick="location.reload()">Exit to Main Menu 🏠</button>
+    </div>
+
+    <!-- DEDICATED ADVERTISING & UPGRADE SCREEN -->
+    <div id="upgradeScreen" class="screen no-print" style="text-align: left; padding: 10px;">
+        <h2 style="color: #6a11cb; text-align: center;">✨ Custom Weekly Homework Services ✨</h2>
+        <p style="font-size: 1.1em; text-align: center; font-weight: bold; color: #333;">Turn your child's actual school spelling list into an interactive game!</p>
+        <p>You love the Proof of Concept—now let's customize it for the school year! Send us your child's weekly homework list, and we will generate crystal-clear, studio-quality American teacher audio pronunciations and pre-load the words directly into your game.</p>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+        
+        <h3 style="color: #0d6efd;">📋 How to Order in 3 Easy Steps:</h3>
+        <ol style="line-height: 1.8; padding-left: 20px;">
+            <li><strong>Send the List:</strong> Snap a photo of your child's spelling sheet and text it to <strong style="color: #d63384;">805-550-7150</strong>, or email it to <strong style="color: #d63384;">hyperspacey@gmail.com</strong>.</li>
+            <li><strong>Quick Payment:</strong> Send payment via <strong>Venmo</strong> (include your child's name and grade in the note so we link it to the right profile!).</li>
+            <li><strong>Play & Learn:</strong> Within 24 hours, your custom word list and audio will magically appear in your game menu ready for practice!</li>
+        </ol>
+
+        <h3 style="color: #0d6efd; margin-top: 20px;">💰 Simple, Transparent Pricing:</h3>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Service Tier</th>
+                    <th>Price</th>
+                    <th>What You Get</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Single Week Trial</strong></td>
+                    <td><strong>$5</strong></td>
+                    <td>1 Custom Weekly School List (up to 15 words) + AI Teacher Audio generated and loaded to your link.</td>
+                </tr>
+                <tr>
+                    <td><strong>Monthly Homework Pack</strong><br><span style="color: #28a745; font-weight: bold;">(Most Popular!)</span></td>
+                    <td><strong>$15</strong><br><em>(Save $5!)</em></td>
+                    <td>4 Consecutive Weekly Lists. Just text us a photo every Sunday afternoon, and homework is automated for the month!</td>
+                </tr>
+                <tr>
+                    <td><strong>Curated Grade Semester Pack</strong></td>
+                    <td><strong>$40</strong></td>
+                    <td>12 Weeks of standardized grade-level mastery vocabulary pre-loaded into a dedicated portal for proactive practice.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="background: #fff0f5; border: 2px dashed #ff69b4; border-radius: 10px; padding: 15px; text-align: center; margin-top: 20px;">
+            <h4 style="margin: 0 0 10px 0; color: #d63384;">📱 Ready to automate school spelling homework?</h4>
+            <p style="margin: 5px 0;">Text a photo of your list to: <strong>805-550-7150</strong></p>
+            <p style="margin: 5px 0;">Email: <strong>hyperspacey@gmail.com</strong></p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="action-btn" onclick="location.reload()">Back to Main Menu 🏠</button>
+        </div>
+    </div>
+</div>
+
+<!-- HIDDEN PRINTABLE CERTIFICATE AREA -->
+<div id="printableReport">
+    <div class="cert-header">
+        <h1>🏆 Official TV Time Bank Statement & Report Card 🏆</h1>
+        <p><strong>Student Name:</strong> <span id="printStudentName"></span> | <strong>Date:</strong> <span id="printDate"></span></p>
+    </div>
+    <h2>💰 Piggy Bank Summary</h2>
+    <p style="font-size: 1.3em;"><strong>Current Savings Balance:</strong> <span id="printBalance">$0.00</span></p>
+    <p style="font-size: 1.1em;"><strong>Available Screen Time:</strong> <span id="printMinutes">0</span> Minutes</p>
+    <hr>
+    <h2>⭐ Mastered Spelling Categories</h2>
+    <p>The student has achieved a first-try flawless score on the following word lists:</p>
+    <ul id="printMasteredList" style="font-size: 1.1em; line-height: 1.6;"></ul>
+    <hr>
+    <h2>📝 Recent Practice Audit Log</h2>
+    <table class="cert-table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Activity / Score Log</th>
+            </tr>
+        </thead>
+        <tbody id="printLogBody"></tbody>
+    </table>
+</div>
+
+<script>
+    // --- 1. MULTI-CHILD PROFILE ENGINE ---
+    const ADMIN_PIN = "1234";
+    let profiles = JSON.parse(localStorage.getItem('spelling_profiles')) || ["Player 1"];
+    let currentProfile = localStorage.getItem('spelling_active_profile') || profiles[0];
+    
+    let totalPlaySeconds = 0;
+    let tvBalance = 0.00;
+    let masteredCategories = [];
+    let activeTimerInterval = null;
+
+    function loadProfileMemory() {
+        totalPlaySeconds = parseInt(localStorage.getItem(`${currentProfile}_play_seconds`)) || 0;
+        tvBalance = parseFloat(localStorage.getItem(`${currentProfile}_tv_balance`)) || 0.00;
+        masteredCategories = JSON.parse(localStorage.getItem(`${currentProfile}_mastered`)) || [];
+        
+        document.getElementById('bankPlayerName').innerText = `${currentProfile}'s`;
+        updatePiggyBankUI();
+        populateCategorySelect();
+    }
+
+    function switchProfile() {
+        currentProfile = document.getElementById('profileSelect').value;
+        localStorage.setItem('spelling_active_profile', currentProfile);
+        loadProfileMemory();
+    }
+
+    function createNewProfile() {
+        let name = prompt("Enter the child's name (e.g., Noah):");
+        if (name && name.trim() !== "") {
+            name = name.trim();
+            if (!profiles.includes(name)) {
+                profiles.push(name);
+                localStorage.setItem('spelling_profiles', JSON.stringify(profiles));
+            }
+            currentProfile = name;
+            localStorage.setItem('spelling_active_profile', currentProfile);
+            populateProfileDropdown();
+            loadProfileMemory();
+        }
+    }
+
+    function populateProfileDropdown() {
+        const pSelect = document.getElementById('profileSelect');
+        if (!pSelect) return;
+        pSelect.innerHTML = '';
+        profiles.forEach(p => {
+            let opt = document.createElement('option');
+            opt.value = p;
+            opt.innerText = p;
+            if (p === currentProfile) opt.selected = true;
+            pSelect.appendChild(opt);
+        });
+    }
+
+    // --- 2. WEB AUDIO SYNTHESIZER ("CHA-CHING" SOUND) ---
+    function playChaChing() {
+        try {
+            let ctx = new (window.AudioContext || window.webkitAudioContext)();
+            let osc1 = ctx.createOscillator();
+            let gain1 = ctx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(987.77, ctx.currentTime);
+            gain1.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+            osc1.connect(gain1); gain1.connect(ctx.destination);
+            osc1.start(); osc1.stop(ctx.currentTime + 0.15);
+
+            let osc2 = ctx.createOscillator();
+            let gain2 = ctx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(1318.51, ctx.currentTime + 0.1);
+            gain2.gain.setValueAtTime(0.3, ctx.currentTime + 0.1);
+            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
+            osc2.connect(gain2); gain2.connect(ctx.destination);
+            osc2.start(ctx.currentTime + 0.1); osc2.stop(ctx.currentTime + 0.6);
+        } catch(e) { console.log("Audio not allowed yet by browser"); }
+    }
+
+    // --- 3. AUDIT LOG & REWARD LOGIC ---
+    function logGameActivity(actionDetails) {
+        let auditLog = JSON.parse(localStorage.getItem(`${currentProfile}_audit_log`)) || [];
+        let now = new Date();
+        let logEntry = { timestamp: now.toLocaleString(), action: actionDetails };
+        auditLog.push(logEntry);
+        localStorage.setItem(`${currentProfile}_audit_log`, JSON.stringify(auditLog));
+    }
+
+    function startPlayTimer() {
+        if (activeTimerInterval) clearInterval(activeTimerInterval);
+        activeTimerInterval = setInterval(() => {
+            totalPlaySeconds++;
+            localStorage.setItem(`${currentProfile}_play_seconds`, totalPlaySeconds);
+            if (totalPlaySeconds >= 900) {
+                totalPlaySeconds -= 900;
+                localStorage.setItem(`${currentProfile}_play_seconds`, totalPlaySeconds);
+                addReward(0.25, true);
+            }
+            updatePiggyBankUI();
+        }, 1000);
+    }
+
+    function stopPlayTimer() {
+        if (activeTimerInterval) { clearInterval(activeTimerInterval); activeTimerInterval = null; }
+    }
+
+    function addReward(amount, isTimer = false) {
+        tvBalance += amount;
+        localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
+        updatePiggyBankUI();
+        playChaChing();
+        if (isTimer) alert(`🎉 CHA-CHING! ${currentProfile} just earned $${amount.toFixed(2)} for TV Time!`);
+    }
+
+    function redeemTVTime() {
+        if (tvBalance >= 0.25) {
+            tvBalance -= 0.25;
+            localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
+            updatePiggyBankUI();
+            playChaChing();
+            alert(`📺 Yay! Show this screen to Mom/Dad to claim 15 minutes of TV time for ${currentProfile}!`);
+        } else {
+            alert("Keep practicing! You need at least $0.25 saved up to trade for TV time.");
+        }
+    }
+
+    function updatePiggyBankUI() {
+        let balanceEl = document.getElementById('bankBalance');
+        let minsEl = document.getElementById('tvMinutes');
+        let countdownEl = document.getElementById('nextCoinCountdown');
+        if (balanceEl && minsEl && countdownEl) {
+            let minutesEarned = Math.floor((tvBalance / 0.25) * 15);
+            let minutesLeft = Math.ceil((900 - totalPlaySeconds) / 60);
+            balanceEl.innerText = "$" + tvBalance.toFixed(2);
+            minsEl.innerText = minutesEarned;
+            countdownEl.innerText = `Play for ${minutesLeft} more minute(s) to earn your next $0.25!`;
+        }
+    }
+
+    // --- 4. 100-WORD "SUMMER PREP" CURRICULUM (PRE-K TO 5TH GRADE) ---
+    // Clean arrays without text hints for superior auditory phonics practice!
+    const spellingDictionary = {
+        "1. Pre-K: Starter Words": ["cat", "dog", "sun", "big", "red", "run", "hop", "hat", "box", "sit"],
+        "2. Kindergarten: Short Vowels": ["bag", "bed", "pig", "pot", "bug", "fan", "net", "lip", "top", "cup"],
+        "3. K-1st Transition: Everyday Words": ["like", "make", "play", "jump", "help", "look", "book", "good", "ball", "name"],
+        "4. 1st Grade: Phonics & Blends": ["stop", "frog", "clip", "snap", "sled", "flag", "drum", "swim", "spot", "grin"],
+        "5. 1st-2nd Transition: Long Vowels": ["cake", "bike", "note", "cute", "rain", "boat", "seed", "road", "team", "time"],
+        "6. 2nd Grade: Sight Words": ["always", "around", "because", "before", "better", "bright", "laugh", "person", "really", "thought"],
+        "7. 3rd Grade: Vowel Teams": ["between", "country", "earth", "family", "friend", "heavy", "island", "money", "special", "system"],
+        "8. 3rd-4th Transition: Tricky Spellers": ["answer", "bicycle", "calendar", "enough", "favorite", "grocery", "journey", "library", "minute", "pleasant"],
+        "9. 4th Grade: Double Letters & Endings": ["accident", "business", "different", "excellent", "familiar", "impossible", "necessary", "separate", "together", "yesterday"],
+        "10. 5th Grade: Challenge Words": ["environment", "government", "information", "laboratory", "temperature", "vocabulary", "refrigerator", "independent", "electricity", "opportunity"]
+    };
+
+    let currentQueue = [];
+    let missedWordsQueue = [];
+    let currentWordIndex = 0;
+    let currentWord = "";
+    let currentCategory = "";
+    let currentLetterIndex = 0;
+    let mistakes = 0;
+    let mistakesOnCurrentLetter = 0;
+    let wordFailedThisRound = false;
+    let totalWordsToSpell = 0;
+    let firstTryPerfectCount = 0;
+    let isFirstPass = true;
+    let currentAudio = new Audio();
+
+    // --- 5. INITIALIZATION ---
+    window.onload = function() {
+        populateProfileDropdown();
+        loadProfileMemory();
+    };
+
+    function populateCategorySelect() {
+        const select = document.getElementById('categorySelect');
+        if (!select) return;
+        select.innerHTML = '';
+        for (let category in spellingDictionary) {
+            let option = document.createElement('option');
+            option.value = category;
+            option.innerText = masteredCategories.includes(category) ? category + " ⭐ Mastered" : category;
+            select.appendChild(option);
+        }
+    }
+
+    // --- 6. CORE SPELLING GAME PLAY ---
+    function startGame() {
+        currentCategory = document.getElementById('categorySelect').value;
+        currentQueue = spellingDictionary[currentCategory];
+        totalWordsToSpell = currentQueue.length;
+        isFirstPass = true;
+        firstTryPerfectCount = 0;
+        logGameActivity(`Started list: ${currentCategory}`);
+        startSpellingPhase();
+    }
+
+    function startSpellingPhase() {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('reviewArea').style.display = 'none';
+        document.getElementById('gameArea').style.display = 'block';
+        document.getElementById('profileBar').style.display = 'none';
+        currentWordIndex = 0;
+        missedWordsQueue = [];
+        loadWord();
+        startPlayTimer();
+    }
+
+    function loadWord() {
+        currentWord = currentQueue[currentWordIndex].toUpperCase();
+        currentLetterIndex = 0;
+        mistakes = 0;
+        mistakesOnCurrentLetter = 0;
+        wordFailedThisRound = false;
+
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('message').innerText = "";
+        document.getElementById('keyboard').style.pointerEvents = "auto";
+
+        updateLivesDisplay();
+        updateWordDisplay();
+        buildKeyboard();
+
+        let wordLower = currentWord.toLowerCase();
+        currentAudio.src = `audio/${currentCategory}/${wordLower}.mp3`;
+        currentAudio.load();
+        document.getElementById('audioBtn').disabled = false;
+        playCurrentAudio();
+    }
+
+    function playCurrentAudio() {
+        if (currentAudio) {
+            currentAudio.currentTime = 0;
+            currentAudio.play().catch(e => console.log("Audio play blocked/missing:", e));
+        }
+    }
+
+    function updateWordDisplay() {
+        let displayString = "";
+        for (let i = 0; i < currentWord.length; i++) {
+            if (i < currentLetterIndex) {
+                displayString += (currentWord[i] === " " ? "\xa0\xa0" : currentWord[i]) + " ";
+            } else {
+                displayString += "_ ";
+            }
+        }
+        document.getElementById('wordDisplay').innerText = displayString.trim();
+
+        if (currentLetterIndex === currentWord.length) {
+            document.getElementById('message').innerText = wordFailedThisRound ? "Good job correcting it!" : "✅ Perfect!";
+            document.getElementById('keyboard').style.pointerEvents = "none";
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+    }
+
+    function updateLivesDisplay() {
+        let livesLeft = 6 - mistakes;
+        let heartString = "";
+        for (let i = 0; i < livesLeft; i++) heartString += "❤️";
+        for (let i = 0; i < mistakes; i++) heartString += "🖤";
+        document.getElementById('livesDisplay').innerText = heartString;
+    }
+
+    function handleGuess(letter, btnElement) {
+        if (mistakes >= 6 || currentLetterIndex >= currentWord.length) return;
+
+        if (letter === currentWord[currentLetterIndex]) {
+            currentLetterIndex++;
+            mistakesOnCurrentLetter = 0;
+            updateWordDisplay();
+        } else {
+            mistakes++;
+            mistakesOnCurrentLetter++;
+            if (!wordFailedThisRound) wordFailedThisRound = true;
+            updateLivesDisplay();
+
+            if (mistakes >= 6) {
+                document.getElementById('message').innerText = "❌ Out of tries! Let's review this word later.";
+                document.getElementById('keyboard').style.pointerEvents = "none";
+                document.getElementById('nextBtn').style.display = 'block';
+            }
+        }
+    }
+
+    function buildKeyboard() {
+        const keyboardDiv = document.getElementById('keyboard');
+        keyboardDiv.innerHTML = '';
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letter => {
+            let btn = document.createElement('button');
+            btn.className = 'key';
+            btn.innerText = letter;
+            btn.onclick = () => handleGuess(letter, btn);
+            keyboardDiv.appendChild(btn);
+        });
+    }
+
+    function processNext() {
+        if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
+        if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
+
+        currentWordIndex++;
+        if (currentWordIndex >= currentQueue.length) {
+            isFirstPass = false;
+            if (missedWordsQueue.length > 0) {
+                startReviewPhase();
+            } else {
+                showEndScreen();
+            }
+        } else {
+            loadWord();
+        }
+    }
+
+    // --- 7. MULTIPLE CHOICE REVIEW PHASE ---
+    let reviewIndex = 0;
+
+    function startReviewPhase() {
+        document.getElementById('gameArea').style.display = 'none';
+        document.getElementById('reviewArea').style.display = 'block';
+        document.getElementById('reviewInstructions').innerText = `You missed ${missedWordsQueue.length} words. Let's review them before spelling them again!`;
+        reviewIndex = 0;
+        loadReviewWord();
+    }
+
+    function loadReviewWord() {
+        document.getElementById('nextReviewBtn').style.display = 'none';
+        let currentReview = missedWordsQueue[reviewIndex];
+        currentWord = currentReview.word.toUpperCase();
+
+        let options = new Set([currentWord]);
+        let vowels = "AEIOU".split("");
+        let expectedLetter = currentWord[0];
+        let pool = vowels.includes(expectedLetter) ? vowels : "BCDFGHJKLMNPQRSTVWXYZ".split("");
+        pool = pool.sort(() => 0.5 - Math.random());
+
+        for (let char of pool) {
+            if (options.size >= 4) break;
+            if (char !== expectedLetter) options.add(char + currentWord.substring(1));
+        }
+
+        let optionArray = Array.from(options).sort(() => 0.5 - Math.random());
+        const optionsDiv = document.getElementById('reviewOptions');
+        optionsDiv.innerHTML = '';
+
+        optionArray.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'review-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkReviewAnswer(opt, currentWord, btn);
+            optionsDiv.appendChild(btn);
+        });
+
+        let wordLower = currentWord.toLowerCase();
+        currentAudio.src = `audio/${currentCategory}/${wordLower}.mp3`;
+        currentAudio.load();
+        playCurrentAudio();
+    }
+
+    function checkReviewAnswer(selected, correct, btnElement) {
+        let allBtns = document.querySelectorAll('.review-btn');
+        if (selected === correct) {
+            btnElement.classList.add('correct-choice');
+            allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+            let nextBtn = document.getElementById('nextReviewBtn');
+            nextBtn.style.display = 'block';
+            nextBtn.innerText = (reviewIndex === missedWordsQueue.length - 1) ? "Re-Spell Missed Words ➡️" : "Next Word ➡️";
+        } else {
+            btnElement.classList.add('wrong-choice');
+            btnElement.style.pointerEvents = 'none';
+        }
+    }
+
+    function nextReview() {
+        reviewIndex++;
+        if (reviewIndex >= missedWordsQueue.length) {
+            currentQueue = missedWordsQueue.map(item => item.word);
+            startSpellingPhase();
+        } else {
+            loadReviewWord();
+        }
+    }
+
+    // --- 8. END SCREEN & CONFETTI CELEBRATION ---
+    function showEndScreen() {
+        stopPlayTimer();
+        document.getElementById('gameArea').style.display = 'none';
+        document.getElementById('reviewArea').style.display = 'none';
+        document.getElementById('endScreen').style.display = 'block';
+        document.getElementById('profileBar').style.display = 'none';
+
+        document.getElementById('reportScore').innerText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
+
+        if (firstTryPerfectCount === totalWordsToSpell) {
+            if (!masteredCategories.includes(currentCategory)) {
+                masteredCategories.push(currentCategory);
+                localStorage.setItem(`${currentProfile}_mastered`, JSON.stringify(masteredCategories));
+                
+                document.getElementById('reportMessage').innerText = "🌟 FLAWLESS! You earned a Mastery Star AND a $1.00 TV Time Bonus!";
+                addReward(1.00);
+                
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                }
+            } else {
+                document.getElementById('reportMessage').innerText = "🌟 Flawless score! (You already claimed the $1.00 mastery reward for this list, but amazing practice!)";
+            }
+        } else {
+            document.getElementById('reportMessage').innerText = "💪 Great effort! Keep practicing until you get a perfect score on your first try to earn a $1.00 bonus!";
+        }
+
+        logGameActivity(`Completed list: ${currentCategory} | Score: ${firstTryPerfectCount}/${totalWordsToSpell}`);
+        updatePiggyBankUI();
+    }
+
+    // --- 9. NAVIGATION & ADMIN FUNCTIONS ---
+    function openUpgradeScreen() {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('adminScreen').style.display = 'none';
+        document.getElementById('profileBar').style.display = 'none';
+        document.getElementById('upgradeScreen').style.display = 'block';
+    }
+
+    function openAdminDashboard() {
+        let pin = prompt("Please enter the Parent Admin PIN (Default: 1234):");
+        if (pin === ADMIN_PIN) {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('profileBar').style.display = 'none';
+            document.getElementById('adminScreen').style.display = 'block';
+            updateAdminDashboardUI();
+        } else if (pin !== null) {
+            alert("❌ Incorrect PIN. Access denied.");
+        }
+    }
+
+    function updateAdminDashboardUI() {
+        document.getElementById('adminPlayerName').innerText = currentProfile;
+        document.getElementById('adminBalance').innerText = "$" + tvBalance.toFixed(2);
+    }
+
+    function adminAdjustBalance(amount) {
+        tvBalance += amount;
+        if (tvBalance < 0) tvBalance = 0;
+        localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
+        updatePiggyBankUI();
+        updateAdminDashboardUI();
+        playChaChing();
+    }
+
+    function adminResetBalance() {
+        if (confirm(`Are you sure you want to reset ${currentProfile}'s saved TV Time balance to $0.00?`)) {
+            tvBalance = 0.00;
+            localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
+            updatePiggyBankUI();
+            updateAdminDashboardUI();
+        }
+    }
+
+    function printReportCard() {
+        document.getElementById('printStudentName').innerText = currentProfile;
+        document.getElementById('printDate').innerText = new Date().toLocaleDateString();
+        document.getElementById('printBalance').innerText = "$" + tvBalance.toFixed(2);
+        document.getElementById('printMinutes').innerText = Math.floor((tvBalance / 0.25) * 15);
+        
+        const printMastered = document.getElementById('printMasteredList');
+        printMastered.innerHTML = '';
+        if (masteredCategories.length === 0) {
+            printMastered.innerHTML = '<li><em>No word lists mastered yet. Keep practicing!</em></li>';
+        } else {
+            masteredCategories.forEach(cat => {
+                let li = document.createElement('li');
+                li.innerHTML = `<strong>⭐ ${cat}</strong> (Flawless First-Try Mastery)`;
+                printMastered.appendChild(li);
+            });
+        }
+
+        const logBody = document.getElementById('printLogBody');
+        logBody.innerHTML = '';
+        let auditLog = JSON.parse(localStorage.getItem(`${currentProfile}_audit_log`)) || [];
+        let recentLogs = auditLog.slice(-15).reverse();
+        
+        if (recentLogs.length === 0) {
+            logBody.innerHTML = '<tr><td colspan="2"><em>No recent practice sessions recorded.</em></td></tr>';
+        } else {
+            recentLogs.forEach(entry => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `<td>${entry.timestamp}</td><td>${entry.action}</td>`;
+                logBody.appendChild(tr);
+            });
+        }
+
+        window.print();
+    }
+</script>
+
+</body>
+</html>
