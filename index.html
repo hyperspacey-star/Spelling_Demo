@@ -176,7 +176,7 @@
             background: white;
             padding: 25px;
             border-radius: 15px;
-            max-width: 650px;
+            max-width: 680px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
@@ -194,14 +194,74 @@
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         
+        /* Tiered Pricing Table Styles */
         .ad-box {
             background: #f0f7ff;
-            border: 2px dashed var(--primary);
-            padding: 15px;
-            border-radius: 12px;
+            border: 2px solid var(--primary);
+            padding: 20px;
+            border-radius: 15px;
             margin-top: 20px;
         }
-        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .pricing-card {
+            background: white;
+            border: 2px solid #CBD5E0;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .pricing-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .pricing-card.popular {
+            border-color: var(--warning);
+            background: #FFFDF5;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(243, 156, 18, 0.15);
+        }
+        .popular-badge {
+            background: var(--warning);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-transform: uppercase;
+        }
+        .price-title { font-size: 18px; font-weight: bold; color: var(--dark); margin-bottom: 5px; }
+        .price-amount { font-size: 28px; font-weight: bold; color: var(--primary); margin: 10px 0; }
+        .price-amount span { font-size: 14px; color: #666; font-weight: normal; }
+        .price-features { font-size: 13px; color: #555; text-align: left; margin: 12px 0; padding-left: 18px; line-height: 1.5; }
+        .price-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+        .pricing-card.popular .price-btn { background: var(--warning); }
+        .price-btn:hover { opacity: 0.9; color: white; }
+
         @media (max-width: 600px) {
             .container { padding: 15px; padding-top: 50px; }
             .word-display { font-size: 24px; letter-spacing: 3px; }
@@ -209,6 +269,7 @@
             .key { font-size: 16px; padding: 10px 0; min-height: 44px; }
             .review-options { grid-template-columns: 1fr; }
             .piggy-stats { flex-direction: column; align-items: center; }
+            .pricing-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -239,7 +300,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Customization</button>
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Custom Pricing</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
     </div>
@@ -290,20 +351,50 @@
         <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
         <h2>🌟 Our Origin Story</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
-        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
+        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick .</p>
+        <p>I realized we needed a system that removed the pain while building true mastery . I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence .</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong> . By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success !</p>
         
         <div class="ad-box">
-            <h3 style="color: var(--primary); margin-top: 0; font-size: 18px;">🚀 Want This Customized For Your Child?</h3>
-            <p style="font-size: 14px; margin-bottom: 10px;">Every school, teacher, and grade level uses different word lists. Some kids need foundational phonics, while others need advanced homographs specific to their curriculum.</p>
-            <p style="font-size: 14px; margin-bottom: 10px;"><strong>Through my exclusive paid customization service, I can tailor this entire game directly to your child:</strong></p>
-            <ul style="font-size: 14px; padding-left: 20px; margin-bottom: 10px;">
-                <li><strong>Custom Game Environment:</strong> I adjust the interface, hint complexity, and skill level to best fit your child's age and learning needs.</li>
-                <li><strong>Weekly School List Updates:</strong> Send me your child's weekly spelling lists from school, and I will professionally load and update them into the app with custom phonogram hints and crystal-clear audio!</li>
-                <li><strong>Paid Stress-Free Tutoring:</strong> Let me handle the curriculum alignment so you can simply enjoy your child's pain-free spelling success!</li>
-            </ul>
-            <p style="text-align: center; font-weight: bold; color: #d35400; font-size: 15px; margin-bottom: 0;">Ask me today about enrolling your child in our paid weekly customization program!</p>
+            <h3 style="color: var(--primary); margin-top: 0; font-size: 18px; text-align: center;">🚀 Want This Customized For Your Child?</h3>
+            <p style="font-size: 14px; text-align: center; margin-bottom: 15px;">Every school and child is different ! Say goodbye to expensive $50/hr tutoring . Through my exclusive customization service, I personally align this entire game to your child's weekly school needs :</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div>
+                        <div class="price-title">🥈 Weekly Plan</div>
+                        <div class="price-amount">$5<span>/ week</span></div>
+                        <ul class="price-features">
+                            <li><strong>Weekly School List Updates:</strong> We personally load your child's exact school words !</li>
+                            <li>Custom 3-layer phonogram hints & crystal-clear AI audio </li>
+                            <li><strong>Ultimate Parental Control:</strong> Includes personalized audit log reviews !</li>
+                            <li>Custom TV-time goal setting tailored to your household rules </li>
+                        </ul>
+                    </div>
+                    <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Weekly%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$5/Week%20Spelling%20Plan.%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">Select Weekly Plan</a>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Best Value • Save $5</div>
+                    <div>
+                        <div class="price-title">🥇 Monthly Value Plan</div>
+                        <div class="price-amount">$15<span>/ month</span></div>
+                        <ul class="price-features">
+                            <li><strong>Everything in Weekly Plan!</strong></li>
+                            <li><strong>4 Full Weeks of School List Updates</strong> loaded for you</li>
+                            <li>Custom 3-layer phonogram hints & AI audio </li>
+                            <li><strong>Ultimate Parental Control:</strong> Weekly personalized audit log checkups !</li>
+                            <li>Custom TV-time goal setting & ongoing parent coaching tips </li>
+                        </ul>
+                    </div>
+                    <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Monthly%20Value%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$15/Month%20Value%20Plan!%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">Select Monthly Plan</a>
+                </div>
+            </div>
+            
+            <div style="background: #FFF9E6; border: 1px solid #FFE082; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; text-align: center; color: #795548;">
+                <strong>📬 How It Works:</strong> Simply send your child's spelling lists or customization requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong>. Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong>
+            </div>
+            <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px; margin-bottom: 0;">No contracts or hidden fees. Cancel anytime as your child masters their spelling goals!</p>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
@@ -316,7 +407,7 @@
     <div class="modal-content" style="max-width: 700px;">
         <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
         <h2>⚙️ Parent Portal: Audit & Economy Controls</h2>
-        <p style="color: #666; font-size: 14px;">Manage your child's TV-time savings and review active gameplay history.</p>
+        <p style="color: #666; font-size: 14px;">Manage your child's TV-time savings and review active gameplay history .</p>
         
         <div style="background: #F8F9FA; padding: 15px; border-radius: 10px; margin: 15px 0;">
             <h3 style="margin-bottom: 10px; font-size: 16px;">💰 Economy Controls</h3>
@@ -342,7 +433,8 @@
         </div>
         
         <div style="text-align: center; margin-top: 20px;">
-            <button class="btn btn-danger" style="font-size: 12px; padding: 6px 12px;" onclick="clearAuditLog()">Clear Audit Log</button>
+            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Customization & Pricing Plans</button>
+            <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
         </div>
     </div>
