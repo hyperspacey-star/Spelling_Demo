@@ -3,839 +3,1100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Ready For School: Spelling & TV Time Bank</title>
-    <!-- Confetti Library for Mastery Celebrations -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <title>Spelling Mastery Game - Summer Demo</title>
     <style>
+        :root {
+            --primary: #4A90E2;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --dark: #2C3E50;
+            --light: #F8F9FA;
+        }
         body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             margin: 0;
-            padding: 20px;
-        }
-        #gameContainer {
-            max-width: 680px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
-            border: 4px solid #4a90e2;
-        }
-        h1 { color: #4a90e2; margin-bottom: 5px; }
-        .piggy-bank {
-            background: #fff0f5;
-            border: 3px solid #ff69b4;
-            border-radius: 15px;
             padding: 15px;
-            margin: 15px auto;
-            box-shadow: 0px 4px 10px rgba(255,105,180,0.2);
-        }
-        .piggy-bank h3 { margin: 0 0 10px 0; color: #d63384; }
-        .piggy-btn {
-            background: #ff1493;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            font-size: 1em;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.1s;
-        }
-        .piggy-btn:hover { transform: scale(1.05); }
-        select, .action-btn, .admin-btn, .promo-btn {
-            font-size: 1.1em;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 2px solid #4a90e2;
-            margin: 8px;
-            cursor: pointer;
-        }
-        .action-btn {
-            background-color: #4a90e2;
-            color: white;
-            font-weight: bold;
-            border: none;
-        }
-        .action-btn:hover { background-color: #357abd; }
-        .admin-btn {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            font-size: 0.9em;
-        }
-        .promo-btn {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            font-weight: bold;
-            border: none;
-            box-shadow: 0px 4px 10px rgba(37, 117, 252, 0.3);
-            transition: transform 0.1s;
-        }
-        .promo-btn:hover { transform: scale(1.03); }
-        #wordDisplay {
-            font-size: 2.8em;
-            letter-spacing: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        #livesDisplay { font-size: 1.8em; margin: 15px 0; }
-        #keyboard {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-        .key, .review-btn {
-            font-size: 1.2em;
-            font-weight: bold;
-            width: 45px;
-            height: 45px;
-            border-radius: 8px;
-            border: none;
-            background-color: #e0f7fa;
-            color: #00796b;
-            cursor: pointer;
-            box-shadow: 0px 3px 0px #b2ebf2;
-        }
-        .key:active { transform: translateY(3px); box-shadow: none; }
-        .review-btn {
-            width: auto;
-            min-width: 120px;
-            padding: 10px 15px;
-            margin: 10px;
-            background-color: #f1f8e9;
-            color: #33691e;
-            box-shadow: 0px 4px 0px #c5e1a5;
-        }
-        .correct-choice { background-color: #a5d6a7 !important; color: #1b5e20 !important; }
-        .wrong-choice { background-color: #ef9a9a !important; color: #b71c1c !important; opacity: 0.6; }
-        #message, #reportMessage { font-size: 1.3em; font-weight: bold; color: #27ae60; margin: 15px 0; }
-        .screen { display: none; }
-        
-        /* Profile Selector Bar */
-        #profileBar {
-            background: #e9ecef;
-            padding: 10px;
-            border-radius: 15px;
-            margin-bottom: 15px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
+            color: var(--dark);
         }
-
-        /* Advertising Table Styles */
-        .pricing-table {
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             width: 100%;
-            border-collapse: collapse;
+            max-width: 750px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        /* Universal Back Home Button */
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--light);
+            border: 2px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .home-btn:hover { background: #e2e6ea; }
+        
+        h1, h2, h3 { text-align: center; margin-top: 0; }
+        .piggy-bank {
+            background: #FFF3CD;
+            border: 2px solid #FFEEBA;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .piggy-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.1s;
+            margin: 5px;
+        }
+        .btn:hover { background: #357ABD; transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #27AD60; }
+        .btn-warning { background: var(--warning); }
+        .btn-danger { background: var(--danger); }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
             margin: 15px 0;
-            font-size: 0.95em;
+            box-sizing: border-box;
         }
-        .pricing-table th, .pricing-table td {
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            text-align: left;
+        .lives { font-size: 24px; text-align: center; margin: 10px 0; }
+        .word-display {
+            font-size: 32px;
+            letter-spacing: 5px;
+            text-align: center;
+            margin: 25px 0;
+            font-family: monospace;
+            font-weight: bold;
+            word-wrap: break-word;
         }
-        .pricing-table th { background-color: #f1f8ff; color: #0d6efd; }
-        .pricing-table tr:nth-child(even) { background-color: #f8f9fa; }
-
-        /* PRINT ONLY STYLES FOR REPORT CARD */
-        #printableReport { display: none; }
-        @media print {
-            body * { visibility: hidden; }
-            #printableReport, #printableReport * { visibility: visible; }
-            #printableReport {
-                display: block !important;
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                text-align: left;
-                padding: 30px;
-                font-family: 'Times New Roman', serif;
-                color: black;
-                background: white;
-            }
-            .cert-header { text-align: center; border-bottom: 3px double #333; padding-bottom: 15px; margin-bottom: 20px; }
-            .cert-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-            .cert-table th, .cert-table td { border: 1px solid #333; padding: 8px; text-align: left; }
-            .no-print { display: none !important; }
+        .hint-box {
+            background: #E8F4F8;
+            border-left: 5px solid var(--primary);
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 16px;
+            display: none;
+            border-radius: 4px;
+            line-height: 1.4;
+        }
+        /* Mobile Responsive Keyboard */
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+            gap: 6px;
+            margin-top: 20px;
+        }
+        .key {
+            background: #EDF2F7;
+            border: 2px solid #CBD5E0;
+            padding: 12px 0;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            user-select: none;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .key:hover { background: #E2E8F0; }
+        .key:active { background: #CBD5E0; }
+        
+        .review-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .review-btn {
+            padding: 15px;
+            font-size: 18px;
+            background: #EDF2F7;
+            border: 2px solid #CBD5E0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .correct-choice { background: var(--success) !important; color: white; border-color: #27AD60; }
+        .wrong-choice { background: var(--danger) !important; color: white; border-color: #C0392B; opacity: 0.6; }
+        
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        
+        /* Mobile Specific Adjustments */
+        @media (max-width: 600px) {
+            .container { padding: 15px; padding-top: 50px; }
+            .word-display { font-size: 24px; letter-spacing: 3px; }
+            .keyboard { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+            .key { font-size: 16px; padding: 10px 0; min-height: 44px; }
+            .review-options { grid-template-columns: 1fr; }
+            .piggy-stats { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-<div id="gameContainer">
-    <!-- PROFILE BAR (Visible on Start Screen) -->
-    <div id="profileBar" class="no-print">
-        <label for="profileSelect" style="font-weight: bold;">👤 Current Player:</label>
-        <select id="profileSelect" onchange="switchProfile()"></select>
-        <button class="action-btn" style="padding: 5px 10px; font-size: 0.9em;" onclick="createNewProfile()">➕ New Child</button>
-    </div>
+<div class="container">
+    <button id="homeBtn" class="home-btn" onclick="returnHome()">🏠 Main Menu</button>
 
-    <!-- PIGGY BANK DASHBOARD -->
-    <div class="piggy-bank no-print">
-        <h3>🐷 <span id="bankPlayerName">My</span> TV Time Bank</h3>
-        <p style="font-size: 1.2em; margin: 5px 0;">
-            <strong>Saved:</strong> <span id="bankBalance">$0.00</span> 
-            (<span id="tvMinutes">0</span> mins of TV!)
-        </p>
-        <p style="color: #666; font-size: 0.9em; margin: 5px 0;">
-            ⏳ <span id="nextCoinCountdown">Play for 15 more minutes to earn $0.25!</span>
-        </p>
-        <button class="piggy-btn" onclick="redeemTVTime()">📺 Spend $0.25 for 15 Mins TV</button>
-    </div>
-
-    <!-- START SCREEN -->
-    <div id="startScreen" class="screen" style="display: block;">
-        <h1>🎒 Get Ready For School! 🎒</h1>
-        <p>Select your grade level and start practicing for the new school year!</p>
-        <select id="categorySelect"></select><br>
-        <button class="action-btn" onclick="startGame()">Start Practice! 🚀</button><br><br>
-        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
-        <button class="promo-btn" onclick="openUpgradeScreen()">✨ Order Custom Weekly School Lists ✨</button><br>
-        <button class="admin-btn" onclick="openAdminDashboard()">⚙️ Parent Admin</button>
-    </div>
-
-    <!-- MAIN SPELLING GAME AREA -->
-    <div id="gameArea" class="screen">
-        <div id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
-        <button id="audioBtn" class="action-btn" onclick="playCurrentAudio()">🔊 Hear Word</button>
-        <div id="wordDisplay">_ _ _ _</div>
-        <div id="message"></div>
-        <div id="keyboard"></div>
-        <button id="nextBtn" class="action-btn" style="display: none; margin: 20px auto;" onclick="processNext()">Next Word ➡️</button>
-    </div>
-
-    <!-- MULTIPLE CHOICE REVIEW AREA -->
-    <div id="reviewArea" class="screen">
-        <h2 style="color: #e67e22;">🔄 Review Missed Words</h2>
-        <p id="reviewInstructions"></p>
-        <button class="action-btn" onclick="playCurrentAudio()">🔊 Hear Word</button>
-        <div id="reviewOptions" style="margin: 20px 0;"></div>
-        <button id="nextReviewBtn" class="action-btn" style="display: none; margin: 20px auto;" onclick="nextReview()">Next Word ➡️</button>
-    </div>
-
-    <!-- END SCREEN -->
-    <div id="endScreen" class="screen">
-        <h1>🎉 List Completed! 🎉</h1>
-        <p style="font-size: 1.5em;">First-Try Perfect Score: <strong id="reportScore"></strong></p>
-        <div id="reportMessage"></div>
-        <button class="action-btn" onclick="location.reload()">Back to Menu 🏠</button>
-    </div>
-
-    <!-- PARENT ADMIN DASHBOARD -->
-    <div id="adminScreen" class="screen no-print">
-        <h2 style="color: #d63384;">⚙️ Parent Admin Dashboard</h2>
-        <p>Managing records for: <strong id="adminPlayerName" style="color: #4a90e2;"></strong></p>
-        
-        <div style="background: #f8f9fa; border: 2px solid #ced4da; border-radius: 10px; padding: 15px; margin: 15px 0;">
-            <h3>💰 Bank Administration</h3>
-            <p>Current Balance: <strong id="adminBalance">$0.00</strong></p>
-            <button class="action-btn" style="background: #28a745;" onclick="adminAdjustBalance(0.25)">➕ Add $0.25</button>
-            <button class="action-btn" style="background: #ffc107; color: #333;" onclick="adminAdjustBalance(-0.25)">➖ Subtract $0.25</button>
-            <button class="action-btn" style="background: #dc3545;" onclick="adminResetBalance()">🔄 Reset to $0.00</button>
+    <div class="piggy-bank">
+        <div class="piggy-stats">
+            <span>🐷 Saved: $<span id="bankBalance">0.00</span></span>
+            <span>📺 Available TV Time: <span id="tvMinutes">0</span> mins</span>
+            <span>⏳ Next $0.25 in: <span id="timeToNextCoin">15:00</span></span>
         </div>
+        <div style="margin-top: 10px;">
+            <button class="btn btn-success" style="padding: 6px 12px; font-size: 14px;" onclick="tradeForTV()">Trade $0.25 for 15 Mins TV</button>
+        </div>
+    </div>
 
-        <!-- INTEGRATED ADVERT IN PARENT DASHBOARD -->
-        <div style="background: #f1f8ff; border: 2px solid #0d6efd; border-radius: 10px; padding: 15px; margin: 15px 0; text-align: left;">
-            <h3 style="color: #0d6efd; margin-top: 0; text-align: center;">🚀 Want Next Week's School Homework Automated?</h3>
-            <p style="font-size: 0.95em; text-align: center;">Stop the Sunday night spelling battles! We can take your child's actual weekly school spelling list and load it into this game with studio-quality AI teacher voice audio.</p>
-            <div style="text-align: center;">
-                <button class="promo-btn" style="font-size: 1em;" onclick="openUpgradeScreen()">View Custom Homework Pricing & Order ➡️</button>
+    <div id="startScreen">
+        <h1>🌟 Spelling Mastery Game 🌟</h1>
+        <p style="text-align: center; color: #666;">Select your curriculum list and start earning TV time!</p>
+        
+        <select id="categorySelect"></select>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" style="font-size: 20px; padding: 15px 40px;" onclick="startGame()">▶️ Start Spelling!</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story</button>
+            <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
+        </div>
+    </div>
+
+    <div id="gameArea" style="display: none;">
+        <h2 id="currentCategoryTitle">Category</h2>
+        <div class="lives" id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
+        
+        <div style="text-align: center;">
+            <button class="btn" id="audioBtn" onclick="playCurrentAudio()">🔊 Hear Word</button>
+        </div>
+        
+        <div class="hint-box" id="clueDisplay"></div>
+        <div class="word-display" id="wordDisplay">_ _ _ _</div>
+        
+        <div id="message" style="text-align: center; font-weight: bold; font-size: 18px; min-height: 24px; margin: 10px 0;"></div>
+        
+        <div style="text-align: center;">
+            <button class="btn btn-success" id="nextBtn" style="display: none; margin: 0 auto;" onclick="processNext()">Next Word ➡️</button>
+        </div>
+        
+        <div class="keyboard" id="keyboard"></div>
+    </div>
+
+    <div id="reviewArea" style="display: none;">
+        <h2>🧠 Visual Decoy Review</h2>
+        <p id="reviewInstructions" style="text-align: center; font-weight: bold;"></p>
+        <div style="text-align: center;">
+            <button class="btn" onclick="playCurrentAudio()">🔊 Hear Word</button>
+        </div>
+        <div class="review-options" id="reviewOptions"></div>
+        <div style="text-align: center;">
+            <button class="btn btn-success" id="nextReviewBtn" style="display: none; margin: 0 auto;" onclick="nextReview()">Continue ➡️</button>
+        </div>
+    </div>
+
+    <div id="endScreen" style="display: none; text-align: center;">
+        <h2>🎉 List Complete! 🎉</h2>
+        <p style="font-size: 24px;">Your Score: <span id="reportScore" style="font-weight: bold; color: var(--primary);"></span></p>
+        <p id="reportMessage" style="font-size: 18px; margin: 20px 0;"></p>
+        <button class="btn" style="font-size: 18px; padding: 12px 30px;" onclick="returnHome()">Choose Another List</button>
+    </div>
+</div>
+
+<div id="originModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
+        <h2>🌟 Our Origin Story</h2>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        <p><strong>Why I built this game:</strong> Like many parents, our evening spelling practice used to be filled with tears, frustration, and rote memorization that simply didn't stick. Traditional drills felt like a chore for both me and my child.</p>
+        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight from a daily battle into a rewarding, self-motivated success!</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" onclick="closeModal('originModal')">Close</button>
+        </div>
+    </div>
+</div>
+
+<div id="parentModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
+        <h2>⚙️ Parent Portal: Audit & Economy Controls</h2>
+        <p style="color: #666; font-size: 14px;">Manage your child's TV-time savings and review active gameplay history.</p>
+        
+        <div style="background: #F8F9FA; padding: 15px; border-radius: 10px; margin: 15px 0;">
+            <h3 style="margin-bottom: 10px; font-size: 16px;">💰 Economy Controls</h3>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+                <button class="btn btn-success" onclick="manualAdjustBank(0.25)">+ Add $0.25 (+15 Mins)</button>
+                <button class="btn btn-warning" onclick="manualAdjustBank(-0.25)">- Deduct $0.25 (-15 Mins)</button>
+                <button class="btn btn-danger" onclick="resetBank()">Reset Balance</button>
             </div>
         </div>
 
-        <div style="background: #f8f9fa; border: 2px solid #ced4da; border-radius: 10px; padding: 15px; margin: 15px 0;">
-            <h3>📊 Academic Records & Printing</h3>
-            <p>Generate an official bank statement and mastery report card.</p>
-            <button class="piggy-btn" style="background: #17a2b8;" onclick="printReportCard()">🖨️ Print Bank Statement & Report Card</button>
+        <h3 style="margin-top: 20px; font-size: 16px;">📊 Gameplay Audit Log</h3>
+        <div style="max-height: 250px; overflow-y: auto;">
+            <table id="auditTable">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Category Played</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="auditTableBody"></tbody>
+            </table>
         </div>
-
-        <button class="action-btn" onclick="location.reload()">Exit to Main Menu 🏠</button>
-    </div>
-
-    <!-- DEDICATED ADVERTISING & UPGRADE SCREEN -->
-    <div id="upgradeScreen" class="screen no-print" style="text-align: left; padding: 10px;">
-        <h2 style="color: #6a11cb; text-align: center;">✨ Custom Weekly Homework Services ✨</h2>
-        <p style="font-size: 1.1em; text-align: center; font-weight: bold; color: #333;">Turn your child's actual school spelling list into an interactive game!</p>
-        <p>You love the Proof of Concept—now let's customize it for the school year! Send us your child's weekly homework list, and we will generate crystal-clear, studio-quality American teacher audio pronunciations and pre-load the words directly into your game.</p>
         
-        <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
-        
-        <h3 style="color: #0d6efd;">📋 How to Order in 3 Easy Steps:</h3>
-        <ol style="line-height: 1.8; padding-left: 20px;">
-            <li><strong>Send the List:</strong> Snap a photo of your child's spelling sheet and text it to <strong style="color: #d63384;">805-550-7150</strong>, or email it to <strong style="color: #d63384;">waltrospelling@gmail.com</strong>.</li>
-            <li><strong>Quick Payment:</strong> Send payment via <strong>Venmo</strong> (include your child's name and grade in the note so we link it to the right profile!).</li>
-            <li><strong>Play & Learn:</strong> Within 24 hours, your custom word list and audio will magically appear in your game menu ready for practice!</li>
-        </ol>
-
-        <h3 style="color: #0d6efd; margin-top: 20px;">💰 Simple, Transparent Pricing:</h3>
-        <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>Service Tier</th>
-                    <th>Price</th>
-                    <th>What You Get</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Single Week Trial</strong></td>
-                    <td><strong>$5</strong></td>
-                    <td>1 Custom Weekly School List (up to 15 words) + AI Teacher Audio generated and loaded to your link.</td>
-                </tr>
-                <tr>
-                    <td><strong>Monthly Homework Pack</strong><br><span style="color: #28a745; font-weight: bold;">(Most Popular!)</span></td>
-                    <td><strong>$15</strong><br><em>(Save $5!)</em></td>
-                    <td>4 Consecutive Weekly Lists. Just text us a photo every Sunday afternoon, and homework is automated for the month!</td>
-                </tr>
-                <tr>
-                    <td><strong>Curated Grade Semester Pack</strong></td>
-                    <td><strong>$40</strong></td>
-                    <td>12 Weeks of standardized grade-level mastery vocabulary pre-loaded into a dedicated portal for proactive practice.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div style="background: #fff0f5; border: 2px dashed #ff69b4; border-radius: 10px; padding: 15px; text-align: center; margin-top: 20px;">
-            <h4 style="margin: 0 0 10px 0; color: #d63384;">📱 Ready to automate school spelling homework?</h4>
-            <p style="margin: 5px 0;">Text a photo of your list to: <strong>805-550-7150</strong></p>
-            <p style="margin: 5px 0;">Email: <strong>waltrospelling@gmail.com</strong></p>
-        </div>
-
         <div style="text-align: center; margin-top: 20px;">
-            <button class="action-btn" onclick="location.reload()">Back to Main Menu 🏠</button>
+            <button class="btn btn-danger" style="font-size: 12px; padding: 6px 12px;" onclick="clearAuditLog()">Clear Audit Log</button>
+            <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
         </div>
     </div>
-</div>
-
-<!-- HIDDEN PRINTABLE CERTIFICATE AREA -->
-<div id="printableReport">
-    <div class="cert-header">
-        <h1>🏆 Official TV Time Bank Statement & Report Card 🏆</h1>
-        <p><strong>Student Name:</strong> <span id="printStudentName"></span> | <strong>Date:</strong> <span id="printDate"></span></p>
-    </div>
-    <h2>💰 Piggy Bank Summary</h2>
-    <p style="font-size: 1.3em;"><strong>Current Savings Balance:</strong> <span id="printBalance">$0.00</span></p>
-    <p style="font-size: 1.1em;"><strong>Available Screen Time:</strong> <span id="printMinutes">0</span> Minutes</p>
-    <hr>
-    <h2>⭐ Mastered Spelling Categories</h2>
-    <p>The student has achieved a first-try flawless score on the following word lists:</p>
-    <ul id="printMasteredList" style="font-size: 1.1em; line-height: 1.6;"></ul>
-    <hr>
-    <h2>📝 Recent Practice Audit Log</h2>
-    <table class="cert-table">
-        <thead>
-            <tr>
-                <th>Timestamp</th>
-                <th>Activity / Score Log</th>
-            </tr>
-        </thead>
-        <tbody id="printLogBody"></tbody>
-    </table>
 </div>
 
 <script>
-    // --- 1. MULTI-CHILD PROFILE ENGINE ---
-    const ADMIN_PIN = "1234";
-    let profiles = JSON.parse(localStorage.getItem('spelling_profiles')) || ["Player 1"];
-    let currentProfile = localStorage.getItem('spelling_active_profile') || profiles[0];
+// --- 300-WORD SUMMER DEMO DICTIONARY (3 Skill Levels, 30 Lists, 10 Words Each) ---
+const spellingDictionary = {
+    // LEVEL 1: Foundational (1st - 2nd Grade)
+    "L1-1. Short Vowel Animals": {
+        "cat": "💡 🐱 Hint: The soft cat purred. ('c' before 'a' makes the hard k sound!)",
+        "dog": "💡 🐶 Hint: The brown dog barked. (Uses the short 'o' sound)",
+        "pig": "💡 🐷 Hint: The pig rolled in mud. (Uses the short 'i' sound)",
+        "hen": "💡 🐔 Hint: The red hen laid an egg. (Uses the short 'e' sound)",
+        "bug": "💡 🐞 Hint: A tiny green bug crawled by. (Uses the short 'u' sound)",
+        "rat": "💡 🐭 Hint: The gray rat ran fast. (Rhymes with cat using short 'a')",
+        "fox": "💡 🦊 Hint: The quick red fox jumped. (Ends with the ks sound spelled with 'x')",
+        "frog": "💡 🐸 Hint: The green frog hopped. (Starts with the consonant blend fr-)",
+        "duck": "💡 🦆 Hint: The yellow duck quacked. (Short vowel followed by the ck digraph)",
+        "crab": "💡 🦀 Hint: The red crab has claws. (Starts with cr- and uses short 'a')"
+    },
+    "L1-2. Long Vowel Foods": {
+        "cake": "💡 🎂 Hint: We baked a birthday cake. (Magic silent E makes the 'a' say its name)",
+        "lime": "💡 🍋 Hint: The green lime is sour. (Magic silent E makes the 'i' long)",
+        "cone": "💡 🍦 Hint: I ate an ice cream cone. (Magic silent E makes the 'o' long)",
+        "cube": "💡 🧊 Hint: Drop an ice cube in the drink. (Magic silent E makes the 'u' long)",
+        "grape": "💡 🍇 Hint: Eat a sweet purple grape. (Starts with gr- and ends with magic E)",
+        "rice": "💡 🍚 Hint: We ate warm white rice. ('c' before 'e' makes the soft s sound!)",
+        "bake": "💡 🍪 Hint: Let's bake cookies today. (Rhymes with cake using long 'a')",
+        "time": "💡 ⏰ Hint: What time is it? (Long 'i' sound with a magic E)",
+        "rose": "💡 🌹 Hint: Smelled a sweet red rose. ('s' sounds like z between two vowels)",
+        "fume": "💡 💨 Hint: Smoke made a dark fume. (Long 'u' sound with magic E)"
+    },
+    "L1-3. Hard & Soft C and G": {
+        "cat": "💡 🐱 Hint: Pet the fluffy cat. ('c' followed by 'a' makes hard k)",
+        "cent": "💡 🪙 Hint: One penny is worth one cent. ('c' followed by 'e' makes soft s)",
+        "gap": "💡 ↔️ Hint: Mind the gap in the fence. ('g' followed by 'a' makes hard g)",
+        "gem": "💡 💎 Hint: A ruby is a shiny red gem. ('g' followed by 'e' makes soft j)",
+        "city": "💡 🏙️ Hint: We drove to the big city. ('c' followed by 'i' makes soft s)",
+        "gum": "💡 🍬 Hint: Chewing sweet bubble gum. ('g' followed by 'u' makes hard g)",
+        "cage": "💡 🦜 Hint: The bird sang in its cage. (Hard c at start, soft g at end!)",
+        "giant": "💡 👹 Hint: The tall giant stepped over the tree. ('g' followed by 'i' makes soft j)",
+        "cost": "💡 🏷️ Hint: How much does this coat cost? ('c' followed by 'o' makes hard k)",
+        "gym": "💡 🏃 Hint: We play sports in the school gym. ('g' followed by 'y' makes soft j and short i)"
+    },
+    "L1-4. SH & TH Digraphs": {
+        "ship": "💡 🚢 Hint: The big ship sailed the ocean. (Starts with the sh digraph)",
+        "dish": "💡 🍽️ Hint: Please wash the dinner dish. (Ends with the sh digraph)",
+        "thin": "💡 📏 Hint: A thin piece of paper. (Starts with unvoiced th - no throat vibration)",
+        "this": "💡 👉 Hint: Look at this cool book. (Starts with voiced th - feel the vibration!)",
+        "wish": "💡 🌠 Hint: Make a wish on a star. (Rhymes with dish using sh ending)",
+        "that": "💡 👈 Hint: Can you hand me that ball? (Voiced th digraph at the start)",
+        "shop": "💡 🛍️ Hint: We went to the grocery shop. (Starts with sh and short 'o')",
+        "path": "💡 🌲 Hint: Walk down the dirt path. (Ends with unvoiced th digraph)",
+        "bath": "💡 🛁 Hint: Take a warm bubble bath. (Rhymes with path using th ending)",
+        "shell": "💡 🐚 Hint: Found a seashell on the beach. (Starts with sh and ends with double 'l')"
+    },
+    "L1-5. CH, CK, & WH Digraphs": {
+        "much": "💡 ❓ Hint: Thank you very much! (Ends with the ch digraph making the ch sound)",
+        "school": "💡 🏫 Hint: We learn reading at school. ('ch' makes the hard k sound here!)",
+        "chef": "💡 👨‍🍳 Hint: The chef cooked a great meal. ('ch' makes the sh sound in this French word!)",
+        "neck": "💡 🦒 Hint: A giraffe has a very long neck. (Short vowel 'e' followed by ck digraph)",
+        "when": "💡 📅 Hint: When are we going to the park? (Starts with the wh question digraph)",
+        "duck": "💡 🦆 Hint: The duck swam in the pond. (Short 'u' followed by ck digraph)",
+        "rich": "💡 💰 Hint: The king was very rich. (Short 'i' followed by ch digraph)",
+        "pack": "💡 🎒 Hint: Pack your school bag. (Rhymes with neck using short 'a' and ck)",
+        "what": "💡 ❓ Hint: What is your favorite color? (Starts with wh and sounds like 'wut')",
+        "rock": "💡 🪨 Hint: Climbed onto a giant gray rock. (Short 'o' followed by ck digraph)"
+    },
+    "L1-6. Double-Z & Double-G Words": {
+        "puzzle": "💡 🧩 Hint: We solved the jigsaw puzzle. (__zzle uses a short 'u' before double z)",
+        "drizzle": "💡 🌧️ Hint: A light rain started to drizzle. (__zzle uses a short 'i' before double z)",
+        "nozzle": "💡 🚿 Hint: Water sprayed from the hose nozzle. (__zzle uses a short 'o' before double z)",
+        "fizzle": "💡 🥤 Hint: The soda began to fizzle out. (Rhymes with drizzle using short 'i')",
+        "giggle": "💡 🤭 Hint: The funny joke made her giggle. (__ggle uses a short 'i' before double g)",
+        "wiggle": "💡 🐛 Hint: Watch the caterpillar wiggle. (Rhymes with giggle using short 'i')",
+        "juggle": "💡 🤹 Hint: The clown can juggle three balls. (__ggle uses a short 'u' before double g)",
+        "wobble": "💡 🫨 Hint: The loose table began to wobble. (Double 'b' after short 'o' with -le ending)",
+        "bubble": "💡 🫧 Hint: Blaw a floating pink bubble. (Double 'b' after short 'u' with -le ending)",
+        "sniggle": "💡 🎣 Hint: To fish for eels is to sniggle. (__ggle uses short 'i')"
+    },
+    "L1-7. Apple & Kettle Endings": {
+        "apple": "💡 🍎 Hint: Ate a crunchy red apple. (__pple uses a short 'a' before double p)",
+        "ripple": "💡 💧 Hint: A pebble made a water ripple. (__pple uses a short 'i' before double p)",
+        "maple": "💡 🍁 Hint: Pour sweet maple syrup on pancakes. (__ple uses a long 'a' before single p!)",
+        "kettle": "💡 ☕ Hint: Boiled water in the tea kettle. (-ttle uses a short 'e' before double t)",
+        "bottle": "💡 🍼 Hint: Drink water from a reusable bottle. (-ttle uses a short 'o' before double t)",
+        "title": "💡 📖 Hint: Read the title on the book cover. (__tle uses a long 'i' before single t!)",
+        "little": "💡 🐭 Hint: A tiny little mouse squeaked. (-ttle uses a short 'i' before double t)",
+        "simple": "💡 🟢 Hint: The easy game was very simple. (__mple uses a short 'i' before m)",
+        "gentle": "💡 🕊️ Hint: Be gentle with the baby bird. (__ntle uses short 'e' and soft g)",
+        "battle": "💡 ⚔️ Hint: Knights fought in a brave battle. (-ttle uses short 'a' before double t)"
+    },
+    "L1-8. Double L, F, & S Endings": {
+        "bell": "💡 🔔 Hint: Ring the school bell. (Short vowel 'e' followed by double L)",
+        "hill": "💡 ⛰️ Hint: Ran up the grassy hill. (Short vowel 'i' followed by double L)",
+        "doll": "💡 🪆 Hint: Playing with a new toy doll. (Short vowel 'o' followed by double L)",
+        "fluff": "💡 ☁️ Hint: The cotton candy was pure fluff. (Short vowel 'u' followed by double F)",
+        "cliff": "💡 🧗 Hint: Looked over the rocky cliff. (Short vowel 'i' followed by double F)",
+        "sniff": "💡 👃 Hint: Take a sniff of the fresh flowers. (Rhymes with cliff using double F)",
+        "glass": "💡 🥛 Hint: Drink a tall glass of milk. (Short vowel 'a' followed by double S)",
+        "dress": "💡 👗 Hint: Wore a pretty blue party dress. (Short vowel 'e' followed by double S)",
+        "grass": "💡 🌿 Hint: Mowed the green front grass. (Rhymes with glass using double S)",
+        "mess": "💡 🧹 Hint: Clean up the bedroom mess. (Rhymes with dress using double S)"
+    },
+    "L1-9. Consonant Blends": {
+        "frog": "💡 🐸 Hint: A green frog leaped into the pond. (Starts with the fr- blend)",
+        "tree": "💡 🌳 Hint: Climbed the tall apple tree. (Starts with the tr- blend and long ee)",
+        "stop": "💡 🛑 Hint: Red sign means you must stop. (Starts with the st- blend)",
+        "plan": "💡 📝 Hint: We made a great vacation plan. (Starts with the pl- blend)",
+        "clip": "💡 📎 Hint: Hold paper together with a clip. (Starts with the cl- blend)",
+        "flag": "💡 🏁 Hint: Waved the checkered race flag. (Starts with the fl- blend)",
+        "swim": "💡 🏊 Hint: Let's swim in the cool pool. (Starts with the sw- blend)",
+        "drum": "💡 🥁 Hint: Beat the loud marching drum. (Starts with the dr- blend)",
+        "spin": "💡 🌀 Hint: Watch the top spin around fast. (Starts with the sp- blend)",
+        "blue": "💡 💙 Hint: The summer sky is bright blue. (Starts with bl- and ends with long u)"
+    },
+    "L1-10. Ending Blends & NG": {
+        "ring": "💡 💍 Hint: Wore a shiny gold ring. (Ends with the ng phonogram sound)",
+        "song": "💡 🎵 Hint: Sang a happy birthday song. (Ends with the ng phonogram sound)",
+        "long": "💡 📏 Hint: A giraffe has a very long tongue. (Rhymes with song using ng)",
+        "jump": "💡 🦘 Hint: See how high you can jump. (Ends with the -mp consonant blend)",
+        "camp": "💡 ⛺ Hint: Sleep in a tent when we camp. (Rhymes with jump using -mp blend)",
+        "fast": "💡 🏃 Hint: The cheetah ran super fast. (Ends with the -st consonant blend)",
+        "nest": "💡 🪺 Hint: Three eggs rested in the bird nest. (Rhymes with fast using -st blend)",
+        "gift": "💡 🎁 Hint: Opened a wrapped birthday gift. (Ends with the -ft consonant blend)",
+        "lamp": "💡 💡 Hint: Turn on the desk lamp to read. (Rhymes with camp using -mp blend)",
+        "band": "💡 🎺 Hint: The school band played music. (Ends with the -nd consonant blend)"
+    },
+
+    // LEVEL 2: Intermediate (2nd - 3rd Grade)
+    "L2-1. Vowel Team Foods": {
+        "eat": "💡 🍽️ Hint: Time to eat dinner together. ('ea' makes the long E sound here)",
+        "bread": "💡 🍞 Hint: Spread butter on warm bread. ('ea' makes the short E sound here!)",
+        "break": "💡 🔨 Hint: Be careful not to break the glass. ('ea' makes the long A sound here!)",
+        "peach": "💡 🍑 Hint: A sweet juicy orange peach. ('ea' makes long E, ends with ch digraph)",
+        "grain": "💡 🌾 Hint: Wheat is a type of healthy grain. ('ai' vowel team makes long A sound)",
+        "toast": "💡 🍞 Hint: Ate crunchy buttered toast. ('oa' vowel team makes long O sound)",
+        "fruit": "💡 🍎 Hint: Apples and bananas are fruit. ('ui' vowel team makes the long OO sound)",
+        "suit": "💡 👔 Hint: Wore a fancy business suit. (Rhymes with fruit using 'ui' vowel team)",
+        "steak": "💡 🥩 Hint: Grilled a juicy dinner steak. (Like break, 'ea' makes the long A sound)",
+        "treat": "💡 🍭 Hint: Ice cream is a sweet summer treat. ('ea' makes long E sound)"
+    },
+    "L2-2. OY & OI Sounds": {
+        "boy": "💡 👦 Hint: The young boy played catch. ('oy' is used at the end of words!)",
+        "toy": "💡 🧸 Hint: Wrapped a new birthday toy. (Rhymes with boy using ending 'oy')",
+        "joy": "💡 😊 Hint: Her smile brought pure joy. (Rhymes with toy using ending 'oy')",
+        "point": "💡 👉 Hint: Please point to the correct map spot. ('oi' is used in the middle of words!)",
+        "coin": "💡 🪙 Hint: Dropped a silver coin in the bank. ('oi' is used in the middle of words)",
+        "boil": "💡 🍲 Hint: Boil water to cook pasta. (Rhymes with coin using middle 'oi')",
+        "voice": "💡 🗣️ Hint: Speak in a quiet indoor voice. ('oi' in middle, soft c at end)",
+        "noise": "💡 🔊 Hint: A loud siren made a big noise. ('oi' in middle, 's' sounds like z)",
+        "join": "💡 🤝 Hint: Would you like to join our game? (Rhymes with coin using middle 'oi')",
+        "royal": "💡 👑 Hint: The king and queen are royal family. ('oy' inside because it comes before a vowel suffix!)"
+    },
+    "L2-3. Bossy R Words": {
+        "her": "💡 👩 Hint: Give the book back to her. ('er' phonogram makes the r sound)",
+        "first": "💡 🥇 Hint: Won blue ribbon for first place. ('ir' phonogram makes the r sound)",
+        "nurse": "💡 🏥 Hint: The school nurse fixed my scrape. ('ur' phonogram makes the r sound)",
+        "works": "💡 ⚙️ Hint: She works hard on her homework. ('wor' phonogram makes the wur sound!)",
+        "early": "💡 🌅 Hint: Woke up early to see the sunrise. ('ear' phonogram makes the er sound here!)",
+        "star": "💡 ⭐ Hint: Look at the bright shining star. ('ar' phonogram makes the ar sound)",
+        "car": "💡 🚗 Hint: Drove the family blue car. (Rhymes with star using 'ar')",
+        "bird": "💡 🐦 Hint: A little blue bird flew away. (Rhymes with first using 'ir')",
+        "turn": "💡 🔄 Hint: Please turn the page over. (Rhymes with nurse using 'ur')",
+        "word": "💡 📝 Hint: Spell each vocabulary word correctly. ('wor' phonogram makes the wur sound)"
+    },
+    "L2-4. Past Tense Actions (-ed)": {
+        "graded": "💡 💯 Hint: The teacher graded the spelling tests. ('-ed' makes the full 'ed' / short e syllable sound after d or t!)",
+        "loved": "💡 ❤️ Hint: We loved the funny movie. ('-ed' makes the d sound after voiced letters!)",
+        "wrecked": "💡 💥 Hint: The storm wrecked the sandcastle. ('-ed' makes the t sound after unvoiced sounds like k!)",
+        "jumped": "💡 🦘 Hint: The frog jumped into the water. ('-ed' sounds like t after unvoiced p)",
+        "played": "💡 🎮 Hint: We played games all afternoon. ('-ed' sounds like d after vowel team ay)",
+        "smiled": "💡 😄 Hint: She smiled at the funny joke. ('-ed' sounds like d after voiced l)",
+        "cooked": "💡 🍳 Hint: Dad cooked eggs for breakfast. ('-ed' sounds like t after unvoiced k)",
+        "landed": "💡 🛬 Hint: The airplane landed safely. ('-ed' makes full 'ed' syllable after d)",
+        "hunted": "💡 🔍 Hint: The owl hunted for mice at night. ('-ed' makes full 'ed' syllable after t)",
+        "cleaned": "💡 🧹 Hint: We cleaned our bedrooms neatly. ('-ed' sounds like d after voiced n)"
+    },
+    "L2-5. Diphthongs OW & OU": {
+        "how": "💡 ❓ Hint: Do you know how to ride a bike? ('ow' makes the ow diphthong sound at the end)",
+        "low": "💡 📉 Hint: The plane flew at a very low altitude. ('ow' makes the long O sound here!)",
+        "round": "💡 ⚽ Hint: A basketball is completely round. ('ou' makes the ow sound in the middle)",
+        "soul": "💡 👻 Hint: Music is good for the heart and soul. ('ou' makes the long O sound here!)",
+        "country": "💡 🗺️ Hint: France is a beautiful European country. ('ou' makes the short U sound here!)",
+        "cloud": "💡 ☁️ Hint: A white fluffy cloud floated by. ('ou' makes the ow sound in the middle)",
+        "show": "💡 📺 Hint: Let's watch a funny puppet show. (Like low, 'ow' makes long O sound)",
+        "cow": "💡 🐮 Hint: The spotted cow gave milk. (Like how, 'ow' makes the ow sound)",
+        "house": "💡 🏠 Hint: We live in a brick house. ('ou' makes the ow sound, silent E at end)",
+        "group": "💡 👥 Hint: A large group of friends gathered. ('ou' makes the long OO sound here!)"
+    },
+    "L2-6. Diphthongs AW & AU": {
+        "law": "💡 ⚖️ Hint: Police officers uphold the law. ('aw' is usually used at the end of words!)",
+        "author": "💡 ✍️ Hint: The author wrote a great book. ('au' is usually used at the beginning or middle!)",
+        "saw": "💡 🪚 Hint: Used a metal saw to cut wood. (Rhymes with law using ending 'aw')",
+        "cause": "💡 ❓ Hint: What was the root cause of the leak? ('au' in middle, 's' sounds like z)",
+        "paw": "💡 🐾 Hint: The dog lifted its muddy paw. (Rhymes with saw using ending 'aw')",
+        "haul": "💡 🚚 Hint: Trucks haul heavy loads across town. ('au' used in the middle before l)",
+        "lawn": "💡 🏡 Hint: Mowed the green front lawn. ('aw' used before final n)",
+        "fault": "💡 🛑 Hint: It was an accident, nobody's fault. ('au' used in the middle before lt)",
+        "draw": "💡 🎨 Hint: Use crayons to draw a picture. (Ends with the 'aw' phonogram)",
+        "sauce": "💡 🍝 Hint: Put tomato sauce on the spaghetti. ('au' in middle, soft c at end)"
+    },
+    "L2-7. Long OO & Short OO": {
+        "boot": "💡 🥾 Hint: Wore a warm winter winter boot. ('oo' makes the long oo sound)",
+        "foot": "💡 🦶 Hint: Put your shoe on your left foot. ('oo' makes the short oo sound!)",
+        "moon": "💡 🌙 Hint: Look at the glowing full moon. (Like boot, 'oo' makes the long oo sound)",
+        "book": "💡 📖 Hint: Read a great chapter book. (Like foot, 'oo' makes the short oo sound)",
+        "roof": "💡 🏠 Hint: Shingles sit on top of the house roof. (Uses the long oo sound)",
+        "good": "💡 👍 Hint: You did a really good job today! (Uses the short oo sound)",
+        "food": "💡 🥗 Hint: Healthy food gives us energy. (Uses the long oo sound)",
+        "look": "💡 👀 Hint: Look closely at the tiny bug. (Rhymes with book using short oo)",
+        "cool": "💡 😎 Hint: Swimming in the cool ocean water. (Uses the long oo sound)",
+        "wood": "💡 🪵 Hint: Campfire burned logs of dry wood. (Rhymes with good using short oo)"
+    },
+    "L2-8. Vowel Teams EE & AY": {
+        "see": "💡 👀 Hint: I can see the blue sky clearly. ('ee' vowel team makes long E sound)",
+        "day": "💡 ☀️ Hint: Today is a warm sunny day. ('ay' is used at the end of words for long A)",
+        "play": "💡 🛝 Hint: Let's play outside at recess. (Rhymes with day using ending 'ay')",
+        "green": "💡 🟢 Hint: Grass is a bright green color. ('ee' vowel team inside the word)",
+        "sleep": "💡 😴 Hint: Time to go to sleep at night. ('ee' vowel team inside the word)",
+        "away": "💡 🚀 Hint: The rocket blasted far away. (Ends with 'ay' for long A sound)",
+        "free": "💡 🕊️ Hint: The bird flew out of the cage, totally free. (Ends with 'ee' for long E)",
+        "stay": "💡 🐕 Hint: Trained the dog to sit and stay. (Rhymes with play using 'ay')",
+        "week": "💡 📅 Hint: There are seven days in one week. ('ee' makes long E before k)",
+        "tray": "💡 🍽️ Hint: Carried food on a lunch tray. (Rhymes with day using 'ay')"
+    },
+    "L2-9. Soft G & Soft C Extension": {
+        "gem": "💡 💎 Hint: A ruby is a precious red gem. ('g' before e makes soft j sound)",
+        "gym": "💡 🏃‍♀️ Hint: We ran laps inside the school gym. ('g' before y makes soft j sound)",
+        "cent": "💡 🪙 Hint: Found a shiny copper one cent coin. ('c' before e makes soft s sound)",
+        "city": "💡 🏙️ Hint: New York is a very busy city. ('c' before i makes soft s sound)",
+        "giant": "💡 👹 Hint: A tall fairytale giant lived in the castle. ('g' before i makes soft j sound)",
+        "face": "💡 😊 Hint: Wash your face with warm water. ('c' before e makes soft s sound at the end)",
+        "page": "💡 📄 Hint: Read the next page of the story. ('g' before e makes soft j sound at the end)",
+        "rice": "💡 🍚 Hint: Steamed white rice for dinner. ('c' before e makes soft s sound at the end)",
+        "huge": "💡 🐘 Hint: An elephant is a huge animal. ('g' before e makes soft j sound at the end)",
+        "space": "💡 🚀 Hint: Astronauts rocket into outer space. ('c' before e makes soft s sound)"
+    },
+    "L2-10. Compound Words": {
+        "pancake": "💡 🥞 Hint: Flipped a hot buttered pancake. (Compound word: pan + cake)",
+        "sunshine": "💡 ☀️ Hint: Bright yellow summer sunshine. (Compound word: sun + shine)",
+        "rainbow": "💡 🌈 Hint: A colorful rainbow after the rain. (Compound word: rain + bow)",
+        "backpack": "💡 🎒 Hint: Carry school books in a backpack. (Compound word: back + pack)",
+        "football": "💡 🏈 Hint: Threw a touchdown pass with the football. (Compound word: foot + ball)",
+        "bedroom": "💡 🛏️ Hint: Go to sleep in your cozy bedroom. (Compound word: bed + room)",
+        "popcorn": "💡 🍿 Hint: Ate salty buttered movie popcorn. (Compound word: pop + corn)",
+        "goldfish": "💡 🐠 Hint: A little orange pet goldfish swam in the bowl. (Compound word: gold + fish)",
+        "starfish": "💡 🌟 Hint: Found a five-pointed starfish in the tide pool. (Compound word: star + fish)",
+        "treehouse": "💡 🏡 Hint: We built a wooden treehouse in the backyard. (Compound word: tree + house)"
+    },
+
+    // LEVEL 3: Advanced (3rd - 5th Grade)
+    "L3-1. The OUGH Family": {
+        "though": "💡 💭 Hint: Even though it rained, we had fun. ('ough' makes the long O sound here!)",
+        "through": "💡 🚇 Hint: The train drove right through the tunnel. ('ough' makes the long OO sound here!)",
+        "rough": "💡 🪨 Hint: Sandpaper has a bumpy, rough texture. ('ough' makes the 'uff' sound with short u!)",
+        "cough": "💡 🤧 Hint: Cover your mouth when you cough. ('ough' makes the 'off' sound with short o!)",
+        "thought": "💡 💡 Hint: She thought of a brilliant idea. ('ough' makes the 'aw' sound here!)",
+        "drought": "💡 ☀️ Hint: No rain for months caused a dry drought. ('ough' makes the 'ow' sound here!)",
+        "tough": "💡 💪 Hint: Leather is a very strong and tough material. (Like rough, 'ough' makes the 'uff' sound)",
+        "bought": "💡 🛍️ Hint: We bought groceries at the store. (Like thought, 'ough' makes the 'aw' sound)",
+        "brought": "💡 🎁 Hint: He brought a birthday gift to the party. (Like bought, 'ough' makes the 'aw' sound)",
+        "dough": "💡 🍞 Hint: Baked soft flour bread dough in the oven. (Like though, 'ough' makes the long O sound)"
+    },
+    "L3-2. Silent Consonants": {
+        "knot": "💡 🪢 Hint: Tied a strong double knot in the rope. ('kn' phonogram: the K is completely silent!)",
+        "sign": "💡 🛑 Hint: Stop at the red traffic sign. ('gn' phonogram: the G is silent, making 'i' long!)",
+        "wrap": "💡 🎁 Hint: Use paper to wrap the present neatly. ('wr' phonogram: the W is completely silent!)",
+        "whistle": "💡 😙 Hint: The referee blew a loud metal whistle. (In '__stle', the T is completely silent!)",
+        "knee": "💡 🦵 Hint: Scraped my left knee on the sidewalk. ('kn' phonogram: silent K before N)",
+        "gnats": "💡 🦟 Hint: Tiny flying gnats buzzed near the lake. ('gn' phonogram: silent G at the start)",
+        "write": "💡 ✏️ Hint: Use a pencil to write your name. ('wr' phonogram: silent W before R)",
+        "castle": "💡 🏰 Hint: The king lived in a stone royal castle. (Like whistle, '__stle' has a silent T!)",
+        "knife": "💡 🔪 Hint: Use a butter knife to spread jam. ('kn' phonogram: silent K before N)",
+        "wrist": "💡 ⌚ Hint: Wore a ticking watch around his wrist. ('wr' phonogram: silent W before R)"
+    },
+    "L3-3. TI, SI, & CI Endings": {
+        "nation": "💡 flag Hint: Canada is a northern nation. ('ti' phonogram makes the sh sound before -on)",
+        "session": "💡 🕒 Hint: We attended a one-hour training session. ('si' phonogram makes the sh sound here!)",
+        "vision": "💡 👀 Hint: Eyeglasses give you clear 20/20 vision. ('si' phonogram makes the zh sound here!)",
+        "facial": "💡 😊 Hint: A soothing spa facial treatment. ('ci' phonogram makes the sh sound before -al)",
+        "motion": "💡 🌊 Hint: The rocking boat felt like endless ocean motion. ('ti' makes the sh sound before -on)",
+        "mission": "💡 🚀 Hint: The astronauts embarked on a space mission. ('si' makes the sh sound)",
+        "special": "💡 ⭐ Hint: Today is a very special holiday. ('ci' makes the sh sound before -al)",
+        "action": "💡 🎬 Hint: Lights, camera, fast action! ('ti' makes the sh sound before -on)",
+        "mansion": "💡 🏰 Hint: The rich movie star lived in a huge mansion. ('si' makes the sh sound)",
+        "social": "💡 💬 Hint: Enjoyed a friendly social gathering. ('ci' makes the sh sound before -al)"
+    },
+    "L3-4. Tricky Homographs": {
+        "dove": "💡 🕊️ Hint: The white dove flew peacefully. (Verb meaning dived / Noun bird: same spelling, different sound!)",
+        "close": "💡 🚪 Hint: Please close the door behind you. (Verb to shut / Adverb nearby: same spelling, different sound!)",
+        "lead": "💡 ✏️ Hint: Heavy gray lead metal piping. (Metal element / Verb to guide: same spelling, different sound!)",
+        "sow": "💡 🌱 Hint: Farmers sow wheat seeds in spring. (Plant seeds / Female pig: same spelling, different sound!)",
+        "wind": "💡 💨 Hint: Strong winter wind blew the trees. (Moving air / Verb to turn a clock: same spelling!)",
+        "tear": "💡 😢 Hint: A sad tear rolled down her cheek. (Water from eye / Verb to rip paper: same spelling!)",
+        "bow": "💡 🎀 Hint: Tied a pink ribbon bow in her hair. (Ribbon loop / Verb to bend forward: same spelling!)",
+        "read": "💡 📖 Hint: I love to read mystery books every night. (Present tense / Past tense 'red': same spelling!)",
+        "live": "💡 🏠 Hint: We live in a quiet neighborhood. (Verb to reside / Adjective alive: same spelling!)",
+        "minute": "💡 ⏱️ Hint: Wait just one sixty-second minute. (Time unit / Adjective tiny 'my-noot': same spelling!)"
+    },
+    "L3-5. Tricky Phonograms EI & IE": {
+        "field": "💡 🌾 Hint: Cows grazed in the grassy green field. ('ie' makes the long E sound here - rule: I before E!)",
+        "pie": "💡 🥧 Hint: Baked a sweet warm apple pie. ('ie' makes the long I sound at the end of short words!)",
+        "conceit": "💡 🦚 Hint: Too much pride turns into vanity and conceit. ('ei' makes long E - rule: except after C!)",
+        "veil": "💡 👰 Hint: The bride wore a white lace wedding veil. ('ei' makes the long A sound here - like 'neighbor'!)",
+        "forfeit": "💡 🏳️ Hint: We had to forfeit the game due to rain. ('ei' makes the short I sound here!)",
+        "chief": "💡 🚒 Hint: The fire department chief led the rescue. ('ie' makes long E - rule: I before E)",
+        "die": "💡 🎲 Hint: Roll the six-sided number die. ('ie' makes long I sound at end)",
+        "ceiling": "💡 🏠 Hint: Look up at the tall white room ceiling. ('ei' makes long E - rule: except after C!)",
+        "reign": "💡 👑 Hint: The king's royal reign lasted fifty years. ('ei' makes long A before silent G)",
+        "thief": "💡 🦹 Hint: The sneaky thief stole the diamond. ('ie' makes long E - rule: I before E)"
+    },
+    "L3-6. Tricky Endings DGE, OE, & IGH": {
+        "bridge": "💡 🌉 Hint: Drove across the long suspension river bridge. ('dge' makes the j sound after a short vowel!)",
+        "toe": "💡 🦶 Hint: Stubbed my little pinky toe. ('oe' makes the long O sound at the end of words!)",
+        "sigh": "💡 😮 Hint: Let out a loud weary sigh of relief. ('igh' 3-letter phonogram makes the long I sound!)",
+        "judge": "💡 ⚖️ Hint: The courtroom judge made a fair ruling. ('dge' makes j sound after short u)",
+        "foe": "💡 ⚔️ Hint: A superhero battles against a villain foe. (Rhymes with toe using 'oe' for long O)",
+        "high": "💡 🏔️ Hint: Climbed up to the high mountain peak. ('igh' phonogram makes long I sound)",
+        "badge": "💡 🛡️ Hint: The police officer wore a shiny gold badge. ('dge' makes j sound after short a)",
+        "doe": "💡 🦌 Hint: A gentle female deer is called a doe. (Rhymes with toe using 'oe' for long O)",
+        "night": "💡 🌙 Hint: Stars shine bright in the dark night sky. ('igh' phonogram makes long I sound before t)",
+        "edge": "💡 🪨 Hint: Don't stand too close to the cliff edge. ('dge' makes j sound after short e)"
+    },
+    "L3-7. PH, GU, & EIGH": {
+        "phone": "💡 📱 Hint: Call grandma on the cellular phone. ('ph' digraph makes the f sound!)",
+        "guess": "💡 ❓ Hint: Can you guess how many jellybeans are in the jar? ('gu': hard g followed by u and vowel!)",
+        "weigh": "💡 ⚖️ Hint: Use a scale to weigh the heavy package. ('eigh' 4-letter phonogram makes the long A sound!)",
+        "photo": "💡 📸 Hint: Took a smiling family photo with a camera. ('ph' makes the f sound)",
+        "guest": "💡 🛎️ Hint: Welcomed an overnight guest into our home. ('gu' makes hard g sound before e)",
+        "eight": "💡 8️⃣ Hint: An octopus has eight long tentacle arms. ('eigh' makes long A sound before t)",
+        "alphabet": "💡 🔤 Hint: Learn all twenty-six letters of the alphabet. ('ph' in the middle makes the f sound)",
+        "guide": "💡 🗺️ Hint: The tour guide showed us the museum. ('gu' makes hard g sound before i)",
+        "sleigh": "💡 🛷 Hint: Reindeer pulled Santa's snow sleigh. ('eigh' makes long A sound at the end)",
+        "dolphin": "💡 🐬 Hint: A friendly gray dolphin leaped from the sea. ('ph' in the middle makes the f sound)"
+    },
+    "L3-8. Advanced Prefixes & Suffixes": {
+        "unhappy": "💡 😢 Hint: Feeling sad and totally unhappy today. (Prefix un- means not + happy)",
+        "retell": "💡 🗣️ Hint: Please retell your favorite bedtime story. (Prefix re- means again + tell)",
+        "careful": "💡 ⚠️ Hint: Be very careful when crossing the street. (Suffix -ful means full of + care)",
+        "helpless": "💡 🥺 Hint: The tiny baby kitten seemed helpless. (Suffix -less means without + help)",
+        "disagree": "💡 🙅 Hint: It is okay to politely disagree with an opinion. (Prefix dis- means opposite of + agree)",
+        "preheat": "💡 🍳 Hint: Remember to preheat the oven before baking. (Prefix pre- means before + heat)",
+        "thankful": "💡 🙏 Hint: Feeling thankful for good friends and family. (Suffix -ful means full of + thank)",
+        "fearless": "💡 🦁 Hint: A brave and fearless lion protector. (Suffix -less means without + fear)",
+        "misspell": "💡 ❌ Hint: Try not to misspell your weekly vocabulary words. (Prefix mis- means wrongly + spell)",
+        "playful": "💡 🐶 Hint: A energetic and playful young puppy. (Suffix -ful means full of + play)"
+    },
+    "L3-9. Greek & Latin Roots": {
+        "transport": "💡 🚚 Hint: Trucks transport goods across the highway. (Latin root 'port' means to carry)",
+        "aquarium": "💡 🐠 Hint: Saw sharks swimming in the glass aquarium. (Latin root 'aqua' means water)",
+        "telescope": "💡 🔭 Hint: Used a powerful telescope to view distant planets. (Greek root 'tele' means far off)",
+        "scribble": "💡 🖍️ Hint: Toddlers like to scribble with colored crayons. (Latin root 'scrib' means to write)",
+        "biography": "💡 📚 Hint: Read a historical biography about Abraham Lincoln. (Greek root 'bio' means life + graph means write)",
+        "portable": "💡 💻 Hint: A lightweight portable laptop computer you can carry. (Latin root 'port' means to carry)",
+        "aquatic": "💡 🐬 Hint: Whales and seals are marine aquatic animals. (Latin root 'aqua' means water)",
+        "television": "💡 📺 Hint: Watching a favorite cartoon on the television. (Greek root 'tele' means far + vision)",
+        "describe": "💡 🗣️ Hint: Use vivid adjectives to describe the beautiful sunset. (Latin root 'scrib' means to write/state)",
+        "autograph": "💡 ✍️ Hint: Got a famous singer's signed autograph. (Greek root 'auto' means self + graph means write)"
+    },
+    "L3-10. Mastery Challenge Words": {
+        "knowledge": "💡 🧠 Hint: Reading books builds wisdom and knowledge. (Silent k + ow sound + dge ending!)",
+        "beautiful": "💡 🌸 Hint: A blooming pink rose is exceptionally beautiful. (Starts with beau- + tiful)",
+        "neighbor": "💡 🏡 Hint: Waved hello to the friendly next-door neighbor. ('eigh' makes long A sound + bor)",
+        "laughter": "💡 😂 Hint: The funny comedy show filled the room with loud laughter. ('ough' makes the 'aff' sound here!)",
+        "champagne": "💡 🍾 Hint: Celebrated the wedding with bubbly sparkling champagne. ('ch' makes sh + silent g in -agne)",
+        "schedule": "💡 📅 Hint: Check the daily school class schedule. ('sch' makes sk sound + edule)",
+        "frequently": "💡 🔄 Hint: Remember to wash your hands frequently throughout the day. (qu makes kw sound + ently)",
+        "thorough": "💡 🔍 Hint: The detective did a complete and thorough investigation. ('ough' makes long O sound at end)",
+        "creature": "💡 🐉 Hint: A mythical fire-breathing dragon creature. ('ea' makes long E + ture makes 'chur')",
+        "adventure": "💡 🧭 Hint: Embarked on a thrilling wilderness camping adventure. (ad + ven + ture makes 'chur')"
+    }
+};
+
+// --- GAME STATE VARIABLES ---
+let currentQueue = [];
+let missedWordsQueue = [];
+let currentWordIndex = 0;
+let currentWord = "";
+let currentCategory = "";
+let currentLetterIndex = 0;
+let mistakes = 0;
+let mistakesOnCurrentLetter = 0;
+let wordFailedThisRound = false;
+let totalWordsToSpell = 0;
+let firstTryPerfectCount = 0;
+let isFirstPass = true;
+let masteredCategories = [];
+let isTimerRunning = false;
+let activePlayingSeconds = 0;
+
+// Master Audio Player (Prevents audio buffer delay bugs) 
+const audioPlayer = new Audio();
+
+// --- INITIALIZATION ON LOAD ---
+window.onload = function() {
+    masteredCategories = JSON.parse(localStorage.getItem('spelling_mastered')) || [];
+    activePlayingSeconds = parseInt(localStorage.getItem('spelling_active_seconds')) || 0;
     
-    let totalPlaySeconds = 0;
-    let tvBalance = 0.00;
-    let masteredCategories = [];
-    let activeTimerInterval = null;
-
-    function loadProfileMemory() {
-        totalPlaySeconds = parseInt(localStorage.getItem(`${currentProfile}_play_seconds`)) || 0;
-        tvBalance = parseFloat(localStorage.getItem(`${currentProfile}_tv_balance`)) || 0.00;
-        masteredCategories = JSON.parse(localStorage.getItem(`${currentProfile}_mastered`)) || [];
-        
-        document.getElementById('bankPlayerName').innerText = `${currentProfile}'s`;
-        updatePiggyBankUI();
-        populateCategorySelect();
-    }
-
-    function switchProfile() {
-        currentProfile = document.getElementById('profileSelect').value;
-        localStorage.setItem('spelling_active_profile', currentProfile);
-        loadProfileMemory();
-    }
-
-    function createNewProfile() {
-        let name = prompt("Enter the child's name (e.g., Noah):");
-        if (name && name.trim() !== "") {
-            name = name.trim();
-            if (!profiles.includes(name)) {
-                profiles.push(name);
-                localStorage.setItem('spelling_profiles', JSON.stringify(profiles));
-            }
-            currentProfile = name;
-            localStorage.setItem('spelling_active_profile', currentProfile);
-            populateProfileDropdown();
-            loadProfileMemory();
-        }
-    }
-
-    function populateProfileDropdown() {
-        const pSelect = document.getElementById('profileSelect');
-        if (!pSelect) return;
-        pSelect.innerHTML = '';
-        profiles.forEach(p => {
-            let opt = document.createElement('option');
-            opt.value = p;
-            opt.innerText = p;
-            if (p === currentProfile) opt.selected = true;
-            pSelect.appendChild(opt);
-        });
-    }
-
-    // --- 2. WEB AUDIO SYNTHESIZER ("CHA-CHING" SOUND) ---
-    function playChaChing() {
-        try {
-            let ctx = new (window.AudioContext || window.webkitAudioContext)();
-            let osc1 = ctx.createOscillator();
-            let gain1 = ctx.createGain();
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(987.77, ctx.currentTime);
-            gain1.gain.setValueAtTime(0.2, ctx.currentTime);
-            gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-            osc1.connect(gain1); gain1.connect(ctx.destination);
-            osc1.start(); osc1.stop(ctx.currentTime + 0.15);
-
-            let osc2 = ctx.createOscillator();
-            let gain2 = ctx.createGain();
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(1318.51, ctx.currentTime + 0.1);
-            gain2.gain.setValueAtTime(0.3, ctx.currentTime + 0.1);
-            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
-            osc2.connect(gain2); gain2.connect(ctx.destination);
-            osc2.start(ctx.currentTime + 0.1); osc2.stop(ctx.currentTime + 0.6);
-        } catch(e) { console.log("Audio not allowed yet by browser"); }
-    }
-
-    // --- 3. AUDIT LOG & REWARD LOGIC ---
-    function logGameActivity(actionDetails) {
-        let auditLog = JSON.parse(localStorage.getItem(`${currentProfile}_audit_log`)) || [];
-        let now = new Date();
-        let logEntry = { timestamp: now.toLocaleString(), action: actionDetails };
-        auditLog.push(logEntry);
-        localStorage.setItem(`${currentProfile}_audit_log`, JSON.stringify(auditLog));
-    }
-
-    function startPlayTimer() {
-        if (activeTimerInterval) clearInterval(activeTimerInterval);
-        activeTimerInterval = setInterval(() => {
-            totalPlaySeconds++;
-            localStorage.setItem(`${currentProfile}_play_seconds`, totalPlaySeconds);
-            if (totalPlaySeconds >= 900) {
-                totalPlaySeconds -= 900;
-                localStorage.setItem(`${currentProfile}_play_seconds`, totalPlaySeconds);
-                addReward(0.25, true);
-            }
-            updatePiggyBankUI();
-        }, 1000);
-    }
-
-    function stopPlayTimer() {
-        if (activeTimerInterval) { clearInterval(activeTimerInterval); activeTimerInterval = null; }
-    }
-
-    function addReward(amount, isTimer = false) {
-        tvBalance += amount;
-        localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
-        updatePiggyBankUI();
-        playChaChing();
-        if (isTimer) alert(`🎉 CHA-CHING! ${currentProfile} just earned $${amount.toFixed(2)} for TV Time!`);
-    }
-
-    function redeemTVTime() {
-        if (tvBalance >= 0.25) {
-            tvBalance -= 0.25;
-            localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
-            updatePiggyBankUI();
-            playChaChing();
-            alert(`📺 Yay! Show this screen to Mom/Dad to claim 15 minutes of TV time for ${currentProfile}!`);
+    const select = document.getElementById('categorySelect');
+    select.innerHTML = '';
+    
+    for (let category in spellingDictionary) {
+        let option = document.createElement('option');
+        option.value = category;
+        if (masteredCategories.includes(category)) {
+            option.innerText = category + " ⭐ Mastered";
         } else {
-            alert("Keep practicing! You need at least $0.25 saved up to trade for TV time.");
+            option.innerText = category;
         }
+        select.appendChild(option);
     }
-
-    function updatePiggyBankUI() {
-        let balanceEl = document.getElementById('bankBalance');
-        let minsEl = document.getElementById('tvMinutes');
-        let countdownEl = document.getElementById('nextCoinCountdown');
-        if (balanceEl && minsEl && countdownEl) {
-            let minutesEarned = Math.floor((tvBalance / 0.25) * 15);
-            let minutesLeft = Math.ceil((900 - totalPlaySeconds) / 60);
-            balanceEl.innerText = "$" + tvBalance.toFixed(2);
-            minsEl.innerText = minutesEarned;
-            countdownEl.innerText = `Play for ${minutesLeft} more minute(s) to earn your next $0.25!`;
+    
+    updatePiggyBankUI();
+    
+    // Background timer tick every second during active play 
+    setInterval(() => {
+        if (isTimerRunning) {
+            activePlayingSeconds++;
+            localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+            updatePiggyBankUI();
         }
-    }
+    }, 1000);
+};
 
-    // --- 4. 100-WORD "SUMMER PREP" CURRICULUM (PRE-K TO 5TH GRADE) ---
-    const spellingDictionary = {
-        "1. Pre-K - Starter Words": ["cat", "dog", "sun", "big", "red", "run", "hop", "hat", "box", "sit"],
-        "2. Kindergarten - Short Vowels": ["bag", "bed", "pig", "pot", "bug", "fan", "net", "lip", "top", "cup"],
-        "3. K-1st Transition - Everyday Words": ["like", "make", "play", "jump", "help", "look", "book", "good", "ball", "name"],
-        "4. 1st Grade - Phonics & Blends": ["stop", "frog", "clip", "snap", "sled", "flag", "drum", "swim", "spot", "grin"],
-        "5. 1st-2nd Transition - Long Vowels": ["cake", "bike", "note", "cute", "rain", "boat", "seed", "road", "team", "time"],
-        "6. 2nd Grade - Sight Words": ["always", "around", "because", "before", "better", "bright", "laugh", "person", "really", "thought"],
-        "7. 3rd Grade - Vowel Teams": ["between", "country", "earth", "family", "friend", "heavy", "island", "money", "special", "system"],
-        "8. 3rd-4th Transition - Tricky Spellers": ["answer", "bicycle", "calendar", "enough", "favorite", "grocery", "journey", "library", "minute", "pleasant"],
-        "9. 4th Grade - Double Letters & Endings": ["accident", "business", "different", "excellent", "familiar", "impossible", "necessary", "separate", "together", "yesterday"],
-        "10. 5th Grade - Challenge Words": ["environment", "government", "information", "laboratory", "temperature", "vocabulary", "refrigerator", "independent", "electricity", "opportunity"]
+// --- NAVIGATION & SAFE EXIT ---
+function returnHome() {
+    isTimerRunning = false;
+    document.getElementById('gameArea').style.display = 'none';
+    document.getElementById('reviewArea').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('homeBtn').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+}
+
+function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+// --- PARENT PORTAL MATH GATE ---
+function openMathGate() {
+    let answer = prompt("⚙️ Adult Math Gate: What is 8 + 6?");
+    if (answer !== null && parseInt(answer.trim()) === 14) {
+        renderAuditLog();
+        openModal('parentModal');
+    } else if (answer !== null) {
+        alert("❌ Incorrect math answer. Portal locked.");
+    }
+}
+
+// --- ECONOMY & PIGGY BANK LOGIC ---
+function updatePiggyBankUI() {
+    let earnedCoins = Math.floor(activePlayingSeconds / 900);
+    let bankBalance = earnedCoins * 0.25;
+    let tvMinutes = earnedCoins * 15;
+    
+    let secondsIntoCurrentCoin = activePlayingSeconds % 900;
+    let secondsRemaining = 900 - secondsIntoCurrentCoin;
+    let minsLeft = Math.floor(secondsRemaining / 60);
+    let secsLeft = secondsRemaining % 60;
+    
+    document.getElementById('bankBalance').innerText = bankBalance.toFixed(2);
+    document.getElementById('tvMinutes').innerText = tvMinutes;
+    document.getElementById('timeToNextCoin').innerText = `${minsLeft}:${secsLeft < 10 ? '0' : ''}${secsLeft}`;
+}
+
+function tradeForTV() {
+    let earnedCoins = Math.floor(activePlayingSeconds / 900);
+    if (earnedCoins >= 1) {
+        activePlayingSeconds -= 900;
+        localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+        updatePiggyBankUI();
+        alert("🎉 Enjoy 15 minutes of TV time! You earned it!");
+    } else {
+        alert("⏳ Keep practicing! You need at least $0.25 saved up to trade for TV time.");
+    }
+}
+
+function manualAdjustBank(amount) {
+    let secondsChange = (amount / 0.25) * 900;
+    activePlayingSeconds = Math.max(0, activePlayingSeconds + secondsChange);
+    localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+    updatePiggyBankUI();
+}
+
+function resetBank() {
+    if (confirm("Are you sure you want to reset all TV time savings to $0.00?")) {
+        activePlayingSeconds = 0;
+        localStorage.setItem('spelling_active_seconds', 0);
+        updatePiggyBankUI();
+    }
+}
+
+// --- AUDIT LOG LOGIC ---
+function logGameActivity(categoryPlayed, finalScore) {
+    let logs = JSON.parse(localStorage.getItem('spelling_audit_log')) || [];
+    let newEntry = {
+        timestamp: new Date().toLocaleString(),
+        category: categoryPlayed,
+        score: finalScore
     };
+    logs.unshift(newEntry); // Add newest to top
+    localStorage.setItem('spelling_audit_log', JSON.stringify(logs));
+}
 
-    let currentQueue = [];
-    let missedWordsQueue = [];
-    let currentWordIndex = 0;
-    let currentWord = "";
-    let currentCategory = "";
-    let currentLetterIndex = 0;
-    let mistakes = 0;
-    let mistakesOnCurrentLetter = 0;
-    let wordFailedThisRound = false;
-    let totalWordsToSpell = 0;
-    let firstTryPerfectCount = 0;
-    let isFirstPass = true;
-    let currentAudio = new Audio();
+function renderAuditLog() {
+    let logs = JSON.parse(localStorage.getItem('spelling_audit_log')) || [];
+    let tbody = document.getElementById('auditTableBody');
+    tbody.innerHTML = '';
+    
+    if (logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No gameplay history recorded yet.</td></tr>';
+        return;
+    }
+    
+    logs.forEach(log => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td>${log.timestamp}</td><td>${log.category}</td><td><strong>${log.score}</strong></td>`;
+        tbody.appendChild(tr);
+    });
+}
 
-    // --- 5. INITIALIZATION ---
-    window.onload = function() {
-        populateProfileDropdown();
-        loadProfileMemory();
-    };
+function clearAuditLog() {
+    if (confirm("Are you sure you want to clear the entire gameplay history log?")) {
+        localStorage.removeItem('spelling_audit_log');
+        renderAuditLog();
+    }
+}
 
-    function populateCategorySelect() {
-        const select = document.getElementById('categorySelect');
-        if (!select) return;
-        select.innerHTML = '';
-        for (let category in spellingDictionary) {
-            let option = document.createElement('option');
-            option.value = category;
-            option.innerText = masteredCategories.includes(category) ? category + " ⭐ Mastered" : category;
-            select.appendChild(option);
+// --- GAMEPLAY PHASE ---
+function startGame() {
+    currentCategory = document.getElementById('categorySelect').value;
+    currentQueue = Object.keys(spellingDictionary[currentCategory]);
+    totalWordsToSpell = currentQueue.length;
+    isFirstPass = true;
+    firstTryPerfectCount = 0;
+    
+    document.getElementById('currentCategoryTitle').innerText = currentCategory;
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('homeBtn').style.display = 'block';
+    
+    isTimerRunning = true;
+    startSpellingPhase();
+}
+
+function startSpellingPhase() {
+    document.getElementById('reviewArea').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('gameArea').style.display = 'block';
+    
+    currentWordIndex = 0;
+    if (isFirstPass) missedWordsQueue = [];
+    loadWord();
+}
+
+function loadWord() {
+    currentWord = currentQueue[currentWordIndex].toUpperCase();
+    currentLetterIndex = 0;
+    mistakes = 0;
+    mistakesOnCurrentLetter = 0;
+    wordFailedThisRound = false;
+    
+    document.getElementById('nextBtn').style.display = 'none';
+    document.getElementById('message').innerText = "";
+    document.getElementById('clueDisplay').style.display = "none";
+    document.getElementById('keyboard').style.pointerEvents = "auto";
+    
+    updateLivesDisplay();
+    updateWordDisplay();
+    buildKeyboard();
+    
+    // Load audio safely with .load() to prevent buffer delay bugs 
+    let wordLower = currentWord.toLowerCase();
+    audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
+    audioPlayer.load();
+    playCurrentAudio();
+}
+
+function playCurrentAudio() {
+    audioPlayer.currentTime = 0;
+    audioPlayer.play().catch(e => console.log("Audio block/missing:", e));
+}
+
+function updateWordDisplay() {
+    let displayString = "";
+    for (let i = 0; i < currentWord.length; i++) {
+        if (i < currentLetterIndex) {
+            displayString += (currentWord[i] === " " ? "\xa0\xa0" : currentWord[i]) + " ";
+        } else {
+            displayString += "_ ";
         }
     }
-
-    // --- 6. CORE SPELLING GAME PLAY ---
-    function startGame() {
-        currentCategory = document.getElementById('categorySelect').value;
-        currentQueue = spellingDictionary[currentCategory];
-        totalWordsToSpell = currentQueue.length;
-        isFirstPass = true;
-        firstTryPerfectCount = 0;
-        logGameActivity(`Started list: ${currentCategory}`);
-        startSpellingPhase();
+    document.getElementById('wordDisplay').innerText = displayString.trim();
+    
+    if (currentLetterIndex === currentWord.length) {
+        document.getElementById('message').innerText = wordFailedThisRound ? "💪 Good job correcting it!" : "✅ Perfect!";
+        document.getElementById('keyboard').style.pointerEvents = "none";
+        document.getElementById('nextBtn').style.display = 'block';
     }
+}
 
-    function startSpellingPhase() {
-        document.getElementById('startScreen').style.display = 'none';
-        document.getElementById('reviewArea').style.display = 'none';
-        document.getElementById('gameArea').style.display = 'block';
-        document.getElementById('profileBar').style.display = 'none';
-        currentWordIndex = 0;
-        missedWordsQueue = [];
-        loadWord();
-        startPlayTimer();
-    }
+function updateLivesDisplay() {
+    let livesLeft = 6 - mistakes;
+    let heartString = "";
+    for (let i = 0; i < livesLeft; i++) heartString += "❤️";
+    for (let i = 0; i < mistakes; i++) heartString += "🖤";
+    document.getElementById('livesDisplay').innerText = heartString;
+}
 
-    function loadWord() {
-        currentWord = currentQueue[currentWordIndex].toUpperCase();
-        currentLetterIndex = 0;
-        mistakes = 0;
+function triggerHint() {
+    let clueDiv = document.getElementById('clueDisplay');
+    clueDiv.style.display = "block";
+    let wordLower = currentWord.toLowerCase();
+    let specificHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    clueDiv.innerText = specificHint;
+}
+
+function handleGuess(letter, btnElement) {
+    if (mistakes >= 6 || currentLetterIndex >= currentWord.length) return;
+    
+    if (letter === currentWord[currentLetterIndex]) {
+        currentLetterIndex++;
         mistakesOnCurrentLetter = 0;
-        wordFailedThisRound = false;
-
-        document.getElementById('nextBtn').style.display = 'none';
-        document.getElementById('message').innerText = "";
-        document.getElementById('keyboard').style.pointerEvents = "auto";
-
-        updateLivesDisplay();
+        document.getElementById('clueDisplay').style.display = "none";
         updateWordDisplay();
-        buildKeyboard();
-
-        let wordLower = currentWord.toLowerCase();
-        currentAudio.src = `audio/${currentCategory}/${wordLower}.mp3`;
-        currentAudio.load();
-        document.getElementById('audioBtn').disabled = false;
-        playCurrentAudio();
-    }
-
-    function playCurrentAudio() {
-        if (currentAudio) {
-            currentAudio.currentTime = 0;
-            currentAudio.play().catch(e => console.log("Audio play blocked/missing:", e));
-        }
-    }
-
-    function updateWordDisplay() {
-        let displayString = "";
-        for (let i = 0; i < currentWord.length; i++) {
-            if (i < currentLetterIndex) {
-                displayString += (currentWord[i] === " " ? "\xa0\xa0" : currentWord[i]) + " ";
-            } else {
-                displayString += "_ ";
-            }
-        }
-        document.getElementById('wordDisplay').innerText = displayString.trim();
-
-        if (currentLetterIndex === currentWord.length) {
-            document.getElementById('message').innerText = wordFailedThisRound ? "Good job correcting it!" : "✅ Perfect!";
+    } else {
+        mistakes++;
+        mistakesOnCurrentLetter++;
+        if (!wordFailedThisRound) wordFailedThisRound = true;
+        
+        if (mistakesOnCurrentLetter >= 2) triggerHint();
+        updateLivesDisplay();
+        
+        // Out of Lives Soft-Lock Fix 
+        if (mistakes >= 6) {
+            document.getElementById('message').innerText = `❌ Out of hearts! The word was: ${currentWord}`;
             document.getElementById('keyboard').style.pointerEvents = "none";
             document.getElementById('nextBtn').style.display = 'block';
+            triggerHint();
         }
     }
+}
 
-    function updateLivesDisplay() {
-        let livesLeft = 6 - mistakes;
-        let heartString = "";
-        for (let i = 0; i < livesLeft; i++) heartString += "❤️";
-        for (let i = 0; i < mistakes; i++) heartString += "🖤";
-        document.getElementById('livesDisplay').innerText = heartString;
-    }
+function buildKeyboard() {
+    const keyboardDiv = document.getElementById('keyboard');
+    keyboardDiv.innerHTML = '';
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letter => {
+        let btn = document.createElement('button');
+        btn.className = 'key';
+        btn.innerText = letter;
+        btn.onclick = () => handleGuess(letter, btn);
+        keyboardDiv.appendChild(btn);
+    });
+}
 
-    function handleGuess(letter, btnElement) {
-        if (mistakes >= 6 || currentLetterIndex >= currentWord.length) return;
-
-        if (letter === currentWord[currentLetterIndex]) {
-            currentLetterIndex++;
-            mistakesOnCurrentLetter = 0;
-            updateWordDisplay();
+function processNext() {
+    if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
+    if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
+    
+    currentWordIndex++;
+    if (currentWordIndex >= currentQueue.length) {
+        isFirstPass = false;
+        if (missedWordsQueue.length > 0) {
+            startReviewPhase();
         } else {
-            mistakes++;
-            mistakesOnCurrentLetter++;
-            if (!wordFailedThisRound) wordFailedThisRound = true;
-            updateLivesDisplay();
+            showEndScreen();
+        }
+    } else {
+        loadWord();
+    }
+}
 
-            if (mistakes >= 6) {
-                document.getElementById('message').innerText = "❌ Out of tries! Let's review this word later.";
-                document.getElementById('keyboard').style.pointerEvents = "none";
-                document.getElementById('nextBtn').style.display = 'block';
-            }
+// --- VISUAL DECOY REVIEW PHASE ---
+let reviewIndex = 0;
+function startReviewPhase() {
+    document.getElementById('gameArea').style.display = 'none';
+    document.getElementById('reviewArea').style.display = 'block';
+    document.getElementById('reviewInstructions').innerText = `You missed ${missedWordsQueue.length} word(s). Let's train your eyes before re-spelling them!`;
+    reviewIndex = 0;
+    loadReviewWord();
+}
+
+function loadReviewWord() {
+    document.getElementById('nextReviewBtn').style.display = 'none';
+    let currentReview = missedWordsQueue[reviewIndex];
+    currentWord = currentReview.word.toUpperCase();
+    
+    // Generate 3 procedural decoy misspellings 
+    let options = new Set([currentWord]);
+    let vowels = "AEIOU".split("");
+    let expectedLetter = currentWord[0];
+    let pool = vowels.includes(expectedLetter) ? vowels : "BCDFGHJKLMNPQRSTVWXYZ".split("");
+    pool = pool.sort(() => 0.5 - Math.random());
+    
+    for (let char of pool) {
+        if (options.size >= 4) break;
+        if (char !== expectedLetter) {
+            options.add(char + currentWord.substring(1));
         }
     }
+    
+    let optionArray = Array.from(options).sort(() => 0.5 - Math.random());
+    const optionsDiv = document.getElementById('reviewOptions');
+    optionsDiv.innerHTML = '';
+    
+    optionArray.forEach(opt => {
+        let btn = document.createElement('button');
+        btn.className = 'review-btn';
+        btn.innerText = opt;
+        btn.onclick = () => checkReviewAnswer(opt, currentWord, btn);
+        optionsDiv.appendChild(btn);
+    });
+    
+    let wordLower = currentWord.toLowerCase();
+    audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
+    audioPlayer.load();
+    playCurrentAudio();
+}
 
-    function buildKeyboard() {
-        const keyboardDiv = document.getElementById('keyboard');
-        keyboardDiv.innerHTML = '';
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letter => {
-            let btn = document.createElement('button');
-            btn.className = 'key';
-            btn.innerText = letter;
-            btn.onclick = () => handleGuess(letter, btn);
-            keyboardDiv.appendChild(btn);
-        });
+function checkReviewAnswer(selected, correct, btnElement) {
+    if (selected === correct) {
+        btnElement.classList.add('correct-choice');
+        let allBtns = document.querySelectorAll('.review-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+        
+        let nextBtn = document.getElementById('nextReviewBtn');
+        nextBtn.style.display = 'block';
+        nextBtn.innerText = (reviewIndex === missedWordsQueue.length - 1) ? "Re-Spell Missed Words ➡️" : "Next Word ➡️";
+    } else {
+        // Enforce correct click before continuing 
+        btnElement.classList.add('wrong-choice');
+        btnElement.style.pointerEvents = 'none';
     }
+}
 
-    function processNext() {
-        if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
-        if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
-
-        currentWordIndex++;
-        if (currentWordIndex >= currentQueue.length) {
-            isFirstPass = false;
-            if (missedWordsQueue.length > 0) {
-                startReviewPhase();
-            } else {
-                showEndScreen();
-            }
-        } else {
-            loadWord();
-        }
-    }
-
-    // --- 7. MULTIPLE CHOICE REVIEW PHASE ---
-    let reviewIndex = 0;
-
-    function startReviewPhase() {
-        document.getElementById('gameArea').style.display = 'none';
-        document.getElementById('reviewArea').style.display = 'block';
-        document.getElementById('reviewInstructions').innerText = `You missed ${missedWordsQueue.length} words. Let's review them before spelling them again!`;
-        reviewIndex = 0;
+function nextReview() {
+    reviewIndex++;
+    if (reviewIndex >= missedWordsQueue.length) {
+        currentQueue = missedWordsQueue.map(item => item.word);
+        missedWordsQueue = [];
+        startSpellingPhase();
+    } else {
         loadReviewWord();
     }
+}
 
-    function loadReviewWord() {
-        document.getElementById('nextReviewBtn').style.display = 'none';
-        let currentReview = missedWordsQueue[reviewIndex];
-        currentWord = currentReview.word.toUpperCase();
-
-        let options = new Set([currentWord]);
-        let vowels = "AEIOU".split("");
-        let expectedLetter = currentWord[0];
-        let pool = vowels.includes(expectedLetter) ? vowels : "BCDFGHJKLMNPQRSTVWXYZ".split("");
-        pool = pool.sort(() => 0.5 - Math.random());
-
-        for (let char of pool) {
-            if (options.size >= 4) break;
-            if (char !== expectedLetter) options.add(char + currentWord.substring(1));
-        }
-
-        let optionArray = Array.from(options).sort(() => 0.5 - Math.random());
-        const optionsDiv = document.getElementById('reviewOptions');
-        optionsDiv.innerHTML = '';
-
-        optionArray.forEach(opt => {
-            let btn = document.createElement('button');
-            btn.className = 'review-btn';
-            btn.innerText = opt;
-            btn.onclick = () => checkReviewAnswer(opt, currentWord, btn);
-            optionsDiv.appendChild(btn);
-        });
-
-        let wordLower = currentWord.toLowerCase();
-        currentAudio.src = `audio/${currentCategory}/${wordLower}.mp3`;
-        currentAudio.load();
-        playCurrentAudio();
-    }
-
-    function checkReviewAnswer(selected, correct, btnElement) {
-        let allBtns = document.querySelectorAll('.review-btn');
-        if (selected === correct) {
-            btnElement.classList.add('correct-choice');
-            allBtns.forEach(b => b.style.pointerEvents = 'none');
-
-            let nextBtn = document.getElementById('nextReviewBtn');
-            nextBtn.style.display = 'block';
-            nextBtn.innerText = (reviewIndex === missedWordsQueue.length - 1) ? "Re-Spell Missed Words ➡️" : "Next Word ➡️";
-        } else {
-            btnElement.classList.add('wrong-choice');
-            btnElement.style.pointerEvents = 'none';
-        }
-    }
-
-    function nextReview() {
-        reviewIndex++;
-        if (reviewIndex >= missedWordsQueue.length) {
-            currentQueue = missedWordsQueue.map(item => item.word);
-            startSpellingPhase();
-        } else {
-            loadReviewWord();
-        }
-    }
-
-    // --- 8. END SCREEN & CONFETTI CELEBRATION ---
-    function showEndScreen() {
-        stopPlayTimer();
-        document.getElementById('gameArea').style.display = 'none';
-        document.getElementById('reviewArea').style.display = 'none';
-        document.getElementById('endScreen').style.display = 'block';
-        document.getElementById('profileBar').style.display = 'none';
-
-        document.getElementById('reportScore').innerText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
-
-        if (firstTryPerfectCount === totalWordsToSpell) {
-            if (!masteredCategories.includes(currentCategory)) {
-                masteredCategories.push(currentCategory);
-                localStorage.setItem(`${currentProfile}_mastered`, JSON.stringify(masteredCategories));
-                
-                document.getElementById('reportMessage').innerText = "🌟 FLAWLESS! You earned a Mastery Star AND a $1.00 TV Time Bonus!";
-                addReward(1.00);
-                
-                if (typeof confetti === 'function') {
-                    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-                }
-            } else {
-                document.getElementById('reportMessage').innerText = "🌟 Flawless score! (You already claimed the $1.00 mastery reward for this list, but amazing practice!)";
-            }
-        } else {
-            document.getElementById('reportMessage').innerText = "💪 Great effort! Keep practicing until you get a perfect score on your first try to earn a $1.00 bonus!";
-        }
-
-        logGameActivity(`Completed list: ${currentCategory} | Score: ${firstTryPerfectCount}/${totalWordsToSpell}`);
-        updatePiggyBankUI();
-    }
-
-    // --- 9. NAVIGATION & ADMIN FUNCTIONS ---
-    function openUpgradeScreen() {
-        document.getElementById('startScreen').style.display = 'none';
-        document.getElementById('adminScreen').style.display = 'none';
-        document.getElementById('profileBar').style.display = 'none';
-        document.getElementById('upgradeScreen').style.display = 'block';
-    }
-
-    function openAdminDashboard() {
-        let pin = prompt("Please enter the Parent Admin PIN (Default: 1234):");
-        if (pin === ADMIN_PIN) {
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('profileBar').style.display = 'none';
-            document.getElementById('adminScreen').style.display = 'block';
-            updateAdminDashboardUI();
-        } else if (pin !== null) {
-            alert("❌ Incorrect PIN. Access denied.");
-        }
-    }
-
-    function updateAdminDashboardUI() {
-        document.getElementById('adminPlayerName').innerText = currentProfile;
-        document.getElementById('adminBalance').innerText = "$" + tvBalance.toFixed(2);
-    }
-
-    function adminAdjustBalance(amount) {
-        tvBalance += amount;
-        if (tvBalance < 0) tvBalance = 0;
-        localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
-        updatePiggyBankUI();
-        updateAdminDashboardUI();
-        playChaChing();
-    }
-
-    function adminResetBalance() {
-        if (confirm(`Are you sure you want to reset ${currentProfile}'s saved TV Time balance to $0.00?`)) {
-            tvBalance = 0.00;
-            localStorage.setItem(`${currentProfile}_tv_balance`, tvBalance.toFixed(2));
+// --- END SCREEN & MASTERY JACKPOT ---
+function showEndScreen() {
+    isTimerRunning = false;
+    document.getElementById('gameArea').style.display = 'none';
+    document.getElementById('reviewArea').style.display = 'none';
+    document.getElementById('endScreen').style.display = 'block';
+    
+    let scoreText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
+    document.getElementById('reportScore').innerText = scoreText;
+    
+    // Log timestamped session to localStorage for Parent Audit 
+    logGameActivity(currentCategory, scoreText);
+    
+    if (firstTryPerfectCount === totalWordsToSpell) {
+        document.getElementById('reportMessage').innerText = "🌟 Flawless! You earned a Mastery Star and a $1.00 TV Time Jackpot!";
+        
+        // Award $1.00 Mastery Bonus if category is newly mastered 
+        if (!masteredCategories.includes(currentCategory)) {
+            masteredCategories.push(currentCategory);
+            localStorage.setItem('spelling_mastered', JSON.stringify(masteredCategories));
+            
+            // Add 3600 seconds ($1.00 / 60 mins TV time) to Piggy Bank 
+            activePlayingSeconds += 3600;
+            localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
             updatePiggyBankUI();
-            updateAdminDashboardUI();
         }
+    } else {
+        document.getElementById('reportMessage').innerText = "💪 Great effort! Keep practicing to get 100% on your first try for the $1.00 Jackpot!";
     }
-
-    function printReportCard() {
-        document.getElementById('printStudentName').innerText = currentProfile;
-        document.getElementById('printDate').innerText = new Date().toLocaleDateString();
-        document.getElementById('printBalance').innerText = "$" + tvBalance.toFixed(2);
-        document.getElementById('printMinutes').innerText = Math.floor((tvBalance / 0.25) * 15);
-        
-        const printMastered = document.getElementById('printMasteredList');
-        printMastered.innerHTML = '';
-        if (masteredCategories.length === 0) {
-            printMastered.innerHTML = '<li><em>No word lists mastered yet. Keep practicing!</em></li>';
-        } else {
-            masteredCategories.forEach(cat => {
-                let li = document.createElement('li');
-                li.innerHTML = `<strong>⭐ ${cat}</strong> (Flawless First-Try Mastery)`;
-                printMastered.appendChild(li);
-            });
-        }
-
-        const logBody = document.getElementById('printLogBody');
-        logBody.innerHTML = '';
-        let auditLog = JSON.parse(localStorage.getItem(`${currentProfile}_audit_log`)) || [];
-        let recentLogs = auditLog.slice(-15).reverse();
-        
-        if (recentLogs.length === 0) {
-            logBody.innerHTML = '<tr><td colspan="2"><em>No recent practice sessions recorded.</em></td></tr>';
-        } else {
-            recentLogs.forEach(entry => {
-                let tr = document.createElement('tr');
-                tr.innerHTML = `<td>${entry.timestamp}</td><td>${entry.action}</td>`;
-                logBody.appendChild(tr);
-            });
-        }
-
-        window.print();
-    }
+}
 </script>
-
 </body>
 </html>
