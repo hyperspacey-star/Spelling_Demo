@@ -34,7 +34,6 @@
             box-sizing: border-box;
             position: relative;
         }
-        /* Universal Back Home Button */
         .home-btn {
             position: absolute;
             top: 15px;
@@ -86,6 +85,8 @@
         .btn-success { background: var(--success); }
         .btn-success:hover { background: #27AD60; }
         .btn-warning { background: var(--warning); }
+        .btn-info { background: #17a2b8; }
+        .btn-info:hover { background: #138496; }
         .btn-danger { background: var(--danger); }
         
         select {
@@ -109,15 +110,16 @@
         }
         .hint-box {
             background: #E8F4F8;
-            border-left: 5px solid var(--primary);
-            padding: 12px;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
             margin: 15px 0;
             font-size: 16px;
             display: none;
-            border-radius: 4px;
-            line-height: 1.4;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: #0c5460;
+            text-align: left;
         }
-        /* Mobile Responsive Keyboard */
         .keyboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
@@ -160,7 +162,6 @@
         .correct-choice { background: var(--success) !important; color: white; border-color: #27AD60; }
         .wrong-choice { background: var(--danger) !important; color: white; border-color: #C0392B; opacity: 0.6; }
         
-        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -175,7 +176,7 @@
             background: white;
             padding: 25px;
             border-radius: 15px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
@@ -193,7 +194,14 @@
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         
-        /* Mobile Specific Adjustments */
+        .ad-box {
+            background: #f0f7ff;
+            border: 2px dashed var(--primary);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
         @media (max-width: 600px) {
             .container { padding: 15px; padding-top: 50px; }
             .word-display { font-size: 24px; letter-spacing: 3px; }
@@ -231,7 +239,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story</button>
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Customization</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
     </div>
@@ -240,8 +248,9 @@
         <h2 id="currentCategoryTitle">Category</h2>
         <div class="lives" id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
         
-        <div style="text-align: center;">
+        <div style="text-align: center; margin-bottom: 10px;">
             <button class="btn" id="audioBtn" onclick="playCurrentAudio()">🔊 Hear Word</button>
+            <button class="btn btn-info" id="clueBtn" onclick="triggerHint()">💡 Show Clue</button>
         </div>
         
         <div class="hint-box" id="clueDisplay"></div>
@@ -281,9 +290,22 @@
         <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
         <h2>🌟 Our Origin Story</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-        <p><strong>Why I built this game:</strong> Like many parents, our evening spelling practice used to be filled with tears, frustration, and rote memorization that simply didn't stick. Traditional drills felt like a chore for both me and my child.</p>
+        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
         <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight from a daily battle into a rewarding, self-motivated success!</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
+        
+        <div class="ad-box">
+            <h3 style="color: var(--primary); margin-top: 0; font-size: 18px;">🚀 Want This Customized For Your Child?</h3>
+            <p style="font-size: 14px; margin-bottom: 10px;">Every school, teacher, and grade level uses different word lists. Some kids need foundational phonics, while others need advanced homographs specific to their curriculum.</p>
+            <p style="font-size: 14px; margin-bottom: 10px;"><strong>Through my exclusive paid customization service, I can tailor this entire game directly to your child:</strong></p>
+            <ul style="font-size: 14px; padding-left: 20px; margin-bottom: 10px;">
+                <li><strong>Custom Game Environment:</strong> I adjust the interface, hint complexity, and skill level to best fit your child's age and learning needs.</li>
+                <li><strong>Weekly School List Updates:</strong> Send me your child's weekly spelling lists from school, and I will professionally load and update them into the app with custom phonogram hints and crystal-clear audio!</li>
+                <li><strong>Paid Stress-Free Tutoring:</strong> Let me handle the curriculum alignment so you can simply enjoy your child's pain-free spelling success!</li>
+            </ul>
+            <p style="text-align: center; font-weight: bold; color: #d35400; font-size: 15px; margin-bottom: 0;">Ask me today about enrolling your child in our paid weekly customization program!</p>
+        </div>
+
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" onclick="closeModal('originModal')">Close</button>
         </div>
@@ -327,7 +349,7 @@
 </div>
 
 <script>
-// --- 300-WORD SUMMER DEMO DICTIONARY (3 Skill Levels, 30 Lists, 10 Words Each) ---
+// --- 300-WORD SUMMER DEMO DICTIONARY WITH FULL 3-LAYER HINTS ---
 const spellingDictionary = {
     // LEVEL 1: Foundational (1st - 2nd Grade)
     "L1-1. Short Vowel Animals": {
@@ -599,7 +621,7 @@ const spellingDictionary = {
         "wrist": "💡 ⌚ Hint: Wore a ticking watch around his wrist. ('wr' phonogram: silent W before R)"
     },
     "L3-3. TI, SI, & CI Endings": {
-        "nation": "💡 flag Hint: Canada is a northern nation. ('ti' phonogram makes the sh sound before -on)",
+        "nation": "💡 🇨🇦 Hint: Canada is a northern nation. ('ti' phonogram makes the sh sound before -on)",
         "session": "💡 🕒 Hint: We attended a one-hour training session. ('si' phonogram makes the sh sound here!)",
         "vision": "💡 👀 Hint: Eyeglasses give you clear 20/20 vision. ('si' phonogram makes the zh sound here!)",
         "facial": "💡 😊 Hint: A soothing spa facial treatment. ('ci' phonogram makes the sh sound before -al)",
@@ -713,7 +735,7 @@ let masteredCategories = [];
 let isTimerRunning = false;
 let activePlayingSeconds = 0;
 
-// Master Audio Player (Prevents audio buffer delay bugs) 
+// Master Audio Player
 const audioPlayer = new Audio();
 
 // --- INITIALIZATION ON LOAD ---
@@ -737,7 +759,6 @@ window.onload = function() {
     
     updatePiggyBankUI();
     
-    // Background timer tick every second during active play 
     setInterval(() => {
         if (isTimerRunning) {
             activePlayingSeconds++;
@@ -822,7 +843,7 @@ function logGameActivity(categoryPlayed, finalScore) {
         category: categoryPlayed,
         score: finalScore
     };
-    logs.unshift(newEntry); // Add newest to top
+    logs.unshift(newEntry);
     localStorage.setItem('spelling_audit_log', JSON.stringify(logs));
 }
 
@@ -892,7 +913,7 @@ function loadWord() {
     updateWordDisplay();
     buildKeyboard();
     
-    // Load audio safely with .load() to prevent buffer delay bugs 
+    // Safely fetch audio from subfolders with URL encoding
     let wordLower = currentWord.toLowerCase();
     audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
     audioPlayer.load();
@@ -930,6 +951,7 @@ function updateLivesDisplay() {
     document.getElementById('livesDisplay').innerText = heartString;
 }
 
+// --- INSTANT & AUTOMATIC HINT SYSTEM ---
 function triggerHint() {
     let clueDiv = document.getElementById('clueDisplay');
     clueDiv.style.display = "block";
@@ -944,17 +966,17 @@ function handleGuess(letter, btnElement) {
     if (letter === currentWord[currentLetterIndex]) {
         currentLetterIndex++;
         mistakesOnCurrentLetter = 0;
-        document.getElementById('clueDisplay').style.display = "none";
         updateWordDisplay();
     } else {
         mistakes++;
         mistakesOnCurrentLetter++;
         if (!wordFailedThisRound) wordFailedThisRound = true;
         
+        // Auto-show clue on the 2nd mistake on the same letter
         if (mistakesOnCurrentLetter >= 2) triggerHint();
         updateLivesDisplay();
         
-        // Out of Lives Soft-Lock Fix 
+        // Prevent soft-lock if out of hearts
         if (mistakes >= 6) {
             document.getElementById('message').innerText = `❌ Out of hearts! The word was: ${currentWord}`;
             document.getElementById('keyboard').style.pointerEvents = "none";
@@ -1008,7 +1030,6 @@ function loadReviewWord() {
     let currentReview = missedWordsQueue[reviewIndex];
     currentWord = currentReview.word.toUpperCase();
     
-    // Generate 3 procedural decoy misspellings 
     let options = new Set([currentWord]);
     let vowels = "AEIOU".split("");
     let expectedLetter = currentWord[0];
@@ -1050,7 +1071,6 @@ function checkReviewAnswer(selected, correct, btnElement) {
         nextBtn.style.display = 'block';
         nextBtn.innerText = (reviewIndex === missedWordsQueue.length - 1) ? "Re-Spell Missed Words ➡️" : "Next Word ➡️";
     } else {
-        // Enforce correct click before continuing 
         btnElement.classList.add('wrong-choice');
         btnElement.style.pointerEvents = 'none';
     }
@@ -1077,18 +1097,15 @@ function showEndScreen() {
     let scoreText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
     document.getElementById('reportScore').innerText = scoreText;
     
-    // Log timestamped session to localStorage for Parent Audit 
     logGameActivity(currentCategory, scoreText);
     
     if (firstTryPerfectCount === totalWordsToSpell) {
         document.getElementById('reportMessage').innerText = "🌟 Flawless! You earned a Mastery Star and a $1.00 TV Time Jackpot!";
         
-        // Award $1.00 Mastery Bonus if category is newly mastered 
         if (!masteredCategories.includes(currentCategory)) {
             masteredCategories.push(currentCategory);
             localStorage.setItem('spelling_mastered', JSON.stringify(masteredCategories));
             
-            // Add 3600 seconds ($1.00 / 60 mins TV time) to Piggy Bank 
             activePlayingSeconds += 3600;
             localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
             updatePiggyBankUI();
