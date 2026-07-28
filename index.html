@@ -318,17 +318,17 @@
     <div class="piggy-bank">
         <div class="piggy-stats">
             <span>🐷 Saved: $<span id="bankBalance">0.00</span></span>
-            <span>📺 Available TV Time: <span id="tvMinutes">0</span> mins</span>
-            <span>⏳ Next $0.25 in: <span id="timeToNextCoin">15:00</span></span>
+            <span>🎁 Available <span class="reward-label-text">TV Time</span>: <span id="tvMinutes">0</span> mins</span>
+            <span>⏳ Next Coin in: <span id="timeToNextCoin">15:00</span></span>
         </div>
         <div style="margin-top: 10px;">
-            <button class="btn btn-success" style="padding: 6px 12px; font-size: 14px;" onclick="tradeForTV()">Trade $0.25 for 15 Mins TV</button>
+            <button class="btn btn-success" id="tradeBtn" style="padding: 6px 12px; font-size: 14px;" onclick="tradeForTV()">Trade $0.25 for 15 Mins TV</button>
         </div>
     </div>
 
     <div id="startScreen">
         <h1>🌟 Spelling Mastery Game 🌟</h1>
-        <p style="text-align: center; color: #666;">Select your curriculum list and start earning TV time!</p>
+        <p style="text-align: center; color: #666;">Select your curriculum list and start earning rewards!</p>
         
         <select id="categorySelect"></select>
         
@@ -337,7 +337,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Pricing</button>
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Custom Pricing</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
     </div>
@@ -390,7 +390,7 @@
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
         <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
         <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game Piggy Bank Economy</strong>. By converting active effort and list mastery into tangible rewards, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
         
         <div class="ad-box">
             <h3 style="color: var(--primary); margin-top: 0; font-size: 18px; text-align: center;">🚀 Want This Customized For Your Child?</h3>
@@ -405,7 +405,7 @@
                             <li><strong>Weekly School List Updates:</strong> We personally load your child's exact school words!</li>
                             <li>Custom 3-layer phonogram hints & crystal-clear AI audio</li>
                             <li><strong>Ultimate Parental Control:</strong> Includes personalized audit log reviews!</li>
-                            <li>Custom TV-time goal setting tailored to your household rules</li>
+                            <li>Custom reward rules & goal setting tailored to your household</li>
                         </ul>
                     </div>
                     <div>
@@ -424,7 +424,7 @@
                             <li><strong>4 Full Weeks of School List Updates</strong> loaded for you</li>
                             <li>Custom 3-layer phonogram hints & AI audio</li>
                             <li><strong>Ultimate Parental Control:</strong> Weekly personalized audit log checkups!</li>
-                            <li>Custom TV-time goal setting & ongoing parent coaching tips</li>
+                            <li>Custom reward rules & ongoing parent coaching tips</li>
                         </ul>
                     </div>
                     <div>
@@ -433,7 +433,18 @@
                     </div>
                 </div>
             </div>
+
+            <div style="text-align: center; margin-top: 20px; padding: 15px; background: #EBF5FF; border: 2px dashed var(--venmo); border-radius: 12px;">
+                <h4 style="margin: 0 0 10px 0; color: var(--venmo); font-size: 16px;">📲 Scan QR Code to Pay Instantly via Venmo</h4>
+                <img src="image_7a27d4.png" alt="Venmo QR Code @WaltRoSpelling" style="max-width: 150px; width: 100%; height: auto; border-radius: 10px; border: 2px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: white; padding: 5px;">
+                <p style="margin: 8px 0 0 0; font-size: 14px; font-weight: bold; color: var(--dark);">Venmo Handle: <span style="color: var(--venmo);">@WaltRoSpelling</span></p>
+            </div>
             
+            <div style="background: #E8F8F5; border: 2px solid #27AE60; padding: 15px; border-radius: 12px; margin-top: 20px; text-align: center; color: #145A32;">
+                <h4 style="margin: 0 0 5px 0; font-size: 16px;">➕ Interested in a Custom Math Facts Game or Other Subject?</h4>
+                <p style="margin: 0; font-size: 13px;">If you love this pain-free mastery loop and want a personalized game built for <strong>Math Facts (Multiplication/Division)</strong>, Reading Comprehension, or any other school subject, feel free to email me at <strong><a href="mailto:waltrospelling@gmail.com?subject=Custom%20Math%20Facts%20Game%20Inquiry" style="color: #27AE60; text-decoration: underline;">waltrospelling@gmail.com</a></strong>! I can create a customized game to meet your child's exact needs!</p>
+            </div>
+
             <div style="background: #FFF9E6; border: 1px solid #FFE082; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; text-align: center; color: #795548;">
                 <strong>📬 How It Works:</strong> Send your child's spelling lists or requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong> or pay instantly via Venmo (<strong>@WaltRoSpelling</strong>). Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong>
             </div>
@@ -450,14 +461,34 @@
     <div class="modal-content" style="max-width: 700px;">
         <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
         <h2>⚙️ Parent Portal: Audit & Economy Controls</h2>
-        <p style="color: #666; font-size: 14px;">Manage TV-time savings and review active gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Player 1</strong>.</p>
+        <p style="color: #666; font-size: 14px;">Manage reward rules, exchange rates, and gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Player 1</strong>.</p>
         
+        <div style="background: #FFFDF5; border: 2px solid #FFEEBA; padding: 15px; border-radius: 10px; margin: 15px 0;">
+            <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #856404;">🎮 Set Custom Reward Rate & Label</h3>
+            <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Don't want to use $0.25 for 15 mins of TV? Customize your family's exact exchange rate and reward label below!</p>
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: bold;">
+                <span>Trade $</span>
+                <input type="number" id="cfgCoinVal" step="0.05" min="0.05" value="0.25" style="width: 65px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
+                <span>for</span>
+                <input type="number" id="cfgMinutesVal" step="1" min="1" value="15" style="width: 60px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
+                <span>Mins of</span>
+                <input type="text" id="cfgLabelVal" value="TV Time" placeholder="e.g. iPad / Roblox" style="width: 110px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
+                <button class="btn btn-warning" style="padding: 6px 12px; font-size: 13px; margin: 0;" onclick="saveCustomEconomy()">Save Rule</button>
+            </div>
+        </div>
+
         <div style="background: #F8F9FA; padding: 15px; border-radius: 10px; margin: 15px 0;">
-            <h3 style="margin-bottom: 10px; font-size: 16px;">💰 Economy Controls</h3>
-            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
-                <button class="btn btn-success" onclick="manualAdjustBank(0.25)">+ Add $0.25 (+15 Mins)</button>
-                <button class="btn btn-warning" onclick="manualAdjustBank(-0.25)">- Deduct $0.25 (-15 Mins)</button>
+            <h3 style="margin-bottom: 10px; font-size: 16px;">💰 Quick Balance Adjustments</h3>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                <button class="btn btn-success" id="addBtnLabel" onclick="manualAdjustBank(1)">+ Add Reward (+15 Mins)</button>
+                <button class="btn btn-warning" id="subBtnLabel" onclick="manualAdjustBank(-1)">- Deduct Reward (-15 Mins)</button>
                 <button class="btn btn-danger" onclick="resetBank()">Reset Balance</button>
+            </div>
+
+            <div style="border-top: 1px solid #ddd; padding-top: 12px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: bold; font-size: 14px; color: var(--dark);">✏️ Set Exact Balance: $</span>
+                <input type="number" id="exactDollarInput" step="0.25" min="0" placeholder="0.00" style="width: 85px; padding: 6px; border-radius: 6px; border: 2px solid #ccc; text-align: center; font-weight: bold; font-size: 15px;">
+                <button class="btn btn-info" style="padding: 6px 14px; font-size: 14px; margin: 0;" onclick="applyExactBalance()">Update Balance</button>
             </div>
         </div>
 
@@ -853,7 +884,7 @@ const spellingDictionary = {
     }
 };
 
-// --- GAME STATE VARIABLES ---
+// --- GAME STATE & ECONOMY VARIABLES ---
 let currentUser = "Player 1";
 let currentQueue = [];
 let missedWordsQueue = [];
@@ -871,10 +902,15 @@ let masteredCategories = [];
 let isTimerRunning = false;
 let activePlayingSeconds = 0;
 
+// Configurable Economy Defaults ($0.25 for 15 mins of TV Time)
+let econCoinVal = 0.25;
+let econMinutesVal = 15;
+let econLabel = "TV Time";
+
 // Master Audio Player
 const audioPlayer = new Audio();
 
-// --- MULTI-USER MANAGEMENT ---
+// --- MULTI-USER & ECONOMY MANAGEMENT ---
 function getStorageKey(key) {
     return `${key}_${currentUser.replace(/\s+/g, '_')}`;
 }
@@ -906,6 +942,18 @@ function loadUserData() {
     masteredCategories = JSON.parse(localStorage.getItem(getStorageKey('spelling_mastered'))) || [];
     activePlayingSeconds = parseInt(localStorage.getItem(getStorageKey('spelling_active_seconds'))) || 0;
     
+    // Load custom economy rules if previously set by parents
+    econCoinVal = parseFloat(localStorage.getItem('spelling_cfg_coin')) || 0.25;
+    econMinutesVal = parseInt(localStorage.getItem('spelling_cfg_mins')) || 15;
+    econLabel = localStorage.getItem('spelling_cfg_label') || "TV Time";
+    
+    let cfgCoinEl = document.getElementById('cfgCoinVal');
+    let cfgMinsEl = document.getElementById('cfgMinutesVal');
+    let cfgLblEl = document.getElementById('cfgLabelVal');
+    if (cfgCoinEl) cfgCoinEl.value = econCoinVal;
+    if (cfgMinsEl) cfgMinsEl.value = econMinutesVal;
+    if (cfgLblEl) cfgLblEl.value = econLabel;
+    
     const select = document.getElementById('categorySelect');
     select.innerHTML = '';
     
@@ -920,6 +968,25 @@ function loadUserData() {
         select.appendChild(option);
     }
     updatePiggyBankUI();
+}
+
+function saveCustomEconomy() {
+    let cVal = parseFloat(document.getElementById('cfgCoinVal').value);
+    let mVal = parseInt(document.getElementById('cfgMinutesVal').value);
+    let lVal = document.getElementById('cfgLabelVal').value.trim();
+    
+    if (cVal > 0 && mVal > 0 && lVal !== "") {
+        econCoinVal = cVal;
+        econMinutesVal = mVal;
+        econLabel = lVal;
+        localStorage.setItem('spelling_cfg_coin', econCoinVal);
+        localStorage.setItem('spelling_cfg_mins', econMinutesVal);
+        localStorage.setItem('spelling_cfg_label', econLabel);
+        updatePiggyBankUI();
+        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of ${econLabel}!`);
+    } else {
+        alert("Please enter valid amounts and a reward name.");
+    }
 }
 
 // --- INITIALIZATION ON LOAD ---
@@ -954,6 +1021,9 @@ function openMathGate() {
     let answer = prompt("⚙️ Adult Math Gate: What is 8 + 6?");
     if (answer !== null && parseInt(answer.trim()) === 14) {
         renderAuditLog();
+        let currentDollars = (Math.floor(activePlayingSeconds / 900) * econCoinVal).toFixed(2);
+        let exactEl = document.getElementById('exactDollarInput');
+        if (exactEl) exactEl.value = currentDollars;
         openModal('parentModal');
     } else if (answer !== null) {
         alert("❌ Incorrect math answer. Portal locked.");
@@ -963,8 +1033,8 @@ function openMathGate() {
 // --- ECONOMY & PIGGY BANK LOGIC ---
 function updatePiggyBankUI() {
     let earnedCoins = Math.floor(activePlayingSeconds / 900);
-    let bankBalance = earnedCoins * 0.25;
-    let tvMinutes = earnedCoins * 15;
+    let bankBalance = earnedCoins * econCoinVal;
+    let totalMinutes = earnedCoins * econMinutesVal;
     
     let secondsIntoCurrentCoin = activePlayingSeconds % 900;
     let secondsRemaining = 900 - secondsIntoCurrentCoin;
@@ -972,8 +1042,21 @@ function updatePiggyBankUI() {
     let secsLeft = secondsRemaining % 60;
     
     document.getElementById('bankBalance').innerText = bankBalance.toFixed(2);
-    document.getElementById('tvMinutes').innerText = tvMinutes;
+    document.getElementById('tvMinutes').innerText = totalMinutes;
     document.getElementById('timeToNextCoin').innerText = `${minsLeft}:${secsLeft < 10 ? '0' : ''}${secsLeft}`;
+    
+    // Update labels dynamically across UI
+    document.querySelectorAll('.reward-label-text').forEach(el => el.innerText = econLabel);
+    let tradeBtn = document.getElementById('tradeBtn');
+    if (tradeBtn) tradeBtn.innerText = `Trade $${econCoinVal.toFixed(2)} for ${econMinutesVal} Mins ${econLabel}`;
+    
+    let addBtn = document.getElementById('addBtnLabel');
+    let subBtn = document.getElementById('subBtnLabel');
+    if (addBtn) addBtn.innerText = `+ Add Reward (+${econMinutesVal} Mins)`;
+    if (subBtn) subBtn.innerText = `- Deduct Reward (-${econMinutesVal} Mins)`;
+    
+    let exactInput = document.getElementById('exactDollarInput');
+    if (exactInput) exactInput.value = bankBalance.toFixed(2);
 }
 
 function tradeForTV() {
@@ -982,24 +1065,38 @@ function tradeForTV() {
         activePlayingSeconds -= 900;
         localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert(`🎉 Enjoy 15 minutes of TV time for ${currentUser}! You earned it!`);
+        alert(`🎉 Enjoy ${econMinutesVal} minutes of ${econLabel} for ${currentUser}! You earned it!`);
     } else {
-        alert("⏳ Keep practicing! You need at least $0.25 saved up to trade for TV time.");
+        alert(`⏳ Keep practicing! You need at least $${econCoinVal.toFixed(2)} saved up to trade for ${econLabel}.`);
     }
 }
 
-function manualAdjustBank(amount) {
-    let secondsChange = (amount / 0.25) * 900;
+function manualAdjustBank(coinMultiplier) {
+    let secondsChange = coinMultiplier * 900;
     activePlayingSeconds = Math.max(0, activePlayingSeconds + secondsChange);
     localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
     updatePiggyBankUI();
 }
 
 function resetBank() {
-    if (confirm(`Are you sure you want to reset all TV time savings for ${currentUser} to $0.00?`)) {
+    if (confirm(`Are you sure you want to reset all rewards for ${currentUser} to $0.00?`)) {
         activePlayingSeconds = 0;
         localStorage.setItem(getStorageKey('spelling_active_seconds'), 0);
         updatePiggyBankUI();
+    }
+}
+
+// --- DIRECTLY EDITABLE BALANCE SETTER ---
+function applyExactBalance() {
+    let inputEl = document.getElementById('exactDollarInput');
+    let val = parseFloat(inputEl.value);
+    if (!isNaN(val) && val >= 0) {
+        activePlayingSeconds = Math.floor((val / econCoinVal) * 900);
+        localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
+        updatePiggyBankUI();
+        alert(`✅ Balance for ${currentUser} updated to $${val.toFixed(2)} (${Math.floor(val / econCoinVal) * econMinutesVal} mins ${econLabel}).`);
+    } else {
+        alert("Please enter a valid dollar amount (e.g., 2.50 or 5.00).");
     }
 }
 
@@ -1272,18 +1369,19 @@ function showEndScreen() {
     logGameActivity(currentCategory, scoreText);
     
     if (firstTryPerfectCount === totalWordsToSpell) {
-        document.getElementById('reportMessage').innerText = `🌟 Flawless! ${currentUser} earned a Mastery Star and a $1.00 TV Time Jackpot!`;
+        document.getElementById('reportMessage').innerText = `🌟 Flawless! ${currentUser} earned a Mastery Star and a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
         
         if (!masteredCategories.includes(currentCategory)) {
             masteredCategories.push(currentCategory);
             localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
             
+            // Add 1 hour equivalent of seconds to balance
             activePlayingSeconds += 3600;
             localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
             updatePiggyBankUI();
         }
     } else {
-        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! Keep practicing to get 100% on your first try for the $1.00 Jackpot!`;
+        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! Keep practicing to get 100% on your first try for the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
     }
 }
 </script>
