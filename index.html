@@ -52,6 +52,7 @@
         }
         .home-btn:hover { background: #e2e6ea; }
         
+        /* Multi-User Header Bar */
         .user-header {
             display: flex;
             justify-content: flex-end;
@@ -124,11 +125,26 @@
             box-sizing: border-box;
         }
         .lives { font-size: 24px; text-align: center; margin: 10px 0; }
+        
+        /* Permanent Visual Emoji Box */
+        .emoji-clue-box {
+            font-size: 54px;
+            text-align: center;
+            margin: 10px auto;
+            background: #F0F4F8;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.08);
+            border: 2px solid #CBD5E0;
+        }
+
         .word-display {
             font-size: 32px;
             letter-spacing: 5px;
             text-align: center;
-            margin: 25px 0;
+            margin: 20px 0;
             font-family: monospace;
             font-weight: bold;
             word-wrap: break-word;
@@ -336,6 +352,7 @@
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
             <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Custom Pricing</button>
+            <button class="btn btn-info" onclick="openModal('guideModal')">📖 How It Works & Parent Guide</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
     </div>
@@ -344,9 +361,11 @@
         <h2 id="currentCategoryTitle">Category</h2>
         <div class="lives" id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
         
+        <div class="emoji-clue-box" id="emojiClueDisplay" title="Visual Clue">💡</div>
+
         <div style="text-align: center; margin-bottom: 10px;">
             <button class="btn" id="audioBtn" onclick="playCurrentAudio()">🔊 Hear Word</button>
-            <button class="btn btn-info" id="clueBtn" onclick="triggerHint()">💡 Show Clue</button>
+            <button class="btn btn-info" id="clueBtn" onclick="manualHintClick()">💡 Show Clue</button>
         </div>
         
         <div class="hint-box" id="clueDisplay"></div>
@@ -378,6 +397,41 @@
         <p style="font-size: 24px;">Your Score: <span id="reportScore" style="font-weight: bold; color: var(--primary);"></span></p>
         <p id="reportMessage" style="font-size: 18px; margin: 20px 0;"></p>
         <button class="btn" style="font-size: 18px; padding: 12px 30px;" onclick="returnHome()">Choose Another List</button>
+    </div>
+</div>
+
+<div id="guideModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
+        <h2>📖 How It Works & Parent Guide</h2>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        
+        <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🧠 The Pain-Free Mastery Loop</h3>
+        <p style="font-size: 14px; margin-top: 0;">Traditional spelling practice penalizes mistakes, leading to frustration. Our system transforms practice into a self-paced mastery loop:</p>
+        <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
+            <li><strong>Permanent Visual Clues:</strong> An emoji is permanently displayed on screen from the start, providing immediate visual reinforcement for the audio word without giving away the spelling!</li>
+            <li><strong>The 4-Heart Hint Lock:</strong> Text hints and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> (making 4 incorrect letter guesses) before the text hint unlocks. This builds phonemic awareness and resilience!</li>
+            <li><strong>No Hints in Review:</strong> When missed words loop back for re-spelling during the Review Phase, text hints are completely disabled. Children must spell the word from memory and auditory recall to finish the list!</li>
+            <li><strong>Visual Decoy Training:</strong> Missed words trigger a multiple-choice review against dynamically generated decoy spellings, training visual word recognition before re-spelling.</li>
+        </ul>
+
+        <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">💰 Piggy Bank Economy & Parental Control</h3>
+        <p style="font-size: 14px; margin-top: 0;">Active practice earns background time that converts into tangible household rewards:</p>
+        <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
+            <li><strong>Mastery Jackpots:</strong> To earn the $1.00 Jackpot and ⭐ Mastered Badge, a child must spell every word perfectly on the 1st try <em>without triggering or clicking any text hints!</em></li>
+            <li><strong>Custom Rewards:</strong> In the protected ⚙️ Parent Portal, you can change the default reward ($0.25 = 15 Mins TV) to fit your home (e.g., $1.00 = 30 Mins iPad Time or Roblox!).</li>
+            <li><strong>Exact Balance Control:</strong> You can audit timestamped gameplay history or overwrite your child's reward balance directly.</li>
+        </ul>
+
+        <div style="background: #E8F8F5; border: 2px solid #27AE60; padding: 15px; border-radius: 12px; margin-top: 20px; text-align: center; color: #145A32;">
+            <h4 style="margin: 0 0 5px 0; font-size: 16px;">➕ Need a Personalized School List or Math Game?</h4>
+            <p style="margin: 0; font-size: 13px;">We can professionally align this app to your child's exact weekly school spelling lists or build custom games for <strong>Math Facts (Multiplication/Division)</strong>! Email us at <strong><a href="mailto:waltrospelling@gmail.com?subject=Custom%20Game%20Inquiry" style="color: #27AE60; text-decoration: underline;">waltrospelling@gmail.com</a></strong> or check out our affordable plans in the Origin Story tab!</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('guideModal'); openModal('originModal');">🚀 View Pricing & Customization Plans</button>
+            <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
+        </div>
     </div>
 </div>
 
@@ -516,6 +570,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-info" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('guideModal');">📖 How It Works Guide</button>
             <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Pricing Plans</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
@@ -903,8 +958,6 @@ let isFirstPass = true;
 let masteredCategories = [];
 let isTimerRunning = false;
 let activePlayingSeconds = 0;
-
-// Track if the hint was requested at any time during this category run
 let hintUsedInCurrentSession = false;
 
 let econCoinVal = 0.25;
@@ -912,6 +965,17 @@ let econMinutesVal = 15;
 let econLabel = "TV Time";
 
 const audioPlayer = new Audio();
+
+// Helper to separate permanent emoji from text clue
+function parseHintData(hintString) {
+    let parts = hintString.split("Hint:");
+    if (parts.length > 1) {
+        let emojiPart = parts[0].replace("💡", "").trim();
+        let textPart = parts[1].trim();
+        return { emoji: emojiPart || "💡", text: textPart };
+    }
+    return { emoji: "💡", text: hintString };
+}
 
 function getStorageKey(key) {
     return `${key}_${currentUser.replace(/\s+/g, '_')}`;
@@ -1136,7 +1200,7 @@ function startGame() {
     totalWordsToSpell = currentQueue.length;
     isFirstPass = true;
     firstTryPerfectCount = 0;
-    hintUsedInCurrentSession = false; // Reset hint tracker for new list session
+    hintUsedInCurrentSession = false;
     
     document.getElementById('currentCategoryTitle').innerText = `${currentCategory} (${currentUser})`;
     document.getElementById('startScreen').style.display = 'none';
@@ -1169,11 +1233,16 @@ function loadWord() {
     document.getElementById('clueDisplay').style.display = "none";
     document.getElementById('keyboard').style.pointerEvents = "auto";
     
+    // Extract and display the emoji permanently on load
+    let wordLower = currentWord.toLowerCase();
+    let rawHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    let parsed = parseHintData(rawHint);
+    document.getElementById('emojiClueDisplay').innerText = parsed.emoji;
+
     updateLivesDisplay();
     updateWordDisplay();
     buildKeyboard();
     
-    let wordLower = currentWord.toLowerCase();
     audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
     audioPlayer.load();
     playCurrentAudio();
@@ -1210,20 +1279,36 @@ function updateLivesDisplay() {
     document.getElementById('livesDisplay').innerText = heartString;
 }
 
+// Scaffolded Text Hint Logic: Locked until 4 mistakes (2 hearts left) on First Pass ONLY!
 function triggerHint() {
-    // Mark that a hint was requested during this session, disqualifying automatic list mastery
+    // If not first pass, completely lock out text hints
+    if (!isFirstPass) {
+        document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the emoji icon!";
+        return;
+    }
+    
+    // If fewer than 4 mistakes, encourage struggling independently first
+    if (mistakes < 4) {
+        document.getElementById('message').innerText = `🔒 Text hints unlock after losing 4 hearts! Keep trying! (${4 - mistakes} more mistakes to unlock)`;
+        return;
+    }
+
+    // Mark hint as used during this session
     hintUsedInCurrentSession = true;
 
     let clueDiv = document.getElementById('clueDisplay');
     clueDiv.style.display = "block";
     let wordLower = currentWord.toLowerCase();
-    let specificHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    let rawHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    let parsed = parseHintData(rawHint);
     
-    if (isFirstPass) {
-        clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${specificHint}`;
-    } else {
-        clueDiv.innerHTML = specificHint;
-    }
+    // Display target word spelling + text clue
+    clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${parsed.text}`;
+}
+
+// Manual click handler for the clue button
+function manualHintClick() {
+    triggerHint();
 }
 
 function handleGuess(letter, btnElement) {
@@ -1238,14 +1323,18 @@ function handleGuess(letter, btnElement) {
         mistakesOnCurrentLetter++;
         if (!wordFailedThisRound) wordFailedThisRound = true;
         
-        if (mistakesOnCurrentLetter >= 2) triggerHint();
+        // Auto-show text hint ONLY when reaching exactly 4 mistakes during First Pass
+        if (mistakes >= 4 && isFirstPass) {
+            triggerHint();
+        }
+        
         updateLivesDisplay();
         
         if (mistakes >= 6) {
             document.getElementById('message').innerText = `❌ Out of hearts! The word was: ${currentWord}`;
             document.getElementById('keyboard').style.pointerEvents = "none";
             document.getElementById('nextBtn').style.display = 'block';
-            triggerHint();
+            if (isFirstPass) triggerHint();
         }
     }
 }
