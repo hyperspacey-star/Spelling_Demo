@@ -52,7 +52,6 @@
         }
         .home-btn:hover { background: #e2e6ea; }
         
-        /* Multi-User Header Bar */
         .user-header {
             display: flex;
             justify-content: flex-end;
@@ -220,7 +219,6 @@
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         
-        /* Tiered Pricing Table Styles */
         .ad-box {
             background: #f0f7ff;
             border: 2px solid var(--primary);
@@ -409,7 +407,7 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Weekly%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$5/Week%20Spelling%20Plan.%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">📧 Email to Enroll</a>
+                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Weekly%20Plan%20Enrollment" class="price-btn">📧 Email to Enroll</a>
                         <a href="https://venmo.com/WaltRoSpelling" target="_blank" class="price-btn btn-venmo">💸 Pay $5 via Venmo</a>
                     </div>
                 </div>
@@ -428,7 +426,7 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Monthly%20Value%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$15/Month%20Value%20Plan!%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">📧 Email to Enroll</a>
+                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Monthly%20Value%20Plan%20Enrollment" class="price-btn">📧 Email to Enroll</a>
                         <a href="https://venmo.com/WaltRoSpelling" target="_blank" class="price-btn btn-venmo">💸 Pay $15 via Venmo</a>
                     </div>
                 </div>
@@ -526,9 +524,7 @@
 </div>
 
 <script>
-// --- 300-WORD SUMMER DEMO DICTIONARY WITH FULL 3-LAYER HINTS ---
 const spellingDictionary = {
-    // LEVEL 1: Foundational (1st - 2nd Grade)
     "L1-1. Short Vowel Animals": {
         "cat": "💡 🐱 Hint: The soft cat purred. ('c' before 'a' makes the hard k sound!)",
         "dog": "💡 🐶 Hint: The brown dog barked. (Uses the short 'o' sound)",
@@ -649,8 +645,6 @@ const spellingDictionary = {
         "lamp": "💡 💡 Hint: Turn on the desk lamp to read. (Rhymes with camp using -mp blend)",
         "band": "💡 🎺 Hint: The school band played music. (Ends with the -nd consonant blend)"
     },
-
-    // LEVEL 2: Intermediate (2nd - 3rd Grade)
     "L2-1. Vowel Team Foods": {
         "eat": "💡 🍽️ Hint: Time to eat dinner together. ('ea' makes the long E sound here)",
         "bread": "💡 🍞 Hint: Spread butter on warm bread. ('ea' makes the short E sound here!)",
@@ -771,8 +765,6 @@ const spellingDictionary = {
         "starfish": "💡 🌟 Hint: Found a five-pointed starfish in the tide pool. (Compound word: star + fish)",
         "treehouse": "💡 🏡 Hint: We built a wooden treehouse in the backyard. (Compound word: tree + house)"
     },
-
-    // LEVEL 3: Advanced (3rd - 5th Grade)
     "L3-1. The OUGH Family": {
         "though": "💡 💭 Hint: Even though it rained, we had fun. ('ough' makes the long O sound here!)",
         "through": "💡 🚇 Hint: The train drove right through the tunnel. ('ough' makes the long OO sound here!)",
@@ -895,7 +887,6 @@ const spellingDictionary = {
     }
 };
 
-// --- GAME STATE & ECONOMY VARIABLES ---
 let currentUser = "Player 1";
 let currentQueue = [];
 let missedWordsQueue = [];
@@ -913,15 +904,12 @@ let masteredCategories = [];
 let isTimerRunning = false;
 let activePlayingSeconds = 0;
 
-// Configurable Economy Defaults ($0.25 for 15 mins of TV Time)
 let econCoinVal = 0.25;
 let econMinutesVal = 15;
 let econLabel = "TV Time";
 
-// Master Audio Player
 const audioPlayer = new Audio();
 
-// --- MULTI-USER & ECONOMY MANAGEMENT ---
 function getStorageKey(key) {
     return `${key}_${currentUser.replace(/\s+/g, '_')}`;
 }
@@ -993,13 +981,12 @@ function saveCustomEconomy() {
         localStorage.setItem('spelling_cfg_mins', econMinutesVal);
         localStorage.setItem('spelling_cfg_label', econLabel);
         updatePiggyBankUI();
-        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of${econLabel}!`);
+        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of ${econLabel}!`);
     } else {
         alert("Please enter valid amounts and a reward name.");
     }
 }
 
-// --- INITIALIZATION ON LOAD ---
 window.onload = function() {
     loadUserData();
     
@@ -1012,7 +999,6 @@ window.onload = function() {
     }, 1000);
 };
 
-// --- NAVIGATION & SAFE EXIT ---
 function returnHome() {
     isTimerRunning = false;
     document.getElementById('gameArea').style.display = 'none';
@@ -1026,7 +1012,6 @@ function returnHome() {
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-// --- PARENT PORTAL MATH GATE ---
 function openMathGate() {
     let answer = prompt("⚙️ Adult Math Gate: What is 8 + 6?");
     if (answer !== null && parseInt(answer.trim()) === 14) {
@@ -1040,7 +1025,6 @@ function openMathGate() {
     }
 }
 
-// --- ECONOMY & PIGGY BANK LOGIC ---
 function updatePiggyBankUI() {
     let earnedCoins = Math.floor(activePlayingSeconds / 900);
     let bankBalance = earnedCoins * econCoinVal;
@@ -1057,7 +1041,7 @@ function updatePiggyBankUI() {
     
     document.querySelectorAll('.reward-label-text').forEach(el => el.innerText = econLabel);
     let tradeBtn = document.getElementById('tradeBtn');
-    if (tradeBtn) tradeBtn.innerText = `Trade $${econCoinVal.toFixed(2)} for ${econMinutesVal} Mins${econLabel}`;
+    if (tradeBtn) tradeBtn.innerText = `Trade $${econCoinVal.toFixed(2)} for ${econMinutesVal} Mins ${econLabel}`;
     
     let addBtn = document.getElementById('addBtnLabel');
     let subBtn = document.getElementById('subBtnLabel');
@@ -1074,9 +1058,9 @@ function tradeForTV() {
         activePlayingSeconds -= 900;
         localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert(`🎉 Enjoy ${econMinutesVal} minutes of ${econLabel} for${currentUser}! You earned it!`);
+        alert(`🎉 Enjoy ${econMinutesVal} minutes of ${econLabel} for ${currentUser}! You earned it!`);
     } else {
-        alert(`⏳ Keep practicing! You need at least $${econCoinVal.toFixed(2)} saved up to trade for${econLabel}.`);
+        alert(`⏳ Keep practicing! You need at least $${econCoinVal.toFixed(2)} saved up to trade for ${econLabel}.`);
     }
 }
 
@@ -1095,7 +1079,6 @@ function resetBank() {
     }
 }
 
-// --- DIRECTLY EDITABLE BALANCE SETTER ---
 function applyExactBalance() {
     let inputEl = document.getElementById('exactDollarInput');
     let val = parseFloat(inputEl.value);
@@ -1103,13 +1086,12 @@ function applyExactBalance() {
         activePlayingSeconds = Math.floor((val / econCoinVal) * 900);
         localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert(`✅ Balance for ${currentUser} updated to$${val.toFixed(2)} (${Math.floor(val / econCoinVal) * econMinutesVal} mins${econLabel}).`);
+        alert(`✅ Balance for ${currentUser} updated to $${val.toFixed(2)} (${Math.floor(val / econCoinVal) * econMinutesVal} mins ${econLabel}).`);
     } else {
         alert("Please enter a valid dollar amount (e.g., 2.50 or 5.00).");
     }
 }
 
-// --- AUDIT LOG LOGIC ---
 function logGameActivity(categoryPlayed, finalScore) {
     let logs = JSON.parse(localStorage.getItem(getStorageKey('spelling_audit_log'))) || [];
     let newEntry = {
@@ -1145,7 +1127,6 @@ function clearAuditLog() {
     }
 }
 
-// --- GAMEPLAY PHASE ---
 function startGame() {
     currentCategory = document.getElementById('categorySelect').value;
     currentQueue = Object.keys(spellingDictionary[currentCategory]);
@@ -1225,14 +1206,12 @@ function updateLivesDisplay() {
     document.getElementById('livesDisplay').innerText = heartString;
 }
 
-// --- INSTANT & SCAFFOLDED HINT SYSTEM ---
 function triggerHint() {
     let clueDiv = document.getElementById('clueDisplay');
     clueDiv.style.display = "block";
     let wordLower = currentWord.toLowerCase();
     let specificHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
     
-    // Scaffolding Logic: Show word on first attempt, remove it on subsequent review attempts!
     if (isFirstPass) {
         clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${specificHint}`;
     } else {
@@ -1293,7 +1272,6 @@ function processNext() {
     }
 }
 
-// --- VISUAL DECOY REVIEW PHASE ---
 let reviewIndex = 0;
 function startReviewPhase() {
     document.getElementById('gameArea').style.display = 'none';
@@ -1365,11 +1343,32 @@ function nextReview() {
     }
 }
 
-// --- END SCREEN & MASTERY JACKPOT ---
 function showEndScreen() {
     isTimerRunning = false;
     document.getElementById('gameArea').style.display = 'none';
     document.getElementById('reviewArea').style.display = 'none';
     document.getElementById('endScreen').style.display = 'block';
     
-    let scoreText = `${firstTryPerfectCount} /${total
+    let scoreText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
+    document.getElementById('reportScore').innerText = scoreText;
+    
+    logGameActivity(currentCategory, scoreText);
+    
+    if (firstTryPerfectCount === totalWordsToSpell) {
+        document.getElementById('reportMessage').innerText = `🌟 Flawless! ${currentUser} earned a Mastery Star and a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
+        
+        if (!masteredCategories.includes(currentCategory)) {
+            masteredCategories.push(currentCategory);
+            localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
+            
+            activePlayingSeconds += 3600;
+            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
+            updatePiggyBankUI();
+        }
+    } else {
+        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! Keep practicing to get 100% on your first try for the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
+    }
+}
+</script>
+</body>
+</html>
