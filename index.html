@@ -12,6 +12,7 @@
             --warning: #F39C12;
             --dark: #2C3E50;
             --light: #F8F9FA;
+            --venmo: #008CFF;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -51,6 +52,26 @@
         }
         .home-btn:hover { background: #e2e6ea; }
         
+        /* Multi-User Header Bar */
+        .user-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #eee;
+        }
+        .user-select-box {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            font-weight: bold;
+            color: var(--dark);
+            background: #E8F4F8;
+            cursor: pointer;
+        }
+
         h1, h2, h3 { text-align: center; margin-top: 0; }
         .piggy-bank {
             background: #FFF3CD;
@@ -79,8 +100,11 @@
             font-weight: bold;
             transition: background 0.2s, transform 0.1s;
             margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+            box-sizing: border-box;
         }
-        .btn:hover { background: #357ABD; transform: translateY(-2px); }
+        .btn:hover { background: #357ABD; transform: translateY(-2px); color: white; }
         .btn:active { transform: translateY(0); }
         .btn-success { background: var(--success); }
         .btn-success:hover { background: #27AD60; }
@@ -88,6 +112,8 @@
         .btn-info { background: #17a2b8; }
         .btn-info:hover { background: #138496; }
         .btn-danger { background: var(--danger); }
+        .btn-venmo { background: var(--venmo); color: white; }
+        .btn-venmo:hover { background: #0073d1; color: white; }
         
         select {
             width: 100%;
@@ -254,9 +280,9 @@
             font-size: 15px;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
             text-decoration: none;
-            display: inline-block;
+            display: block;
             box-sizing: border-box;
         }
         .pricing-card.popular .price-btn { background: var(--warning); }
@@ -270,6 +296,7 @@
             .review-options { grid-template-columns: 1fr; }
             .piggy-stats { flex-direction: column; align-items: center; }
             .pricing-grid { grid-template-columns: 1fr; }
+            .user-header { justify-content: center; }
         }
     </style>
 </head>
@@ -277,6 +304,16 @@
 
 <div class="container">
     <button id="homeBtn" class="home-btn" onclick="returnHome()">🏠 Main Menu</button>
+
+    <div class="user-header" id="userHeader">
+        <span style="font-weight: bold; font-size: 14px; color: #555;">👦 Active User:</span>
+        <select id="userSelect" class="user-select-box" style="width: auto; margin: 0; padding: 6px 10px;" onchange="switchUser(this.value)">
+            <option value="Player 1">Player 1 (Foundational)</option>
+            <option value="Player 2">Player 2 (Intermediate)</option>
+            <option value="Player 3">Player 3 (Advanced)</option>
+            <option value="ADD_NEW">+ Add New User...</option>
+        </select>
+    </div>
 
     <div class="piggy-bank">
         <div class="piggy-stats">
@@ -300,7 +337,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Custom Pricing</button>
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Pricing</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
     </div>
@@ -351,13 +388,13 @@
         <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
         <h2>🌟 Our Origin Story</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick .</p>
-        <p>I realized we needed a system that removed the pain while building true mastery . I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence .</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong> . By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success !</p>
+        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
+        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game TV-Time Piggy Bank</strong>. By converting active effort and list mastery into tangible screen time, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
         
         <div class="ad-box">
             <h3 style="color: var(--primary); margin-top: 0; font-size: 18px; text-align: center;">🚀 Want This Customized For Your Child?</h3>
-            <p style="font-size: 14px; text-align: center; margin-bottom: 15px;">Every school and child is different ! Say goodbye to expensive $50/hr tutoring . Through my exclusive customization service, I personally align this entire game to your child's weekly school needs :</p>
+            <p style="font-size: 14px; text-align: center; margin-bottom: 15px;">Every school and child is different! Say goodbye to expensive $50/hr tutoring. Through my exclusive customization service, I personally align this entire game to your child's weekly school needs:</p>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -365,13 +402,16 @@
                         <div class="price-title">🥈 Weekly Plan</div>
                         <div class="price-amount">$5<span>/ week</span></div>
                         <ul class="price-features">
-                            <li><strong>Weekly School List Updates:</strong> We personally load your child's exact school words !</li>
-                            <li>Custom 3-layer phonogram hints & crystal-clear AI audio </li>
-                            <li><strong>Ultimate Parental Control:</strong> Includes personalized audit log reviews !</li>
-                            <li>Custom TV-time goal setting tailored to your household rules </li>
+                            <li><strong>Weekly School List Updates:</strong> We personally load your child's exact school words!</li>
+                            <li>Custom 3-layer phonogram hints & crystal-clear AI audio</li>
+                            <li><strong>Ultimate Parental Control:</strong> Includes personalized audit log reviews!</li>
+                            <li>Custom TV-time goal setting tailored to your household rules</li>
                         </ul>
                     </div>
-                    <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Weekly%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$5/Week%20Spelling%20Plan.%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">Select Weekly Plan</a>
+                    <div>
+                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Weekly%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$5/Week%20Spelling%20Plan.%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">📧 Email to Enroll</a>
+                        <a href="https://venmo.com/WaltRoSpelling" target="_blank" class="price-btn btn-venmo">💸 Pay $5 via Venmo</a>
+                    </div>
                 </div>
 
                 <div class="pricing-card popular">
@@ -382,17 +422,20 @@
                         <ul class="price-features">
                             <li><strong>Everything in Weekly Plan!</strong></li>
                             <li><strong>4 Full Weeks of School List Updates</strong> loaded for you</li>
-                            <li>Custom 3-layer phonogram hints & AI audio </li>
-                            <li><strong>Ultimate Parental Control:</strong> Weekly personalized audit log checkups !</li>
-                            <li>Custom TV-time goal setting & ongoing parent coaching tips </li>
+                            <li>Custom 3-layer phonogram hints & AI audio</li>
+                            <li><strong>Ultimate Parental Control:</strong> Weekly personalized audit log checkups!</li>
+                            <li>Custom TV-time goal setting & ongoing parent coaching tips</li>
                         </ul>
                     </div>
-                    <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Monthly%20Value%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$15/Month%20Value%20Plan!%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">Select Monthly Plan</a>
+                    <div>
+                        <a href="mailto:waltrospelling@gmail.com?subject=Spelling%20Game%20-%20Monthly%20Value%20Plan%20Enrollment&body=Hi!%20I%20would%20like%20to%20enroll%20my%20child%20in%20the%20$15/Month%20Value%20Plan!%20Here%20are%20our%20details%20and%20first%20word%20list:%0A%0AChild's%20Grade:%20%0ASchool%20Word%20List:%20%0ACustom%20Requests:%20" class="price-btn">📧 Email to Enroll</a>
+                        <a href="https://venmo.com/WaltRoSpelling" target="_blank" class="price-btn btn-venmo">💸 Pay $15 via Venmo</a>
+                    </div>
                 </div>
             </div>
             
             <div style="background: #FFF9E6; border: 1px solid #FFE082; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; text-align: center; color: #795548;">
-                <strong>📬 How It Works:</strong> Simply send your child's spelling lists or customization requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong> . Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong> 
+                <strong>📬 How It Works:</strong> Send your child's spelling lists or requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong> or pay instantly via Venmo (<strong>@WaltRoSpelling</strong>). Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong>
             </div>
             <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px; margin-bottom: 0;">No contracts or hidden fees. Cancel anytime as your child masters their spelling goals!</p>
         </div>
@@ -407,7 +450,7 @@
     <div class="modal-content" style="max-width: 700px;">
         <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
         <h2>⚙️ Parent Portal: Audit & Economy Controls</h2>
-        <p style="color: #666; font-size: 14px;">Manage your child's TV-time savings and review active gameplay history .</p>
+        <p style="color: #666; font-size: 14px;">Manage TV-time savings and review active gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Player 1</strong>.</p>
         
         <div style="background: #F8F9FA; padding: 15px; border-radius: 10px; margin: 15px 0;">
             <h3 style="margin-bottom: 10px; font-size: 16px;">💰 Economy Controls</h3>
@@ -433,7 +476,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 20px;">
-            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Customization & Pricing Plans</button>
+            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Pricing & Venmo</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
         </div>
@@ -607,7 +650,7 @@ const spellingDictionary = {
         "loved": "💡 ❤️ Hint: We loved the funny movie. ('-ed' makes the d sound after voiced letters!)",
         "wrecked": "💡 💥 Hint: The storm wrecked the sandcastle. ('-ed' makes the t sound after unvoiced sounds like k!)",
         "jumped": "💡 🦘 Hint: The frog jumped into the water. ('-ed' sounds like t after unvoiced p)",
-        "played": "💡 🎮 Hint: We played games all afternoon. ('-ed' sounds like d after vowel team ay)",
+        "played": "💡 🎮 Hint: We played games all afternoon. ('-ed' sounds like d after voiced vowel team ay)",
         "smiled": "💡 😄 Hint: She smiled at the funny joke. ('-ed' sounds like d after voiced l)",
         "cooked": "💡 🍳 Hint: Dad cooked eggs for breakfast. ('-ed' sounds like t after unvoiced k)",
         "landed": "💡 🛬 Hint: The airplane landed safely. ('-ed' makes full 'ed' syllable after d)",
@@ -811,6 +854,7 @@ const spellingDictionary = {
 };
 
 // --- GAME STATE VARIABLES ---
+let currentUser = "Player 1";
 let currentQueue = [];
 let missedWordsQueue = [];
 let currentWordIndex = 0;
@@ -830,10 +874,37 @@ let activePlayingSeconds = 0;
 // Master Audio Player
 const audioPlayer = new Audio();
 
-// --- INITIALIZATION ON LOAD ---
-window.onload = function() {
-    masteredCategories = JSON.parse(localStorage.getItem('spelling_mastered')) || [];
-    activePlayingSeconds = parseInt(localStorage.getItem('spelling_active_seconds')) || 0;
+// --- MULTI-USER MANAGEMENT ---
+function getStorageKey(key) {
+    return `${key}_${currentUser.replace(/\s+/g, '_')}`;
+}
+
+function switchUser(selectedUser) {
+    if (selectedUser === "ADD_NEW") {
+        let newName = prompt("Enter new player's name:");
+        if (newName && newName.trim() !== "") {
+            currentUser = newName.trim();
+            let select = document.getElementById('userSelect');
+            let newOpt = document.createElement('option');
+            newOpt.value = currentUser;
+            newOpt.innerText = currentUser;
+            select.insertBefore(newOpt, select.querySelector('option[value="ADD_NEW"]'));
+            select.value = currentUser;
+        } else {
+            document.getElementById('userSelect').value = currentUser;
+            return;
+        }
+    } else {
+        currentUser = selectedUser;
+    }
+    
+    document.getElementById('portalUserLabel').innerText = currentUser;
+    loadUserData();
+}
+
+function loadUserData() {
+    masteredCategories = JSON.parse(localStorage.getItem(getStorageKey('spelling_mastered'))) || [];
+    activePlayingSeconds = parseInt(localStorage.getItem(getStorageKey('spelling_active_seconds'))) || 0;
     
     const select = document.getElementById('categorySelect');
     select.innerHTML = '';
@@ -848,13 +919,17 @@ window.onload = function() {
         }
         select.appendChild(option);
     }
-    
     updatePiggyBankUI();
+}
+
+// --- INITIALIZATION ON LOAD ---
+window.onload = function() {
+    loadUserData();
     
     setInterval(() => {
         if (isTimerRunning) {
             activePlayingSeconds++;
-            localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
             updatePiggyBankUI();
         }
     }, 1000);
@@ -867,6 +942,7 @@ function returnHome() {
     document.getElementById('reviewArea').style.display = 'none';
     document.getElementById('endScreen').style.display = 'none';
     document.getElementById('homeBtn').style.display = 'none';
+    document.getElementById('userHeader').style.display = 'flex';
     document.getElementById('startScreen').style.display = 'block';
 }
 
@@ -904,9 +980,9 @@ function tradeForTV() {
     let earnedCoins = Math.floor(activePlayingSeconds / 900);
     if (earnedCoins >= 1) {
         activePlayingSeconds -= 900;
-        localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+        localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert("🎉 Enjoy 15 minutes of TV time! You earned it!");
+        alert(`🎉 Enjoy 15 minutes of TV time for ${currentUser}! You earned it!`);
     } else {
         alert("⏳ Keep practicing! You need at least $0.25 saved up to trade for TV time.");
     }
@@ -915,37 +991,37 @@ function tradeForTV() {
 function manualAdjustBank(amount) {
     let secondsChange = (amount / 0.25) * 900;
     activePlayingSeconds = Math.max(0, activePlayingSeconds + secondsChange);
-    localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+    localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
     updatePiggyBankUI();
 }
 
 function resetBank() {
-    if (confirm("Are you sure you want to reset all TV time savings to $0.00?")) {
+    if (confirm(`Are you sure you want to reset all TV time savings for ${currentUser} to $0.00?`)) {
         activePlayingSeconds = 0;
-        localStorage.setItem('spelling_active_seconds', 0);
+        localStorage.setItem(getStorageKey('spelling_active_seconds'), 0);
         updatePiggyBankUI();
     }
 }
 
 // --- AUDIT LOG LOGIC ---
 function logGameActivity(categoryPlayed, finalScore) {
-    let logs = JSON.parse(localStorage.getItem('spelling_audit_log')) || [];
+    let logs = JSON.parse(localStorage.getItem(getStorageKey('spelling_audit_log'))) || [];
     let newEntry = {
         timestamp: new Date().toLocaleString(),
         category: categoryPlayed,
         score: finalScore
     };
     logs.unshift(newEntry);
-    localStorage.setItem('spelling_audit_log', JSON.stringify(logs));
+    localStorage.setItem(getStorageKey('spelling_audit_log'), JSON.stringify(logs));
 }
 
 function renderAuditLog() {
-    let logs = JSON.parse(localStorage.getItem('spelling_audit_log')) || [];
+    let logs = JSON.parse(localStorage.getItem(getStorageKey('spelling_audit_log'))) || [];
     let tbody = document.getElementById('auditTableBody');
     tbody.innerHTML = '';
     
     if (logs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">No gameplay history recorded yet.</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#888;">No gameplay history recorded for ${currentUser} yet.</td></tr>`;
         return;
     }
     
@@ -957,8 +1033,8 @@ function renderAuditLog() {
 }
 
 function clearAuditLog() {
-    if (confirm("Are you sure you want to clear the entire gameplay history log?")) {
-        localStorage.removeItem('spelling_audit_log');
+    if (confirm(`Are you sure you want to clear the entire gameplay history log for ${currentUser}?`)) {
+        localStorage.removeItem(getStorageKey('spelling_audit_log'));
         renderAuditLog();
     }
 }
@@ -971,8 +1047,9 @@ function startGame() {
     isFirstPass = true;
     firstTryPerfectCount = 0;
     
-    document.getElementById('currentCategoryTitle').innerText = currentCategory;
+    document.getElementById('currentCategoryTitle').innerText = `${currentCategory} (${currentUser})`;
     document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('userHeader').style.display = 'none';
     document.getElementById('homeBtn').style.display = 'block';
     
     isTimerRunning = true;
@@ -1005,7 +1082,6 @@ function loadWord() {
     updateWordDisplay();
     buildKeyboard();
     
-    // Safely fetch audio from subfolders with URL encoding
     let wordLower = currentWord.toLowerCase();
     audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
     audioPlayer.load();
@@ -1050,8 +1126,7 @@ function triggerHint() {
     let wordLower = currentWord.toLowerCase();
     let specificHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
     
-    // Scaffolding Logic: On the initial pass, display the target word spelling inside the hint.
-    // Thereafter (during the re-spelling of missed words), hide the word so they rely solely on recall!
+    // Scaffolding Logic: Show word on first attempt, remove it on subsequent review attempts!
     if (isFirstPass) {
         clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${specificHint}`;
     } else {
@@ -1071,11 +1146,9 @@ function handleGuess(letter, btnElement) {
         mistakesOnCurrentLetter++;
         if (!wordFailedThisRound) wordFailedThisRound = true;
         
-        // Auto-show clue on the 2nd mistake on the same letter
         if (mistakesOnCurrentLetter >= 2) triggerHint();
         updateLivesDisplay();
         
-        // Prevent soft-lock if out of hearts
         if (mistakes >= 6) {
             document.getElementById('message').innerText = `❌ Out of hearts! The word was: ${currentWord}`;
             document.getElementById('keyboard').style.pointerEvents = "none";
@@ -1199,18 +1272,18 @@ function showEndScreen() {
     logGameActivity(currentCategory, scoreText);
     
     if (firstTryPerfectCount === totalWordsToSpell) {
-        document.getElementById('reportMessage').innerText = "🌟 Flawless! You earned a Mastery Star and a $1.00 TV Time Jackpot!";
+        document.getElementById('reportMessage').innerText = `🌟 Flawless! ${currentUser} earned a Mastery Star and a $1.00 TV Time Jackpot!`;
         
         if (!masteredCategories.includes(currentCategory)) {
             masteredCategories.push(currentCategory);
-            localStorage.setItem('spelling_mastered', JSON.stringify(masteredCategories));
+            localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
             
             activePlayingSeconds += 3600;
-            localStorage.setItem('spelling_active_seconds', activePlayingSeconds);
+            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
             updatePiggyBankUI();
         }
     } else {
-        document.getElementById('reportMessage').innerText = "💪 Great effort! Keep practicing to get 100% on your first try for the $1.00 Jackpot!";
+        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! Keep practicing to get 100% on your first try for the $1.00 Jackpot!`;
     }
 }
 </script>
