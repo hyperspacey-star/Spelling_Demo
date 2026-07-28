@@ -505,9 +505,20 @@
                 <tbody id="auditTableBody"></tbody>
             </table>
         </div>
+
+        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #EBF5FF; border: 2px dashed var(--venmo); border-radius: 12px;">
+            <h4 style="margin: 0 0 10px 0; color: var(--venmo); font-size: 16px;">📲 Scan QR Code to Pay Instantly via Venmo</h4>
+            <img src="image_7a27d4.png" alt="Venmo QR Code @WaltRoSpelling" style="max-width: 140px; width: 100%; height: auto; border-radius: 10px; border: 2px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: white; padding: 5px;">
+            <p style="margin: 8px 0 0 0; font-size: 14px; font-weight: bold; color: var(--dark);">Venmo Handle: <span style="color: var(--venmo);">@WaltRoSpelling</span></p>
+        </div>
+
+        <div style="background: #E8F8F5; border: 2px solid #27AE60; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: center; color: #145A32;">
+            <h4 style="margin: 0 0 5px 0; font-size: 16px;">➕ Need a Math Facts or Custom Game?</h4>
+            <p style="margin: 0; font-size: 13px;">Want this exact mastery loop built for <strong>Math Facts (Multiplication/Division)</strong> or reading? Email me at <strong><a href="mailto:waltrospelling@gmail.com?subject=Custom%20Math%20Facts%20Game%20Inquiry" style="color: #27AE60; text-decoration: underline;">waltrospelling@gmail.com</a></strong> to have a personalized game created!</p>
+        </div>
         
         <div style="text-align: center; margin-top: 20px;">
-            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Pricing & Venmo</button>
+            <button class="btn btn-warning" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('originModal');">🚀 View Pricing Plans</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
         </div>
@@ -942,7 +953,6 @@ function loadUserData() {
     masteredCategories = JSON.parse(localStorage.getItem(getStorageKey('spelling_mastered'))) || [];
     activePlayingSeconds = parseInt(localStorage.getItem(getStorageKey('spelling_active_seconds'))) || 0;
     
-    // Load custom economy rules if previously set by parents
     econCoinVal = parseFloat(localStorage.getItem('spelling_cfg_coin')) || 0.25;
     econMinutesVal = parseInt(localStorage.getItem('spelling_cfg_mins')) || 15;
     econLabel = localStorage.getItem('spelling_cfg_label') || "TV Time";
@@ -983,7 +993,7 @@ function saveCustomEconomy() {
         localStorage.setItem('spelling_cfg_mins', econMinutesVal);
         localStorage.setItem('spelling_cfg_label', econLabel);
         updatePiggyBankUI();
-        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of ${econLabel}!`);
+        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of${econLabel}!`);
     } else {
         alert("Please enter valid amounts and a reward name.");
     }
@@ -1045,10 +1055,9 @@ function updatePiggyBankUI() {
     document.getElementById('tvMinutes').innerText = totalMinutes;
     document.getElementById('timeToNextCoin').innerText = `${minsLeft}:${secsLeft < 10 ? '0' : ''}${secsLeft}`;
     
-    // Update labels dynamically across UI
     document.querySelectorAll('.reward-label-text').forEach(el => el.innerText = econLabel);
     let tradeBtn = document.getElementById('tradeBtn');
-    if (tradeBtn) tradeBtn.innerText = `Trade $${econCoinVal.toFixed(2)} for ${econMinutesVal} Mins ${econLabel}`;
+    if (tradeBtn) tradeBtn.innerText = `Trade $${econCoinVal.toFixed(2)} for ${econMinutesVal} Mins${econLabel}`;
     
     let addBtn = document.getElementById('addBtnLabel');
     let subBtn = document.getElementById('subBtnLabel');
@@ -1065,9 +1074,9 @@ function tradeForTV() {
         activePlayingSeconds -= 900;
         localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert(`🎉 Enjoy ${econMinutesVal} minutes of ${econLabel} for ${currentUser}! You earned it!`);
+        alert(`🎉 Enjoy ${econMinutesVal} minutes of ${econLabel} for${currentUser}! You earned it!`);
     } else {
-        alert(`⏳ Keep practicing! You need at least $${econCoinVal.toFixed(2)} saved up to trade for ${econLabel}.`);
+        alert(`⏳ Keep practicing! You need at least $${econCoinVal.toFixed(2)} saved up to trade for${econLabel}.`);
     }
 }
 
@@ -1094,7 +1103,7 @@ function applyExactBalance() {
         activePlayingSeconds = Math.floor((val / econCoinVal) * 900);
         localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
         updatePiggyBankUI();
-        alert(`✅ Balance for ${currentUser} updated to $${val.toFixed(2)} (${Math.floor(val / econCoinVal) * econMinutesVal} mins ${econLabel}).`);
+        alert(`✅ Balance for ${currentUser} updated to$${val.toFixed(2)} (${Math.floor(val / econCoinVal) * econMinutesVal} mins${econLabel}).`);
     } else {
         alert("Please enter a valid dollar amount (e.g., 2.50 or 5.00).");
     }
@@ -1363,27 +1372,4 @@ function showEndScreen() {
     document.getElementById('reviewArea').style.display = 'none';
     document.getElementById('endScreen').style.display = 'block';
     
-    let scoreText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
-    document.getElementById('reportScore').innerText = scoreText;
-    
-    logGameActivity(currentCategory, scoreText);
-    
-    if (firstTryPerfectCount === totalWordsToSpell) {
-        document.getElementById('reportMessage').innerText = `🌟 Flawless! ${currentUser} earned a Mastery Star and a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
-        
-        if (!masteredCategories.includes(currentCategory)) {
-            masteredCategories.push(currentCategory);
-            localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
-            
-            // Add 1 hour equivalent of seconds to balance
-            activePlayingSeconds += 3600;
-            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
-            updatePiggyBankUI();
-        }
-    } else {
-        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! Keep practicing to get 100% on your first try for the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
-    }
-}
-</script>
-</body>
-</html>
+    let scoreText = `${firstTryPerfectCount} /${total
