@@ -392,7 +392,7 @@
             </div>
             
             <div style="background: #FFF9E6; border: 1px solid #FFE082; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; text-align: center; color: #795548;">
-                <strong>📬 How It Works:</strong> Simply send your child's spelling lists or customization requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong>. Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong>
+                <strong>📬 How It Works:</strong> Simply send your child's spelling lists or customization requests directly to <strong><a href="mailto:waltrospelling@gmail.com" style="color: var(--primary); text-decoration: underline;">waltrospelling@gmail.com</a></strong> . Each kid will have a personalized game tailored to meet the parents' exact needs—backed by our <strong>100% Total Satisfaction Guarantee!</strong> 
             </div>
             <p style="text-align: center; font-size: 12px; color: #666; margin-top: 10px; margin-bottom: 0;">No contracts or hidden fees. Cancel anytime as your child masters their spelling goals!</p>
         </div>
@@ -1043,13 +1043,20 @@ function updateLivesDisplay() {
     document.getElementById('livesDisplay').innerText = heartString;
 }
 
-// --- INSTANT & AUTOMATIC HINT SYSTEM ---
+// --- INSTANT & SCAFFOLDED HINT SYSTEM ---
 function triggerHint() {
     let clueDiv = document.getElementById('clueDisplay');
     clueDiv.style.display = "block";
     let wordLower = currentWord.toLowerCase();
     let specificHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
-    clueDiv.innerText = specificHint;
+    
+    // Scaffolding Logic: On the initial pass, display the target word spelling inside the hint.
+    // Thereafter (during the re-spelling of missed words), hide the word so they rely solely on recall!
+    if (isFirstPass) {
+        clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${specificHint}`;
+    } else {
+        clueDiv.innerHTML = specificHint;
+    }
 }
 
 function handleGuess(letter, btnElement) {
