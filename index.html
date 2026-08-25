@@ -112,6 +112,8 @@
         .btn-info { background: #17a2b8; }
         .btn-info:hover { background: #138496; }
         .btn-danger { background: var(--danger); }
+        .btn-venmo { background: var(--venmo); color: white; }
+        .btn-venmo:hover { background: #0073d1; color: white; }
         
         select {
             width: 100%;
@@ -256,8 +258,7 @@
             <option value="Zoey">Zoey</option>
             <option value="Scarlett">Scarlett</option>
             <option value="Annabel">Annabel</option>
-            <option value="Player 1">Player 1 (Foundational)</option>
-            <option value="ADD_NEW">+ Add New User...</option>
+            <option value="ADD_NEW">➕ Subscribe a New Student...</option>
         </select>
     </div>
 
@@ -286,7 +287,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Story & Custom Pricing</button>
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Custom Pricing & Subscriptions</button>
             <button class="btn btn-info" onclick="openModal('guideModal')">📖 How It Works & Parent Guide</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
@@ -363,15 +364,17 @@
 <div id="originModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
-        <h2>🌟 Our Origin Story</h2>
+        <h2>🌟 Custom Subscriptions</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
-        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game Piggy Bank Economy</strong>. By converting active effort and list mastery into tangible rewards, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
-        
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: block; text-align: center; width: 100%; margin-top: 15px; text-decoration: none;">📝 Submit Custom Weekly List</a>
+        <p><strong>Want to add your child's exact weekly homework list?</strong></p>
+        <p>For $5/week (or $15/month), we will hand-generate crisp, professional instructional audio files tailored directly to your child's weekly curriculum and push them directly to their in-game profile!</p>
+        <p>To bridge the gap between hard work and real-world rewards, our <strong>in-game Piggy Bank Economy</strong> converts your child's active effort and flawless list mastery into tangible rewards you set at home. Daily spelling transforms overnight into a self-motivated, stress-free success!</p>
         
         <div style="text-align: center; margin-top: 20px;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: inline-block; width: 80%; margin-bottom: 10px; text-decoration: none;">📝 1. Submit Custom Weekly List</a>
+            <br>
+            <a href="https://venmo.com/u/kevin-troxell-1" target="_blank" class="btn btn-venmo" style="display: inline-block; width: 80%; margin-bottom: 20px; text-decoration: none;">💸 2. Pay Subscription via Venmo</a>
+            <br>
             <button class="btn" onclick="closeModal('originModal')">Close</button>
         </div>
     </div>
@@ -426,7 +429,9 @@
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: inline-block; margin-bottom: 15px; text-decoration: none; width: 80%;">📝 Submit Custom Weekly List</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: inline-block; margin-bottom: 10px; text-decoration: none; width: 80%;">📝 Submit Custom Weekly List</a>
+            <br>
+            <a href="https://venmo.com/u/kevin-troxell-1" target="_blank" class="btn btn-venmo" style="display: inline-block; margin-bottom: 15px; text-decoration: none; width: 80%;">💸 Pay Subscription via Venmo</a>
             <br>
             <button class="btn" style="background: #e67e22; color: white; font-size: 14px;" onclick="updateParentPin()">🔑 Change Parent PIN</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
@@ -446,7 +451,7 @@ const premiumSpellingData = {
 
 // Dictionary intentionally left small to save character count, but you can paste your full dictionary here.
 const spellingDictionary = {
-    "🏆 Custom Weekly List": {},
+    "🏆 Week 1 Custom List": {},
     "L1-1. Short Vowel Animals": {
         "cat": "💡 🐱 Hint: The soft cat purred. ('c' before 'a' makes the hard k sound!)",
         "dog": "💡 🐶 Hint: The brown dog barked. (Uses the short 'o' sound)",
@@ -485,7 +490,7 @@ const audioPlayer = new Audio();
 
 function getAudioPath(userName, category, word) {
     const userData = premiumSpellingData[userName];
-    if (category === "🏆 Custom Weekly List" && userData && userData.words.includes(word)) {
+    if (category === "🏆 Week 1 Custom List" && userData && userData.words.includes(word)) {
         return `audio/${userData.folderId}/${word}.mp3`;
     }
     return `audio/${encodeURIComponent(category)}/${word}.mp3`;
@@ -507,19 +512,12 @@ function getStorageKey(key) {
 
 function switchUser(selectedUser) {
     if (selectedUser === "ADD_NEW") {
-        let newName = prompt("Enter new player's name:");
-        if (newName && newName.trim() !== "") {
-            currentUser = newName.trim();
-            let select = document.getElementById('userSelect');
-            let newOpt = document.createElement('option');
-            newOpt.value = currentUser;
-            newOpt.innerText = currentUser;
-            select.insertBefore(newOpt, select.querySelector('option[value="ADD_NEW"]'));
-            select.value = currentUser;
-        } else {
-            document.getElementById('userSelect').value = currentUser;
-            return;
-        }
+        // Open the custom Google Form in a new tab
+        window.open("https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform", "_blank");
+        
+        // Snap the dropdown back to the current active user so it doesn't get stuck on "Subscribe"
+        document.getElementById('userSelect').value = currentUser;
+        return; 
     } else {
         currentUser = selectedUser;
     }
@@ -773,7 +771,7 @@ function startGame() {
     currentCategory = document.getElementById('categorySelect').value;
     
     // Check if Custom Premium List is chosen
-    if (currentCategory === "🏆 Custom Weekly List" && premiumSpellingData[currentUser]) {
+    if (currentCategory === "🏆 Week 1 Custom List" && premiumSpellingData[currentUser]) {
         currentQueue = premiumSpellingData[currentUser].words;
     } else {
         currentQueue = Object.keys(spellingDictionary[currentCategory] || {});
