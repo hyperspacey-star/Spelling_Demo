@@ -286,6 +286,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Story & Custom Pricing</button>
             <button class="btn btn-info" onclick="openModal('guideModal')">📖 How It Works & Parent Guide</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
@@ -359,6 +360,23 @@
     </div>
 </div>
 
+<div id="originModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
+        <h2>🌟 Our Origin Story</h2>
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
+        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
+        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game Piggy Bank Economy</strong>. By converting active effort and list mastery into tangible rewards, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
+        
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: block; text-align: center; width: 100%; margin-top: 15px; text-decoration: none;">📝 Submit Custom Weekly List</a>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" onclick="closeModal('originModal')">Close</button>
+        </div>
+    </div>
+</div>
+
 <div id="parentModal" class="modal">
     <div class="modal-content" style="max-width: 700px;">
         <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
@@ -408,6 +426,8 @@
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: inline-block; margin-bottom: 15px; text-decoration: none; width: 80%;">📝 Submit Custom Weekly List</a>
+            <br>
             <button class="btn" style="background: #e67e22; color: white; font-size: 14px;" onclick="updateParentPin()">🔑 Change Parent PIN</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
