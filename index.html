@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spelling Mastery Game - Summer Demo</title>
+    <title>Spelling Mastery Game</title>
     <style>
         :root {
             --primary: #4A90E2;
@@ -112,8 +112,6 @@
         .btn-info { background: #17a2b8; }
         .btn-info:hover { background: #138496; }
         .btn-danger { background: var(--danger); }
-        .btn-venmo { background: var(--venmo); color: white; }
-        .btn-venmo:hover { background: #0073d1; color: white; }
         
         select {
             width: 100%;
@@ -234,73 +232,6 @@
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
-        
-        .ad-box {
-            background: #f0f7ff;
-            border: 2px solid var(--primary);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .pricing-card {
-            background: white;
-            border: 2px solid #CBD5E0;
-            border-radius: 12px;
-            padding: 18px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .pricing-card:hover { transform: translateY(-3px); border-color: var(--primary); }
-        .pricing-card.popular {
-            border-color: var(--warning);
-            background: #FFFDF5;
-            position: relative;
-            box-shadow: 0 6px 12px rgba(243, 156, 18, 0.15);
-        }
-        .popular-badge {
-            background: var(--warning);
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 4px 10px;
-            border-radius: 20px;
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-transform: uppercase;
-        }
-        .price-title { font-size: 18px; font-weight: bold; color: var(--dark); margin-bottom: 5px; }
-        .price-amount { font-size: 28px; font-weight: bold; color: var(--primary); margin: 10px 0; }
-        .price-amount span { font-size: 14px; color: #666; font-weight: normal; }
-        .price-features { font-size: 13px; color: #555; text-align: left; margin: 12px 0; padding-left: 18px; line-height: 1.5; }
-        .price-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
-            text-decoration: none;
-            display: block;
-            box-sizing: border-box;
-        }
-        .pricing-card.popular .price-btn { background: var(--warning); }
-        .price-btn:hover { opacity: 0.9; color: white; }
 
         @media (max-width: 600px) {
             .container { padding: 15px; padding-top: 50px; }
@@ -309,7 +240,6 @@
             .key { font-size: 16px; padding: 10px 0; min-height: 44px; }
             .review-options { grid-template-columns: 1fr; }
             .piggy-stats { flex-direction: column; align-items: center; }
-            .pricing-grid { grid-template-columns: 1fr; }
             .user-header { justify-content: center; }
         }
     </style>
@@ -322,9 +252,11 @@
     <div class="user-header" id="userHeader">
         <span style="font-weight: bold; font-size: 14px; color: #555;">👦 Active User:</span>
         <select id="userSelect" class="user-select-box" style="width: auto; margin: 0; padding: 6px 10px;" onchange="switchUser(this.value)">
+            <option value="Abigail">Abigail</option>
+            <option value="Zoey">Zoey</option>
+            <option value="Scarlett">Scarlett</option>
+            <option value="Annabel">Annabel</option>
             <option value="Player 1">Player 1 (Foundational)</option>
-            <option value="Player 2">Player 2 (Intermediate)</option>
-            <option value="Player 3">Player 3 (Advanced)</option>
             <option value="ADD_NEW">+ Add New User...</option>
         </select>
     </div>
@@ -345,13 +277,15 @@
         <p style="text-align: center; color: #666;">Select your curriculum list and start earning rewards!</p>
         
         <select id="categorySelect"></select>
+
+        <!-- Global Leaderboard Display -->
+        <div id="leaderboardDisplay" style="margin-top: 15px; text-align: center; font-size: 15px; color: #d35400; font-weight: bold; min-height: 24px;"></div>
         
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" style="font-size: 20px; padding: 15px 40px;" onclick="startGame()">▶️ Start Spelling!</button>
         </div>
         
         <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="btn btn-warning" onclick="openModal('originModal')">🌟 Our Origin Story & Custom Pricing</button>
             <button class="btn btn-info" onclick="openModal('guideModal')">📖 How It Works & Parent Guide</button>
             <button class="btn" style="background: #6c757d;" onclick="openMathGate()">⚙️ Parent Portal</button>
         </div>
@@ -406,39 +340,21 @@
         <h2>📖 How It Works & Parent Guide</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
         
+        <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🏆 Defining Mastery</h3>
+        <p style="font-size: 14px; margin-top: 0;"><strong>Mastery means all the words on the list are spelled absolutely perfectly without a single error on the first try.</strong> If a child uses a text hint or makes even one mistake on a word, they must practice until they can complete the list flawlessly.</p>
+
         <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🧠 The Pain-Free Mastery Loop</h3>
-        <p style="font-size: 14px; margin-top: 0;">Traditional spelling practice penalizes mistakes, leading to frustration. Our system transforms practice into a self-paced mastery loop:</p>
         <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
-            <li><strong>Permanent Visual Clues:</strong> An emoji is permanently displayed on screen from the start, providing immediate visual reinforcement for the audio word without giving away the spelling!</li>
-            <li><strong>The 4-Heart Hint Lock:</strong> Text hints and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> (making 4 incorrect letter guesses) before the text hint unlocks. This builds phonemic awareness and resilience!</li>
-            <li><strong>No Hints in Review:</strong> When missed words loop back for re-spelling during the Review Phase, text hints are completely disabled. Children must spell the word from memory and auditory recall to finish the list!</li>
+            <li><strong>Permanent Visual Clues:</strong> An emoji is permanently displayed on screen from the start, providing immediate visual reinforcement!</li>
+            <li><strong>The 4-Heart Hint Lock:</strong> Text hints and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> before the text hint unlocks.</li>
             <li><strong>Visual Decoy Training:</strong> Missed words trigger a multiple-choice review against dynamically generated decoy spellings, training visual word recognition before re-spelling.</li>
         </ul>
 
-        <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">💰 Piggy Bank Economy & Parental Control</h3>
-        <p style="font-size: 14px; margin-top: 0;">Active practice earns background time that converts into tangible household rewards:</p>
-        <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
-            <li><strong>Mastery Jackpots:</strong> To earn the $1.00 Jackpot and ⭐ Mastered Badge, a child must spell every word perfectly on the 1st try <em>without triggering or clicking any text hints!</em></li>
-            <li><strong>Custom Rewards:</strong> In the protected ⚙️ Parent Portal, you can change the default reward ($0.25 = 15 Mins TV) to fit your home (e.g., $1.00 = 30 Mins iPad Time or Roblox!).</li>
-            <li><strong>Exact Balance Control:</strong> You can audit timestamped gameplay history or overwrite your child's reward balance directly.</li>
-        </ul>
-        <div style="text-align: center; margin-top: 20px;">
-            <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
-        </div>
-    </div>
-</div>
-
-<div id="originModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('originModal')">&times;</span>
-        <h2>🌟 Our Origin Story</h2>
-        <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
-        <p><strong>Why I built this game:</strong> Like many parents, evening spelling practice used to be a daily battle filled with tears, frustration, and rote memorization drills that simply didn't stick.</p>
-        <p>I realized we needed a system that removed the pain while building true mastery. I designed this game around a <strong>pain-free mastery loop</strong>: instead of punishing mistakes, the app catches missed words, presents visual decoy spellings to train eye recognition, and loops them back gently until every single word is spelled with 100% confidence.</p>
-        <p>To bridge the gap between hard work and real-world rewards, I created the <strong>in-game Piggy Bank Economy</strong>. By converting active effort and list mastery into tangible rewards, daily spelling transformed overnight into a self-motivated, stress-free success!</p>
+        <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">💰 Piggy Bank Economy</h3>
+        <p style="font-size: 14px; margin-top: 0;">Active practice earns background time that converts into tangible household rewards. To earn the $1.00 Jackpot and ⭐ Mastered Badge, a child must achieve full Mastery!</p>
         
         <div style="text-align: center; margin-top: 20px;">
-            <button class="btn" onclick="closeModal('originModal')">Close</button>
+            <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
         </div>
     </div>
 </div>
@@ -447,11 +363,10 @@
     <div class="modal-content" style="max-width: 700px;">
         <span class="close-modal" onclick="closeModal('parentModal')">&times;</span>
         <h2>⚙️ Parent Portal: Audit & Economy Controls</h2>
-        <p style="color: #666; font-size: 14px;">Manage reward rules, exchange rates, and gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Player 1</strong>.</p>
+        <p style="color: #666; font-size: 14px;">Manage reward rules, exchange rates, and gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Abigail</strong>.</p>
         
         <div style="background: #FFFDF5; border: 2px solid #FFEEBA; padding: 15px; border-radius: 10px; margin: 15px 0;">
             <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #856404;">🎮 Set Custom Reward Rate & Label</h3>
-            <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Don't want to use $0.25 for 15 mins of TV? Customize your family's exact exchange rate and reward label below!</p>
             <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: bold;">
                 <span>Trade $</span>
                 <input type="number" id="cfgCoinVal" step="0.05" min="0.05" value="0.25" style="width: 65px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
@@ -494,7 +409,6 @@
 
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" style="background: #e67e22; color: white; font-size: 14px;" onclick="updateParentPin()">🔑 Change Parent PIN</button>
-            <button class="btn btn-info" style="font-size: 14px;" onclick="closeModal('parentModal'); openModal('guideModal');">📖 How It Works Guide</button>
             <button class="btn btn-danger" style="font-size: 12px; padding: 8px 12px;" onclick="clearAuditLog()">Clear Log</button>
             <button class="btn" onclick="closeModal('parentModal')">Close Portal</button>
         </div>
@@ -502,8 +416,17 @@
 </div>
 
 <script>
+// --- PREMIUM CUSTOM LIST DATA ---
+const premiumSpellingData = {
+    "Abigail": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
+    "Zoey": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
+    "Scarlett": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
+    "Annabel": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+};
+
 // Dictionary intentionally left small to save character count, but you can paste your full dictionary here.
 const spellingDictionary = {
+    "🏆 Custom Weekly List": {},
     "L1-1. Short Vowel Animals": {
         "cat": "💡 🐱 Hint: The soft cat purred. ('c' before 'a' makes the hard k sound!)",
         "dog": "💡 🐶 Hint: The brown dog barked. (Uses the short 'o' sound)",
@@ -511,7 +434,7 @@ const spellingDictionary = {
     }
 };
 
-let currentUser = "Player 1";
+let currentUser = "Abigail";
 let currentQueue = [];
 let missedWordsQueue = [];
 let currentWordIndex = 0;
@@ -522,7 +445,7 @@ let mistakes = 0;
 let mistakesOnCurrentLetter = 0;
 let wordFailedThisRound = false;
 let totalWordsToSpell = 0;
-let firstTryPerfectCount = 0;
+let firstTryPerfectCount = 0; // Tracks words spelled without ANY errors
 let isFirstPass = true;
 let masteredCategories = [];
 let isTimerRunning = false;
@@ -539,6 +462,14 @@ let econMinutesVal = 15;
 let econLabel = "TV Time";
 
 const audioPlayer = new Audio();
+
+function getAudioPath(userName, category, word) {
+    const userData = premiumSpellingData[userName];
+    if (category === "🏆 Custom Weekly List" && userData && userData.words.includes(word)) {
+        return `audio/${userData.folderId}/${word}.mp3`;
+    }
+    return `audio/${encodeURIComponent(category)}/${word}.mp3`;
+}
 
 function parseHintData(hintString) {
     let parts = hintString.split("Hint:");
@@ -606,7 +537,37 @@ function loadUserData() {
         select.appendChild(option);
     }
     updatePiggyBankUI();
+    updateLeaderboardUI();
 }
+
+// --- LEADERBOARD LOGIC ---
+function updateLeaderboardUI() {
+    let selectedCat = document.getElementById('categorySelect').value;
+    let leaderboards = JSON.parse(localStorage.getItem('spelling_global_leaderboards')) || {};
+    let categoryLeaders = leaderboards[selectedCat] || [];
+    
+    let displayDiv = document.getElementById('leaderboardDisplay');
+    if (categoryLeaders.length > 0) {
+        let names = categoryLeaders.map((entry, index) => `${index + 1}. ${entry.name}`).join(" 🥇 ");
+        displayDiv.innerText = `🏆 Mastered By: ${names}`;
+    } else {
+        displayDiv.innerText = "⭐ Be the first to master this list!";
+    }
+}
+
+function recordMasteryToLeaderboard(category, userName) {
+    let leaderboards = JSON.parse(localStorage.getItem('spelling_global_leaderboards')) || {};
+    if (!leaderboards[category]) leaderboards[category] = [];
+    
+    let alreadyMastered = leaderboards[category].some(entry => entry.name === userName);
+    if (!alreadyMastered) {
+        leaderboards[category].push({ name: userName, timestamp: Date.now() });
+        leaderboards[category].sort((a, b) => a.timestamp - b.timestamp);
+        localStorage.setItem('spelling_global_leaderboards', JSON.stringify(leaderboards));
+    }
+}
+
+document.getElementById('categorySelect').addEventListener('change', updateLeaderboardUI);
 
 function saveCustomEconomy() {
     let cVal = parseFloat(document.getElementById('cfgCoinVal').value);
@@ -639,8 +600,6 @@ window.onload = function() {
     setInterval(() => {
         if (isTimerRunning) {
             idleSeconds++;
-            
-            // Only count time if they have interacted within the last IDLE_LIMIT seconds
             if (idleSeconds < IDLE_LIMIT) {
                 activePlayingSeconds++;
                 localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
@@ -658,12 +617,13 @@ function returnHome() {
     document.getElementById('homeBtn').style.display = 'none';
     document.getElementById('userHeader').style.display = 'flex';
     document.getElementById('startScreen').style.display = 'block';
+    updateLeaderboardUI();
 }
 
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-// --- UPDATED MATH GATE TO CUSTOM PIN ---
+// --- MATH GATE ---
 function openMathGate() {
     let guess = prompt("Enter Parent PIN to access controls:");
     
@@ -791,7 +751,19 @@ function clearAuditLog() {
 
 function startGame() {
     currentCategory = document.getElementById('categorySelect').value;
-    currentQueue = Object.keys(spellingDictionary[currentCategory]);
+    
+    // Check if Custom Premium List is chosen
+    if (currentCategory === "🏆 Custom Weekly List" && premiumSpellingData[currentUser]) {
+        currentQueue = premiumSpellingData[currentUser].words;
+    } else {
+        currentQueue = Object.keys(spellingDictionary[currentCategory] || {});
+    }
+    
+    if (currentQueue.length === 0) {
+        alert("No words available for this list.");
+        return;
+    }
+    
     totalWordsToSpell = currentQueue.length;
     isFirstPass = true;
     firstTryPerfectCount = 0;
@@ -829,7 +801,13 @@ function loadWord() {
     document.getElementById('keyboard').style.pointerEvents = "auto";
     
     let wordLower = currentWord.toLowerCase();
-    let rawHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    
+    // Try to get a dictionary hint if available, else default
+    let rawHint = "💡 Listen closely to the sounds!";
+    if (spellingDictionary[currentCategory] && spellingDictionary[currentCategory][wordLower]) {
+        rawHint = spellingDictionary[currentCategory][wordLower];
+    }
+    
     let parsed = parseHintData(rawHint);
     document.getElementById('emojiClueDisplay').innerText = parsed.emoji;
 
@@ -837,7 +815,7 @@ function loadWord() {
     updateWordDisplay();
     buildKeyboard();
     
-    audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
+    audioPlayer.src = getAudioPath(currentUser, currentCategory, wordLower);
     audioPlayer.load();
     playCurrentAudio();
 }
@@ -875,7 +853,7 @@ function updateLivesDisplay() {
 }
 
 function triggerHint() {
-    resetIdleTimer(); // ANTI-CHEAT TRIGGER
+    resetIdleTimer();
 
     if (!isFirstPass) {
         document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the emoji icon!";
@@ -892,19 +870,24 @@ function triggerHint() {
     let clueDiv = document.getElementById('clueDisplay');
     clueDiv.style.display = "block";
     let wordLower = currentWord.toLowerCase();
-    let rawHint = spellingDictionary[currentCategory][wordLower] || "💡 Listen closely to the sounds!";
+    
+    let rawHint = "💡 Listen closely to the sounds!";
+    if (spellingDictionary[currentCategory] && spellingDictionary[currentCategory][wordLower]) {
+        rawHint = spellingDictionary[currentCategory][wordLower];
+    }
+    
     let parsed = parseHintData(rawHint);
     
     clueDiv.innerHTML = `<div style="font-weight: bold; font-size: 18px; color: #d35400; margin-bottom: 8px;">🎯 Word to Spell: <span style="letter-spacing: 2px; text-decoration: underline;">${currentWord}</span></div>${parsed.text}`;
 }
 
 function manualHintClick() {
-    resetIdleTimer(); // ANTI-CHEAT TRIGGER
+    resetIdleTimer();
     triggerHint();
 }
 
 function handleGuess(letter, btnElement) {
-    resetIdleTimer(); // ANTI-CHEAT TRIGGER
+    resetIdleTimer();
 
     if (mistakes >= 6 || currentLetterIndex >= currentWord.length) return;
     
@@ -915,7 +898,8 @@ function handleGuess(letter, btnElement) {
     } else {
         mistakes++;
         mistakesOnCurrentLetter++;
-        if (!wordFailedThisRound) wordFailedThisRound = true;
+        // If they make ANY mistake, they fail the strict "Mastery" definition for this round
+        if (!wordFailedThisRound) wordFailedThisRound = true; 
         
         if (mistakes >= 4 && isFirstPass) {
             triggerHint();
@@ -945,7 +929,8 @@ function buildKeyboard() {
 }
 
 function processNext() {
-    resetIdleTimer(); // Reset on button clicks
+    resetIdleTimer(); 
+    // Increment perfect count ONLY if they made zero errors
     if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
     if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
     
@@ -1002,13 +987,13 @@ function loadReviewWord() {
     });
     
     let wordLower = currentWord.toLowerCase();
-    audioPlayer.src = `audio/${encodeURIComponent(currentCategory)}/${wordLower}.mp3`;
+    audioPlayer.src = getAudioPath(currentUser, currentCategory, wordLower);
     audioPlayer.load();
     playCurrentAudio();
 }
 
 function checkReviewAnswer(selected, correct, btnElement) {
-    resetIdleTimer(); // ANTI-CHEAT TRIGGER
+    resetIdleTimer();
 
     if (selected === correct) {
         btnElement.classList.add('correct-choice');
@@ -1047,10 +1032,13 @@ function showEndScreen() {
     
     logGameActivity(currentCategory, scoreText);
     
+    // Mastery strictly defined: 100% words perfect on the first try, with no hints triggered
     let isFullyMastered = (firstTryPerfectCount === totalWordsToSpell) && !hintUsedInCurrentSession;
 
     if (isFullyMastered) {
-        document.getElementById('reportMessage').innerText = `🌟 Flawless Mastery! ${currentUser} spelled every word without hints or mistakes and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
+        document.getElementById('reportMessage').innerText = `🌟 Flawless Mastery! ${currentUser} spelled every word strictly without hints or errors and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
+        
+        recordMasteryToLeaderboard(currentCategory, currentUser);
         
         if (!masteredCategories.includes(currentCategory)) {
             masteredCategories.push(currentCategory);
@@ -1061,8 +1049,8 @@ function showEndScreen() {
             updatePiggyBankUI();
         }
     } else {
-        let reason = hintUsedInCurrentSession ? "Hints were used" : "some words were missed";
-        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! (${reason}). Spell every word correctly on the first try without hints to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
+        let reason = hintUsedInCurrentSession ? "Hints were used" : "some minor errors were made";
+        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! (${reason}). Master the list by spelling every word strictly without errors on the first try to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
     }
 }
 </script>
