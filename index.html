@@ -449,7 +449,6 @@ const premiumSpellingData = {
     "Annabel": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
 };
 
-// Dictionary intentionally left small to save character count, but you can paste your full dictionary here.
 const spellingDictionary = {
     "🏆 Week 1 Custom List": {},
     "L1-1. Short Vowel Animals": {
@@ -460,6 +459,7 @@ const spellingDictionary = {
 };
 
 let currentUser = "Abigail";
+let fullCustomList = [];
 let currentQueue = [];
 let missedWordsQueue = [];
 let currentWordIndex = 0;
@@ -470,8 +470,9 @@ let mistakes = 0;
 let mistakesOnCurrentLetter = 0;
 let wordFailedThisRound = false;
 let totalWordsToSpell = 0;
-let firstTryPerfectCount = 0; // Tracks words spelled without ANY errors
+let firstTryPerfectCount = 0; 
 let isFirstPass = true;
+let isBonusMode = false;
 let masteredCategories = [];
 let isTimerRunning = false;
 let activePlayingSeconds = 0;
@@ -479,8 +480,8 @@ let hintUsedInCurrentSession = false;
 
 // --- ANTI-CHEAT VARIABLES ---
 let idleSeconds = 0;
-const IDLE_LIMIT = 30; // 30 seconds of inactivity pauses the timer
-let parentPin = localStorage.getItem('spelling_parent_pin') || "1234"; // Default PIN
+const IDLE_LIMIT = 30; 
+let parentPin = localStorage.getItem('spelling_parent_pin') || "1234"; 
 
 let econCoinVal = 0.25;
 let econMinutesVal = 15;
@@ -512,10 +513,7 @@ function getStorageKey(key) {
 
 function switchUser(selectedUser) {
     if (selectedUser === "ADD_NEW") {
-        // Open the custom Google Form in a new tab
         window.open("https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform", "_blank");
-        
-        // Snap the dropdown back to the current active user so it doesn't get stuck on "Subscribe"
         document.getElementById('userSelect').value = currentUser;
         return; 
     } else {
@@ -606,7 +604,6 @@ function saveCustomEconomy() {
     }
 }
 
-// --- ANTI CHEAT HELPER ---
 function resetIdleTimer() {
     idleSeconds = 0;
 }
@@ -614,7 +611,6 @@ function resetIdleTimer() {
 window.onload = function() {
     loadUserData();
     
-    // --- UPDATED TIMER WITH ANTI-CHEAT ---
     setInterval(() => {
         if (isTimerRunning) {
             idleSeconds++;
@@ -641,7 +637,6 @@ function returnHome() {
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-// --- MATH GATE ---
 function openMathGate() {
     let guess = prompt("Enter Parent PIN to access controls:");
     
@@ -770,11 +765,14 @@ function clearAuditLog() {
 function startGame() {
     currentCategory = document.getElementById('categorySelect').value;
     
-    // Check if Custom Premium List is chosen
     if (currentCategory === "🏆 Week 1 Custom List" && premiumSpellingData[currentUser]) {
-        currentQueue = premiumSpellingData[currentUser].words;
+        fullCustomList = premiumSpellingData[currentUser].words;
+        currentQueue = fullCustomList.slice(0, 10);
+        isBonusMode = false;
     } else {
+        fullCustomList = [];
         currentQueue = Object.keys(spellingDictionary[currentCategory] || {});
+        isBonusMode = false;
     }
     
     if (currentQueue.length === 0) {
@@ -794,6 +792,23 @@ function startGame() {
     
     isTimerRunning = true;
     startSpellingPhase();
+}
+
+function startBonusRound() {
+    currentQueue = fullCustomList.slice(10);
+    totalWordsToSpell = currentQueue.length;
+    isFirstPass = true;
+    firstTryPerfectCount = 0;
+    hintUsedInCurrentSession = false;
+    isBonusMode = true;
+    
+    document.getElementById('currentCategoryTitle').innerText = `${currentCategory} - Bonus Set (${currentUser})`;
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('gameArea').style.display = 'block';
+    
+    currentWordIndex = 0;
+    missedWordsQueue = [];
+    loadWord();
 }
 
 function startSpellingPhase() {
@@ -820,7 +835,6 @@ function loadWord() {
     
     let wordLower = currentWord.toLowerCase();
     
-    // Try to get a dictionary hint if available, else default
     let rawHint = "💡 Listen closely to the sounds!";
     if (spellingDictionary[currentCategory] && spellingDictionary[currentCategory][wordLower]) {
         rawHint = spellingDictionary[currentCategory][wordLower];
@@ -839,7 +853,7 @@ function loadWord() {
 }
 
 function playCurrentAudio() {
-    resetIdleTimer(); // ANTI-CHEAT TRIGGER
+    resetIdleTimer();
     audioPlayer.currentTime = 0;
     audioPlayer.play().catch(e => console.log("Audio block/missing:", e));
 }
@@ -916,7 +930,6 @@ function handleGuess(letter, btnElement) {
     } else {
         mistakes++;
         mistakesOnCurrentLetter++;
-        // If they make ANY mistake, they fail the strict "Mastery" definition for this round
         if (!wordFailedThisRound) wordFailedThisRound = true; 
         
         if (mistakes >= 4 && isFirstPass) {
@@ -948,7 +961,6 @@ function buildKeyboard() {
 
 function processNext() {
     resetIdleTimer(); 
-    // Increment perfect count ONLY if they made zero errors
     if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
     if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
     
@@ -1048,27 +1060,48 @@ function showEndScreen() {
     let scoreText = `${firstTryPerfectCount} / ${totalWordsToSpell}`;
     document.getElementById('reportScore').innerText = scoreText;
     
-    logGameActivity(currentCategory, scoreText);
+    logGameActivity(currentCategory + (isBonusMode ? " (Bonus)" : ""), scoreText);
     
-    // Mastery strictly defined: 100% words perfect on the first try, with no hints triggered
     let isFullyMastered = (firstTryPerfectCount === totalWordsToSpell) && !hintUsedInCurrentSession;
+    let reportMsgEl = document.getElementById('reportMessage');
+    
+    let hasBonusWords = (!isBonusMode && fullCustomList.length > 10);
+    
+    let existingBonusBtn = document.getElementById('bonusBtn');
+    if (existingBonusBtn) existingBonusBtn.remove();
 
     if (isFullyMastered) {
-        document.getElementById('reportMessage').innerText = `🌟 Flawless Mastery! ${currentUser} spelled every word strictly without hints or errors and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
-        
-        recordMasteryToLeaderboard(currentCategory, currentUser);
-        
-        if (!masteredCategories.includes(currentCategory)) {
-            masteredCategories.push(currentCategory);
-            localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
+        if (hasBonusWords) {
+            reportMsgEl.innerHTML = `🌟 Flawless Mastery of the first 10 words!<br><br><strong>Want to keep going?</strong> You've unlocked the BONUS SET! Remember, the more time you spend practicing, the more ${econLabel} you earn! ⏳🎁`;
             
-            activePlayingSeconds += 3600; // Add an hour bonus for mastering
-            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
-            updatePiggyBankUI();
+            let bonusBtn = document.createElement('button');
+            bonusBtn.id = 'bonusBtn';
+            bonusBtn.className = 'btn btn-warning';
+            bonusBtn.style = 'font-size: 18px; padding: 12px 30px; display: block; margin: 15px auto;';
+            bonusBtn.innerText = "⭐ Play 10 Bonus Words!";
+            bonusBtn.onclick = startBonusRound;
+            document.getElementById('endScreen').insertBefore(bonusBtn, document.getElementById('endScreen').lastElementChild);
+        } else {
+            reportMsgEl.innerText = `🌟 Flawless Mastery! ${currentUser} spelled every word strictly without hints or errors and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
+            
+            recordMasteryToLeaderboard(currentCategory + (isBonusMode ? " (Bonus)" : ""), currentUser);
+            
+            if (!masteredCategories.includes(currentCategory + (isBonusMode ? " (Bonus)" : ""))) {
+                masteredCategories.push(currentCategory + (isBonusMode ? " (Bonus)" : ""));
+                localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
+                
+                activePlayingSeconds += 3600; 
+                localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
+                updatePiggyBankUI();
+            }
         }
     } else {
         let reason = hintUsedInCurrentSession ? "Hints were used" : "some minor errors were made";
-        document.getElementById('reportMessage').innerText = `💪 Great effort, ${currentUser}! (${reason}). Master the list by spelling every word strictly without errors on the first try to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
+        if (hasBonusWords) {
+            reportMsgEl.innerText = `💪 Great effort, ${currentUser}! (${reason}). You must master these first 10 words strictly without errors on the first try to unlock the 10 BONUS words!`;
+        } else {
+            reportMsgEl.innerText = `💪 Great effort, ${currentUser}! (${reason}). Master the list by spelling every word strictly without errors on the first try to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
+        }
     }
 }
 </script>
