@@ -441,21 +441,30 @@
 </div>
 
 <script>
-// --- PREMIUM CUSTOM LIST DATA ---
+// --- PREMIUM CUSTOM LIST DATA FOR ALL WEEKS ---
 const premiumSpellingData = {
-    "Abigail": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
-    "Zoey": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
-    "Scarlett": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] },
-    "Annabel": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+    "Abigail": {
+        "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+    },
+    "Zoey": {
+        "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+    },
+    "Scarlett": {
+        "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+    },
+    "Annabel": {
+        "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 1 Custom List": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+    }
 };
 
+// Dropdown is now strictly constrained to the custom lists ordered latest-first.
 const spellingDictionary = {
-    "🏆 Week 1 Custom List": {},
-    "L1-1. Short Vowel Animals": {
-        "cat": "💡 🐱 Hint: The soft cat purred. ('c' before 'a' makes the hard k sound!)",
-        "dog": "💡 🐶 Hint: The brown dog barked. (Uses the short 'o' sound)",
-        "pig": "💡 🐷 Hint: The pig rolled in mud. (Uses the short 'i' sound)"
-    }
+    "🏆 Week 2 Custom List": {},
+    "🏆 Week 1 Custom List": {}
 };
 
 let currentUser = "Abigail";
@@ -490,9 +499,9 @@ let econLabel = "TV Time";
 const audioPlayer = new Audio();
 
 function getAudioPath(userName, category, word) {
-    const userData = premiumSpellingData[userName];
-    if (category === "🏆 Week 1 Custom List" && userData && userData.words.includes(word)) {
-        return `audio/${userData.folderId}/${word}.mp3`;
+    const userWeeks = premiumSpellingData[userName];
+    if (userWeeks && userWeeks[category] && userWeeks[category].words.includes(word)) {
+        return `audio/${userWeeks[category].folderId}/${word}.mp3`;
     }
     return `audio/${encodeURIComponent(category)}/${word}.mp3`;
 }
@@ -764,10 +773,11 @@ function clearAuditLog() {
 
 function startGame() {
     currentCategory = document.getElementById('categorySelect').value;
+    const userWeeks = premiumSpellingData[currentUser];
     
-    if (currentCategory === "🏆 Week 1 Custom List" && premiumSpellingData[currentUser]) {
-        fullCustomList = premiumSpellingData[currentUser].words;
-        currentQueue = fullCustomList.slice(0, 10);
+    if (userWeeks && userWeeks[currentCategory]) {
+        fullCustomList = userWeeks[currentCategory].words;
+        currentQueue = fullCustomList.slice(0, 10); // First 10 words only
         isBonusMode = false;
     } else {
         fullCustomList = [];
@@ -795,7 +805,7 @@ function startGame() {
 }
 
 function startBonusRound() {
-    currentQueue = fullCustomList.slice(10);
+    currentQueue = fullCustomList.slice(10); // The 10 bonus words
     totalWordsToSpell = currentQueue.length;
     isFirstPass = true;
     firstTryPerfectCount = 0;
