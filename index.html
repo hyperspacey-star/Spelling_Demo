@@ -444,24 +444,24 @@
 // --- PREMIUM CUSTOM LIST DATA FOR ALL WEEKS ---
 const premiumSpellingData = {
     "Abigail": {
-        "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Zoey": {
-        "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Scarlett": {
-        "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Annabel": {
-        "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "bonus1", "bonus2", "bonus3", "bonus4", "bonus5", "bonus6", "bonus7", "bonus8", "bonus9", "bonus10"] },
+        "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     }
 };
 
-// Dropdown is now strictly constrained to the custom lists ordered latest-first.
+// Dropdown is strictly constrained to the custom lists ordered latest-first.
 const spellingDictionary = {
     "🏆 Week 2 Custom List": {},
     "🏆 Week 1 Custom List": {}
@@ -500,8 +500,16 @@ const audioPlayer = new Audio();
 
 function getAudioPath(userName, category, word) {
     const userWeeks = premiumSpellingData[userName];
-    if (userWeeks && userWeeks[category] && userWeeks[category].words.includes(word)) {
-        return `audio/${userWeeks[category].folderId}/${word}.mp3`;
+    if (userWeeks && userWeeks[category]) {
+        // Find the index of the word to match the new 01_ 02_ Python script numbering
+        const listWords = userWeeks[category].words.map(w => w.toLowerCase());
+        const wordIdx = listWords.indexOf(word.toLowerCase());
+        
+        if (wordIdx !== -1) {
+            let indexNumber = wordIdx + 1;
+            let prefix = indexNumber < 10 ? '0' + indexNumber : indexNumber;
+            return `audio/${userWeeks[category].folderId}/${prefix}_${word.toLowerCase()}.mp3`;
+        }
     }
     return `audio/${encodeURIComponent(category)}/${word}.mp3`;
 }
