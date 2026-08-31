@@ -126,16 +126,17 @@
         }
         .lives { font-size: 24px; text-align: center; margin: 10px 0; }
         
-        /* Permanent Visual Emoji Box */
+        /* Permanent Visual Clue Box (Updated for Syllables/POS Text) */
         .emoji-clue-box {
-            font-size: 54px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
             text-align: center;
             margin: 10px auto;
             background: #F0F4F8;
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            border-radius: 50%;
+            width: fit-content;
+            padding: 10px 25px;
+            border-radius: 30px;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.08);
             border: 2px solid #CBD5E0;
         }
@@ -297,11 +298,11 @@
         <h2 id="currentCategoryTitle">Category</h2>
         <div class="lives" id="livesDisplay">❤️❤️❤️❤️❤️❤️</div>
         
-        <div class="emoji-clue-box" id="emojiClueDisplay" title="Visual Clue">💡</div>
+        <div class="emoji-clue-box" id="emojiClueDisplay" title="Visual Clue">📖 Clue Info</div>
 
         <div style="text-align: center; margin-bottom: 10px;">
             <button class="btn" id="audioBtn" onclick="playCurrentAudio()">🔊 Hear Word</button>
-            <button class="btn btn-info" id="clueBtn" onclick="manualHintClick()">💡 Show Clue</button>
+            <button class="btn btn-info" id="clueBtn" onclick="manualHintClick()">💡 Show Hint</button>
         </div>
         
         <div class="hint-box" id="clueDisplay"></div>
@@ -347,8 +348,8 @@
 
         <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🧠 The Pain-Free Mastery Loop</h3>
         <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
-            <li><strong>Permanent Visual Clues:</strong> An emoji is permanently displayed on screen from the start, providing immediate visual reinforcement!</li>
-            <li><strong>The 4-Heart Hint Lock:</strong> Text hints and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> before the text hint unlocks.</li>
+            <li><strong>Permanent Visual Clues:</strong> Syllable counts and Word Types are permanently displayed on screen from the start, providing immediate visual reinforcement without giving away the word!</li>
+            <li><strong>The 4-Heart Hint Lock:</strong> Clever mnemonics and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> before the text hint unlocks.</li>
             <li><strong>Visual Decoy Training:</strong> Missed words trigger a multiple-choice review against dynamically generated decoy spellings, training visual word recognition before re-spelling.</li>
         </ul>
 
@@ -461,9 +462,30 @@ const premiumSpellingData = {
     }
 };
 
-// Dropdown is strictly constrained to the custom lists ordered latest-first.
+// Formatted dictionary: The text preceding "Hint:" is strictly displayed in the visual box. The text following "Hint:" is strictly hidden behind the 4-Heart lock.
 const spellingDictionary = {
-    "🏆 Week 2 Custom List": {},
+    "🏆 Week 2 Custom List": {
+        "everyone": "3 Syllables (Pronoun) Hint: Every one of us loves spelling! (every + one)",
+        "easy": "2 Syllables (Adjective) Hint: It is easy to drink tEAsy! (eas + y)",
+        "these": "1 Syllable (Pronoun) Hint: The letter 'e' is hiding inside the word 'the' to make these!",
+        "piece": "1 Syllable (Noun) Hint: I would love a PIEce of PIE! (contains pie)",
+        "believe": "2 Syllables (Verb) Hint: Never beLIEve a LIE. (contains lie)",
+        "people": "2 Syllables (Noun) Hint: People Eat Omelets, People Like Eggs! (P-E-O-P-L-E)",
+        "then": "1 Syllable (Adverb) Hint: The hen is over then! (the + hen)",
+        "else": "1 Syllable (Adverb) Hint: Everybody Loves Seeing Elephants! (E-L-S-E)",
+        "edge": "1 Syllable (Noun) Hint: Ed gets everywhere! Don't forget the silent 'd'.",
+        "tenth": "1 Syllable (Noun) Hint: There are ten inside a tent! (ten + th)",
+        "fifteen": "2 Syllables (Noun) Hint: It's not five-teen, it's fif-teen!",
+        "receive": "2 Syllables (Verb) Hint: Remember the rhyme: 'e' before 'i' except after 'c'!",
+        "centuries": "3 Syllables (Noun) Hint: Cent means 100, just like 100 years! (cent + uries)",
+        "geography": "4 Syllables (Noun) Hint: George Eats Old Gray Rats And Paints Houses Yellow.",
+        "representative": "5 Syllables (Noun) Hint: Re-present-a-tive! 'present' is hiding right in the middle.",
+        "squeeze": "1 Syllable (Verb) Hint: 'q' always needs its best friend 'u' to stick together like glue!",
+        "empty": "2 Syllables (Adjective) Hint: Don't forget the silent 'p' hiding before the 'ty'!",
+        "eager": "2 Syllables (Adjective) Hint: An eagle is eager to fly! (both start with ea)",
+        "overseas": "3 Syllables (Adjective) Hint: When you travel to another country, you go over the seas.",
+        "residents": "3 Syllables (Noun) Hint: The p-residents without the 'p'!"
+    },
     "🏆 Week 1 Custom List": {}
 };
 
@@ -501,7 +523,6 @@ const audioPlayer = new Audio();
 function getAudioPath(userName, category, word) {
     const userWeeks = premiumSpellingData[userName];
     if (userWeeks && userWeeks[category]) {
-        // Find the index of the word to match the new 01_ 02_ Python script numbering
         const listWords = userWeeks[category].words.map(w => w.toLowerCase());
         const wordIdx = listWords.indexOf(word.toLowerCase());
         
@@ -514,12 +535,13 @@ function getAudioPath(userName, category, word) {
     return `audio/${encodeURIComponent(category)}/${word}.mp3`;
 }
 
+// Rewritten to correctly route the Syllables/POS text to the permanent display box, and keep the clever mnemonic securely locked in the hint box.
 function parseHintData(hintString) {
     let parts = hintString.split("Hint:");
     if (parts.length > 1) {
-        let emojiPart = parts[0].replace("💡", "").trim();
-        let textPart = parts[1].trim();
-        return { emoji: emojiPart || "💡", text: textPart };
+        let visualClue = parts[0].trim();
+        let lockedMnemonic = parts[1].trim();
+        return { emoji: visualClue || "💡", text: lockedMnemonic };
     }
     return { emoji: "💡", text: hintString };
 }
@@ -906,12 +928,12 @@ function triggerHint() {
     resetIdleTimer();
 
     if (!isFirstPass) {
-        document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the emoji icon!";
+        document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the permanent visual clue!";
         return;
     }
     
     if (mistakes < 4) {
-        document.getElementById('message').innerText = `🔒 Text hints unlock after losing 4 hearts! Keep trying! (${4 - mistakes} more mistakes to unlock)`;
+        document.getElementById('message').innerText = `🔒 Clever hints unlock after losing 4 hearts! Keep trying! (${4 - mistakes} more mistakes to unlock)`;
         return;
     }
 
