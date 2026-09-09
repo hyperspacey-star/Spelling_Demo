@@ -126,7 +126,7 @@
         }
         .lives { font-size: 24px; text-align: center; margin: 10px 0; }
         
-        /* Permanent Visual Clue Box (Updated for Syllables/POS Text) */
+        /* Permanent Visual Clue Box */
         .emoji-clue-box {
             font-size: 18px;
             font-weight: bold;
@@ -450,14 +450,17 @@ const premiumSpellingData = {
         "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Zoey": {
+        "🏆 Week 3 Custom List": { folderId: "zoey_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Scarlett": {
+        "🏆 Week 3 Custom List": { folderId: "scarlett_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Annabel": {
+        "🏆 Week 3 Custom List": { folderId: "annabel_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     }
@@ -465,6 +468,28 @@ const premiumSpellingData = {
 
 // Formatted dictionary: The text preceding "Hint:" is strictly displayed in the visual box. The text following "Hint:" is strictly hidden behind the 4-Heart lock.
 const spellingDictionary = {
+    "🏆 Week 3 Custom List": {
+        "bowl": "1 Syllable (Noun) Hint: There is an owl inside the bowl! (b + owl)",
+        "goes": "1 Syllable (Verb) Hint: He goes to get some shoes! (Don't forget the 'es')",
+        "most": "1 Syllable (Adjective) Hint: Almost has most inside it!",
+        "dome": "1 Syllable (Noun) Hint: Come home to the dome!",
+        "plot": "1 Syllable (Noun) Hint: A lot of plot!",
+        "shopping": "2 Syllables (Verb) Hint: The shop needs a double 'p' before you add 'ing'!",
+        "toast": "1 Syllable (Noun) Hint: I like to boast about my toast! (contains oa)",
+        "copy": "2 Syllables (Verb) Hint: Cops like to copy!",
+        "problem": "2 Syllables (Noun) Hint: Sound it out carefully: prob + lem.",
+        "bottom": "2 Syllables (Noun) Hint: A bot at the bottom! (Remember the double 't')",
+        "floating": "2 Syllables (Verb) Hint: A boat is floating! (contains oa)",
+        "whole": "1 Syllable (Adjective) Hint: Who ate the whole thing? (Starts with a silent 'w')",
+        "explode": "2 Syllables (Verb) Hint: Ex + plode! Don't forget the silent 'e' at the end.",
+        "governor": "3 Syllables (Noun) Hint: The govern + or!",
+        "coach": "1 Syllable (Noun) Hint: A roach on the coach! (contains oa)",
+        "throat": "1 Syllable (Noun) Hint: A boat is stuck in my throat! (contains oa)",
+        "shown": "1 Syllable (Verb) Hint: I was shown the show! (show + n)",
+        "foe": "1 Syllable (Noun) Hint: My foe stubbed his toe! (contains oe)",
+        "cloth": "1 Syllable (Noun) Hint: A lot of cloth!",
+        "donut": "2 Syllables (Noun) Hint: Do not drop the donut! (do + nut)"
+    },
     "🏆 Week 2 Custom List": {
         "everyone": "3 Syllables (Pronoun) Hint: Every one of us loves spelling! (every + one)",
         "easy": "2 Syllables (Adjective) Hint: It is easy to drink tEAsy! (eas + y)",
