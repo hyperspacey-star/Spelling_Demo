@@ -204,6 +204,50 @@
         .correct-choice { background: var(--success) !important; color: white; border-color: #27AD60; }
         .wrong-choice { background: var(--danger) !important; color: white; border-color: #C0392B; opacity: 0.6; }
         
+        /* Obnoxious Cash Prize Banner CSS */
+        .flashy-bonus-box {
+            background: radial-gradient(circle, #fff3cd 0%, #ffdf7e 100%);
+            border: 5px dashed #ff9f43;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px auto;
+            box-shadow: 0 0 20px rgba(255, 159, 67, 0.6);
+            text-align: center;
+            max-width: 90%;
+        }
+        .money-icon {
+            font-size: 45px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .pulse-text {
+            color: #d35400;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 10px 0;
+            animation: pulse 1s infinite;
+        }
+        .confetti-text {
+            font-size: 22px;
+            color: #27ae60;
+            font-weight: 900;
+            text-shadow: 1px 1px 0px #fff;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .wiggle { animation: wiggle 0.5s infinite; }
+
         .modal {
             display: none;
             position: fixed;
@@ -332,7 +376,7 @@
     <div id="endScreen" style="display: none; text-align: center;">
         <h2>🎉 List Complete! 🎉</h2>
         <p style="font-size: 24px;">Your Score: <span id="reportScore" style="font-weight: bold; color: var(--primary);"></span></p>
-        <p id="reportMessage" style="font-size: 18px; margin: 20px 0;"></p>
+        <div id="reportMessage" style="font-size: 18px; margin: 20px 0;"></div>
         <button class="btn" style="font-size: 18px; padding: 12px 30px;" onclick="returnHome()">Choose Another List</button>
     </div>
 </div>
@@ -388,7 +432,7 @@
         <p style="color: #666; font-size: 14px;">Manage reward rules, exchange rates, and gameplay history for <strong id="portalUserLabel" style="color: var(--primary);">Abigail</strong>.</p>
         
         <div style="background: #FFFDF5; border: 2px solid #FFEEBA; padding: 15px; border-radius: 10px; margin: 15px 0;">
-            <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #856404;">🎮 Set Custom Reward Rate & Label</h3>
+            <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #856404;">🎮 Set Practice Reward Rate & Label (First 10 Words)</h3>
             <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: bold;">
                 <span>Trade $</span>
                 <input type="number" id="cfgCoinVal" step="0.05" min="0.05" value="0.25" style="width: 65px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
@@ -396,7 +440,19 @@
                 <input type="number" id="cfgMinutesVal" step="1" min="1" value="15" style="width: 60px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
                 <span>Mins of</span>
                 <input type="text" id="cfgLabelVal" value="TV Time" placeholder="e.g. iPad / Roblox" style="width: 110px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
-                <button class="btn btn-warning" style="padding: 6px 12px; font-size: 13px; margin: 0;" onclick="saveCustomEconomy()">Save Rule</button>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
+            
+            <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #27ae60;">💸 Set Bonus Words Cash Prize (Bonus Section)</h3>
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: bold;">
+                <span>Earn $</span>
+                <input type="number" id="cfgBonusVal" step="0.05" min="0" value="0.50" style="width: 65px; padding: 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc;">
+                <span>per correct bonus word on the real test</span>
+            </div>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <button class="btn btn-warning" style="padding: 8px 20px; font-size: 14px;" onclick="saveCustomEconomy()">Save All Rules</button>
             </div>
         </div>
 
@@ -445,29 +501,54 @@
 // --- PREMIUM CUSTOM LIST DATA FOR ALL WEEKS ---
 const premiumSpellingData = {
     "Abigail": {
+        "🏆 Week 4 Custom List": { folderId: "abigail_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "abigail_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Zoey": {
+        "🏆 Week 4 Custom List": { folderId: "zoey_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "zoey_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Scarlett": {
+        "🏆 Week 4 Custom List": { folderId: "scarlett_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "scarlett_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Annabel": {
+        "🏆 Week 4 Custom List": { folderId: "annabel_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "annabel_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     }
 };
 
-// Formatted dictionary: The text preceding "Hint:" is strictly displayed in the visual box. The text following "Hint:" is strictly hidden behind the 4-Heart lock.
 const spellingDictionary = {
+    "🏆 Week 4 Custom List": {
+        "lying": "2 Syllables (Verb) Hint: Don't tell a lie while lying down! (lie becomes ly + ing)",
+        "brick": "1 Syllable (Noun) Hint: Rick threw a brick! (b + rick)",
+        "since": "1 Syllable (Preposition) Hint: I have been here since the prince left! (rhymes with prince)",
+        "picnic": "2 Syllables (Noun) Hint: Pick a nice spot for a picnic! (pic + nic)",
+        "title": "2 Syllables (Noun) Hint: A little title! (ti + tle)",
+        "mind": "1 Syllable (Noun) Hint: Be kind to your mind! (m + ind)",
+        "wild": "1 Syllable (Adjective) Hint: The wild child!",
+        "decide": "2 Syllables (Verb) Hint: You must decide where to hide! (de + cide)",
+        "right": "1 Syllable (Adjective) Hint: Turn on the light right now! (contains igh)",
+        "lightning": "2 Syllables (Noun) Hint: The light is striking in the sky! (light + ning - no 'e'!)",
+        "admitted": "3 Syllables (Verb) Hint: Ed admitted he did it. (ad + mit + ted - double the 't'!)",
+        "ordinary": "4 Syllables (Adjective) Hint: Mary had an ordinary day. (or + di + na + ry)",
+        "sixty-six": "3 Syllables (Noun) Hint: Six tens and six ones! (Don't forget the hyphen '-')",
+        "crocodile": "3 Syllables (Noun) Hint: Crocodiles smile for a while! (croc + o + dile)",
+        "skyscraper": "3 Syllables (Noun) Hint: A building so tall it scrapes the sky! (sky + scraper)",
+        "gigantic": "3 Syllables (Adjective) Hint: A giant ant is gigantic! (gig + ant + ic)",
+        "terrified": "3 Syllables (Adjective) Hint: Terri was terrified of the dark! (terri + fied, 'y' changes to 'i')",
+        "cypress": "2 Syllables (Noun) Hint: Press the bark of the cypress tree! (cy + press)",
+        "bicycle": "3 Syllables (Noun) Hint: Bi means two, and cycle means wheels! (bi + cy + cle)",
+        "wicked": "2 Syllables (Adjective) Hint: The wicked witch lit the candle wick! (wick + ed)"
+    },
     "🏆 Week 3 Custom List": {
         "bowl": "1 Syllable (Noun) Hint: There is an owl inside the bowl! (b + owl)",
         "goes": "1 Syllable (Verb) Hint: He goes to get some shoes! (Don't forget the 'es')",
@@ -540,9 +621,11 @@ let idleSeconds = 0;
 const IDLE_LIMIT = 30; 
 let parentPin = localStorage.getItem('spelling_parent_pin') || "1234"; 
 
+// --- DUAL REWARD SYSTEM GLOBALS ---
 let econCoinVal = 0.25;
 let econMinutesVal = 15;
 let econLabel = "TV Time";
+let econBonusVal = 0.50; // The per-word cash prize for bonus section
 
 const audioPlayer = new Audio();
 
@@ -561,7 +644,6 @@ function getAudioPath(userName, category, word) {
     return `audio/${encodeURIComponent(category)}/${word}.mp3`;
 }
 
-// Rewritten to correctly route the Syllables/POS text to the permanent display box, and keep the clever mnemonic securely locked in the hint box.
 function parseHintData(hintString) {
     let parts = hintString.split("Hint:");
     if (parts.length > 1) {
@@ -596,13 +678,17 @@ function loadUserData() {
     econCoinVal = parseFloat(localStorage.getItem('spelling_cfg_coin')) || 0.25;
     econMinutesVal = parseInt(localStorage.getItem('spelling_cfg_mins')) || 15;
     econLabel = localStorage.getItem('spelling_cfg_label') || "TV Time";
+    econBonusVal = parseFloat(localStorage.getItem('spelling_cfg_bonus_coin')) || 0.50;
     
     let cfgCoinEl = document.getElementById('cfgCoinVal');
     let cfgMinsEl = document.getElementById('cfgMinutesVal');
     let cfgLblEl = document.getElementById('cfgLabelVal');
+    let cfgBonusEl = document.getElementById('cfgBonusVal');
+    
     if (cfgCoinEl) cfgCoinEl.value = econCoinVal;
     if (cfgMinsEl) cfgMinsEl.value = econMinutesVal;
     if (cfgLblEl) cfgLblEl.value = econLabel;
+    if (cfgBonusEl) cfgBonusEl.value = econBonusVal.toFixed(2);
     
     const select = document.getElementById('categorySelect');
     select.innerHTML = '';
@@ -621,7 +707,6 @@ function loadUserData() {
     updateLeaderboardUI();
 }
 
-// --- LEADERBOARD LOGIC ---
 function updateLeaderboardUI() {
     let selectedCat = document.getElementById('categorySelect').value;
     let leaderboards = JSON.parse(localStorage.getItem('spelling_global_leaderboards')) || {};
@@ -654,16 +739,21 @@ function saveCustomEconomy() {
     let cVal = parseFloat(document.getElementById('cfgCoinVal').value);
     let mVal = parseInt(document.getElementById('cfgMinutesVal').value);
     let lVal = document.getElementById('cfgLabelVal').value.trim();
+    let bVal = parseFloat(document.getElementById('cfgBonusVal').value);
     
-    if (cVal > 0 && mVal > 0 && lVal !== "") {
+    if (cVal > 0 && mVal > 0 && lVal !== "" && bVal >= 0) {
         econCoinVal = cVal;
         econMinutesVal = mVal;
         econLabel = lVal;
+        econBonusVal = bVal;
+        
         localStorage.setItem('spelling_cfg_coin', econCoinVal);
         localStorage.setItem('spelling_cfg_mins', econMinutesVal);
         localStorage.setItem('spelling_cfg_label', econLabel);
+        localStorage.setItem('spelling_cfg_bonus_coin', econBonusVal);
+        
         updatePiggyBankUI();
-        alert(`✅ Custom Reward Saved: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of ${econLabel}!`);
+        alert(`✅ Rules Saved:\nPractice: $${econCoinVal.toFixed(2)} = ${econMinutesVal} Mins of ${econLabel}\nBonus Words: $${econBonusVal.toFixed(2)} cash per word!`);
     } else {
         alert("Please enter valid amounts and a reward name.");
     }
@@ -1138,13 +1228,24 @@ function showEndScreen() {
 
     if (isFullyMastered) {
         if (hasBonusWords) {
-            reportMsgEl.innerHTML = `🌟 Flawless Mastery of the first 10 words!<br><br><strong>Want to keep going?</strong> You've unlocked the BONUS SET! Remember, the more time you spend practicing, the more ${econLabel} you earn! ⏳🎁`;
+            let maxBonus = ((fullCustomList.length - 10) * econBonusVal).toFixed(2);
+            let displayBonus = (econBonusVal < 1) ? `${Math.round(econBonusVal * 100)}¢` : `$${econBonusVal.toFixed(2)}`;
+
+            reportMsgEl.innerHTML = `🌟 Flawless Mastery of the first 10 words!<br>
+            
+            <div class="flashy-bonus-box">
+                <div><span class="money-icon wiggle">💵</span><span class="money-icon wiggle">💰</span><span class="money-icon wiggle">💵</span></div>
+                <div class="pulse-text">🎉 CASH PRIZE UNLOCKED! 🎉</div>
+                <p class="confetti-text">Earn ${displayBonus} for EVERY bonus word spelled correctly on the real test!!</p>
+                <p style="font-size: 16px; color: #856404; font-weight: bold;">(That's up to $${maxBonus} extra cash!)</p>
+                <div><span class="money-icon wiggle">🎊</span><span class="money-icon wiggle">🤑</span><span class="money-icon wiggle">🎊</span></div>
+            </div>`;
             
             let bonusBtn = document.createElement('button');
             bonusBtn.id = 'bonusBtn';
             bonusBtn.className = 'btn btn-warning';
-            bonusBtn.style = 'font-size: 18px; padding: 12px 30px; display: block; margin: 15px auto;';
-            bonusBtn.innerText = "⭐ Play 10 Bonus Words!";
+            bonusBtn.style = 'font-size: 24px; padding: 15px 30px; display: block; margin: 15px auto; border: 3px solid #d35400; font-weight: 900; background-color: #f1c40f; color: #c0392b; animation: pulse 1.5s infinite;';
+            bonusBtn.innerText = "⭐ PLAY BONUS WORDS NOW! ⭐";
             bonusBtn.onclick = startBonusRound;
             document.getElementById('endScreen').insertBefore(bonusBtn, document.getElementById('endScreen').lastElementChild);
         } else {
