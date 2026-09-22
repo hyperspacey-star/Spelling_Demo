@@ -126,7 +126,7 @@
         }
         .lives { font-size: 24px; text-align: center; margin: 10px 0; }
         
-        /* Permanent Visual Clue Box */
+        /* Permanent Visual Clue Box (Updated for Syllables/POS Text) */
         .emoji-clue-box {
             font-size: 18px;
             font-weight: bold;
@@ -501,24 +501,28 @@
 // --- PREMIUM CUSTOM LIST DATA FOR ALL WEEKS ---
 const premiumSpellingData = {
     "Abigail": {
+        "🏆 Week 5 Custom List": { folderId: "abigail_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
         "🏆 Week 4 Custom List": { folderId: "abigail_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "abigail_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Zoey": {
+        "🏆 Week 5 Custom List": { folderId: "zoey_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
         "🏆 Week 4 Custom List": { folderId: "zoey_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "zoey_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Scarlett": {
+        "🏆 Week 5 Custom List": { folderId: "scarlett_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
         "🏆 Week 4 Custom List": { folderId: "scarlett_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "scarlett_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     },
     "Annabel": {
+        "🏆 Week 5 Custom List": { folderId: "annabel_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
         "🏆 Week 4 Custom List": { folderId: "annabel_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "annabel_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
@@ -527,6 +531,28 @@ const premiumSpellingData = {
 };
 
 const spellingDictionary = {
+    "🏆 Week 5 Custom List": {
+        "used": "1 Syllable (Verb) Hint: I used to use that! (use + d)",
+        "adult": "2 Syllables (Noun) Hint: A dull adult! (a + dult)",
+        "uncover": "3 Syllables (Verb) Hint: Uncover the cover! (un + cover)",
+        "blush": "1 Syllable (Verb) Hint: Don't rush to blush! (b + lush)",
+        "crunch": "1 Syllable (Verb) Hint: Captain Crunch! (c + run + ch)",
+        "uncle": "2 Syllables (Noun) Hint: Un + cle! (Don't forget the 'c' before 'le')",
+        "cute": "1 Syllable (Adjective) Hint: A cute little mute! (The magic 'e' makes the 'u' say its name!)",
+        "human": "2 Syllables (Noun) Hint: Every human is partly a man! (hu + man)",
+        "future": "2 Syllables (Noun) Hint: Fu + ture! (The 'ture' sounds like 'cher')",
+        "usual": "3 Syllables (Adjective) Hint: It is usual to use an umbrella! (u + su + al)",
+        "grumpy": "2 Syllables (Adjective) Hint: The grumpy grandpa! (grump + y)",
+        "umpire": "2 Syllables (Noun) Hint: An umpire in the empire! (um + pire)",
+        "abundant": "3 Syllables (Adjective) Hint: A bun ant is abundant! (a + bun + dant)",
+        "fuel": "2 Syllables (Noun) Hint: Don't duel over fuel! (f + u + e + l)",
+        "communicate": "4 Syllables (Verb) Hint: We communicate with the community! (Double 'm'!)",
+        "cubicle": "3 Syllables (Noun) Hint: A cub in a cubicle! (cub + i + cle)",
+        "refused": "2 Syllables (Verb) Hint: Re + fused!",
+        "continued": "3 Syllables (Verb) Hint: Con + tin + ued!",
+        "usually": "4 Syllables (Adverb) Hint: Usual + ly! (Don't forget the double 'l')",
+        "uniform": "3 Syllables (Noun) Hint: Uni + form! (Like a unicorn in uniform)"
+    },
     "🏆 Week 4 Custom List": {
         "lying": "2 Syllables (Verb) Hint: Don't tell a lie while lying down! (lie becomes ly + ing)",
         "brick": "1 Syllable (Noun) Hint: Rick threw a brick! (b + rick)",
@@ -991,6 +1017,7 @@ function loadWord() {
     
     let wordLower = currentWord.toLowerCase();
     
+    // Try to get a dictionary hint if available, else default
     let rawHint = "💡 Listen closely to the sounds!";
     if (spellingDictionary[currentCategory] && spellingDictionary[currentCategory][wordLower]) {
         rawHint = spellingDictionary[currentCategory][wordLower];
@@ -1009,7 +1036,7 @@ function loadWord() {
 }
 
 function playCurrentAudio() {
-    resetIdleTimer();
+    resetIdleTimer(); // ANTI-CHEAT TRIGGER
     audioPlayer.currentTime = 0;
     audioPlayer.play().catch(e => console.log("Audio block/missing:", e));
 }
@@ -1086,6 +1113,7 @@ function handleGuess(letter, btnElement) {
     } else {
         mistakes++;
         mistakesOnCurrentLetter++;
+        // If they make ANY mistake, they fail the strict "Mastery" definition for this round
         if (!wordFailedThisRound) wordFailedThisRound = true; 
         
         if (mistakes >= 4 && isFirstPass) {
@@ -1117,6 +1145,7 @@ function buildKeyboard() {
 
 function processNext() {
     resetIdleTimer(); 
+    // Increment perfect count ONLY if they made zero errors
     if (isFirstPass && !wordFailedThisRound) firstTryPerfectCount++;
     if (wordFailedThisRound) missedWordsQueue.push({ word: currentWord });
     
@@ -1226,20 +1255,55 @@ function showEndScreen() {
     let existingBonusBtn = document.getElementById('bonusBtn');
     if (existingBonusBtn) existingBonusBtn.remove();
 
-    if (isFullyMastered) {
-        if (hasBonusWords) {
-            let maxBonus = ((fullCustomList.length - 10) * econBonusVal).toFixed(2);
-            let displayBonus = (econBonusVal < 1) ? `${Math.round(econBonusVal * 100)}¢` : `$${econBonusVal.toFixed(2)}`;
+    // Determine the end screen content based on Bonus mode or Normal mode
+    if (isBonusMode) {
+        if (isFullyMastered) {
+            recordMasteryToLeaderboard(currentCategory + " (Bonus)", currentUser);
+            if (!masteredCategories.includes(currentCategory + " (Bonus)")) {
+                masteredCategories.push(currentCategory + " (Bonus)");
+                localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
+                activePlayingSeconds += 3600; // 1 Hr bonus time
+                localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
+                updatePiggyBankUI();
+            }
+            reportMsgEl.innerHTML = `🌟 <strong>BONUS LIST MASTERED!</strong> 🌟<br><br>Incredible job, ${currentUser}! You are totally ready for the real test to earn that cash! 💸`;
+        } else {
+            let reason = hintUsedInCurrentSession ? "Hints were used" : "some minor errors were made";
+            reportMsgEl.innerHTML = `💪 Great effort on the Bonus Words, ${currentUser}! (${reason}).<br><br>Keep practicing to guarantee that cash prize on the real test! 💸`;
+        }
+        return; // Break early if in Bonus Mode
+    }
 
-            reportMsgEl.innerHTML = `🌟 Flawless Mastery of the first 10 words!<br>
+    // Normal Mode Logic (First 10 Words)
+    let flashyBannerHTML = "";
+    if (hasBonusWords) {
+        let maxBonus = ((fullCustomList.length - 10) * econBonusVal).toFixed(2);
+        let displayBonus = (econBonusVal < 1) ? `${Math.round(econBonusVal * 100)}¢` : `$${econBonusVal.toFixed(2)}`;
+
+        flashyBannerHTML = `
+        <div class="flashy-bonus-box">
+            <div><span class="money-icon wiggle">💵</span><span class="money-icon wiggle">💰</span><span class="money-icon wiggle">💵</span></div>
+            <div class="pulse-text">🎉 CASH PRIZE OPPORTUNITY! 🎉</div>
+            <p class="confetti-text">Earn ${displayBonus} for EVERY bonus word spelled correctly on the real test!!</p>
+            <p style="font-size: 16px; color: #856404; font-weight: bold;">(That's up to $${maxBonus} extra cash!)</p>
+            <div><span class="money-icon wiggle">🎊</span><span class="money-icon wiggle">🤑</span><span class="money-icon wiggle">🎊</span></div>
+        </div>`;
+    }
+
+    if (isFullyMastered) {
+        recordMasteryToLeaderboard(currentCategory, currentUser);
+        
+        if (!masteredCategories.includes(currentCategory)) {
+            masteredCategories.push(currentCategory);
+            localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
             
-            <div class="flashy-bonus-box">
-                <div><span class="money-icon wiggle">💵</span><span class="money-icon wiggle">💰</span><span class="money-icon wiggle">💵</span></div>
-                <div class="pulse-text">🎉 CASH PRIZE UNLOCKED! 🎉</div>
-                <p class="confetti-text">Earn ${displayBonus} for EVERY bonus word spelled correctly on the real test!!</p>
-                <p style="font-size: 16px; color: #856404; font-weight: bold;">(That's up to $${maxBonus} extra cash!)</p>
-                <div><span class="money-icon wiggle">🎊</span><span class="money-icon wiggle">🤑</span><span class="money-icon wiggle">🎊</span></div>
-            </div>`;
+            activePlayingSeconds += 3600; 
+            localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
+            updatePiggyBankUI();
+        }
+
+        if (hasBonusWords) {
+            reportMsgEl.innerHTML = `🌟 <strong>Flawless Mastery of the first 10 words!</strong> 🌟<br>` + flashyBannerHTML;
             
             let bonusBtn = document.createElement('button');
             bonusBtn.id = 'bonusBtn';
@@ -1249,25 +1313,15 @@ function showEndScreen() {
             bonusBtn.onclick = startBonusRound;
             document.getElementById('endScreen').insertBefore(bonusBtn, document.getElementById('endScreen').lastElementChild);
         } else {
-            reportMsgEl.innerText = `🌟 Flawless Mastery! ${currentUser} spelled every word strictly without hints or errors and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
-            
-            recordMasteryToLeaderboard(currentCategory + (isBonusMode ? " (Bonus)" : ""), currentUser);
-            
-            if (!masteredCategories.includes(currentCategory + (isBonusMode ? " (Bonus)" : ""))) {
-                masteredCategories.push(currentCategory + (isBonusMode ? " (Bonus)" : ""));
-                localStorage.setItem(getStorageKey('spelling_mastered'), JSON.stringify(masteredCategories));
-                
-                activePlayingSeconds += 3600; 
-                localStorage.setItem(getStorageKey('spelling_active_seconds'), activePlayingSeconds);
-                updatePiggyBankUI();
-            }
+            reportMsgEl.innerHTML = `🌟 Flawless Mastery! ${currentUser} spelled every word strictly without hints or errors and earned a $${(4 * econCoinVal).toFixed(2)} ${econLabel} Jackpot!`;
         }
     } else {
         let reason = hintUsedInCurrentSession ? "Hints were used" : "some minor errors were made";
+        
         if (hasBonusWords) {
-            reportMsgEl.innerText = `💪 Great effort, ${currentUser}! (${reason}). You must master these first 10 words strictly without errors on the first try to unlock the 10 BONUS words!`;
+            reportMsgEl.innerHTML = `💪 Great effort, ${currentUser}! (${reason}).<br><br><strong>You must master these first 10 words strictly without errors on the first try to unlock the 10 BONUS words!</strong><br>` + flashyBannerHTML;
         } else {
-            reportMsgEl.innerText = `💪 Great effort, ${currentUser}! (${reason}). Master the list by spelling every word strictly without errors on the first try to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
+            reportMsgEl.innerHTML = `💪 Great effort, ${currentUser}! (${reason}). Master the list by spelling every word strictly without errors on the first try to earn the $${(4 * econCoinVal).toFixed(2)} Jackpot!`;
         }
     }
 }
