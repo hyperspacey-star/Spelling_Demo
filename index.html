@@ -126,7 +126,7 @@
         }
         .lives { font-size: 24px; text-align: center; margin: 10px 0; }
         
-        /* Permanent Visual Clue Box (Updated for Syllables/POS Text) */
+        /* Permanent Visual Clue Box */
         .emoji-clue-box {
             font-size: 18px;
             font-weight: bold;
@@ -300,9 +300,6 @@
         <span style="font-weight: bold; font-size: 14px; color: #555;">👦 Active User:</span>
         <select id="userSelect" class="user-select-box" style="width: auto; margin: 0; padding: 6px 10px;" onchange="switchUser(this.value)">
             <option value="Abigail">Abigail</option>
-            <option value="Zoey">Zoey</option>
-            <option value="Scarlett">Scarlett</option>
-            <option value="Annabel">Annabel</option>
             <option value="ADD_NEW">➕ Subscribe a New Student...</option>
         </select>
     </div>
@@ -498,39 +495,41 @@
 </div>
 
 <script>
-// --- PREMIUM CUSTOM LIST DATA FOR ALL WEEKS ---
+// --- PREMIUM CUSTOM LIST DATA FOR ABIGAIL ---
 const premiumSpellingData = {
     "Abigail": {
+        "🏆 Week 6 Custom List": { folderId: "abigail_week6", words: ["magnet", "invented", "fifteen", "computer", "chicken", "traffic", "wallet", "summer", "rapid", "pencil", "kitchen", "fantasy", "enchanted", "sugar", "collar", "medal", "kitten", "spunky", "mixture", "princess"] },
         "🏆 Week 5 Custom List": { folderId: "abigail_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
         "🏆 Week 4 Custom List": { folderId: "abigail_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
         "🏆 Week 3 Custom List": { folderId: "abigail_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
         "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
         "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
-    },
-    "Zoey": {
-        "🏆 Week 5 Custom List": { folderId: "zoey_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
-        "🏆 Week 4 Custom List": { folderId: "zoey_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
-        "🏆 Week 3 Custom List": { folderId: "zoey_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
-        "🏆 Week 2 Custom List": { folderId: "zoey_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
-        "🏆 Week 1 Custom List": { folderId: "zoey_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
-    },
-    "Scarlett": {
-        "🏆 Week 5 Custom List": { folderId: "scarlett_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
-        "🏆 Week 4 Custom List": { folderId: "scarlett_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
-        "🏆 Week 3 Custom List": { folderId: "scarlett_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
-        "🏆 Week 2 Custom List": { folderId: "scarlett_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
-        "🏆 Week 1 Custom List": { folderId: "scarlett_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
-    },
-    "Annabel": {
-        "🏆 Week 5 Custom List": { folderId: "annabel_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
-        "🏆 Week 4 Custom List": { folderId: "annabel_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
-        "🏆 Week 3 Custom List": { folderId: "annabel_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
-        "🏆 Week 2 Custom List": { folderId: "annabel_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
-        "🏆 Week 1 Custom List": { folderId: "annabel_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
     }
 };
 
 const spellingDictionary = {
+    "🏆 Week 6 Custom List": {
+        "magnet": "2 Syllables (Noun) Hint: A mag + net attracts metal!",
+        "invented": "3 Syllables (Verb) Hint: He in + vent + ed a new machine!",
+        "fifteen": "2 Syllables (Noun) Hint: It's not five-teen, it's fif-teen!",
+        "computer": "3 Syllables (Noun) Hint: Play games on the com + pu + ter!",
+        "chicken": "2 Syllables (Noun) Hint: The chick + en crossed the road!",
+        "traffic": "2 Syllables (Noun) Hint: Cars stuck in traf + fic! (Double 'f')",
+        "wallet": "2 Syllables (Noun) Hint: Keep cash in the wall + et!",
+        "summer": "2 Syllables (Noun) Hint: Hot sum + mer days! (Double 'm')",
+        "rapid": "2 Syllables (Adjective) Hint: A rapid river!",
+        "pencil": "2 Syllables (Noun) Hint: Write with a pen + cil!",
+        "kitchen": "2 Syllables (Noun) Hint: Cook in the kitch + en! (Don't forget the 't')",
+        "fantasy": "3 Syllables (Noun) Hint: A fan + ta + sy story!",
+        "enchanted": "3 Syllables (Adjective) Hint: The en + chant + ed forest!",
+        "sugar": "2 Syllables (Noun) Hint: Sweet sug + ar! (Starts with an 's', not 'sh')",
+        "collar": "2 Syllables (Noun) Hint: The dog's col + lar! (Double 'l')",
+        "medal": "2 Syllables (Noun) Hint: Win a gold med + al!",
+        "kitten": "2 Syllables (Noun) Hint: A cute kit + ten! (Double 't')",
+        "spunky": "2 Syllables (Adjective) Hint: A spunk + y puppy!",
+        "mixture": "2 Syllables (Noun) Hint: A mix + ture of colors! (The 'ture' sounds like 'cher')",
+        "princess": "2 Syllables (Noun) Hint: The prin + cess wears a crown! (Double 's')"
+    },
     "🏆 Week 5 Custom List": {
         "used": "1 Syllable (Verb) Hint: I used to use that! (use + d)",
         "adult": "2 Syllables (Noun) Hint: A dull adult! (a + dult)",
