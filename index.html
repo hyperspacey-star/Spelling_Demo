@@ -212,37 +212,11 @@
             text-align: center;
             max-width: 90%;
         }
-        .money-icon {
-            font-size: 45px;
-            margin: 0 10px;
-            display: inline-block;
-        }
-        .pulse-text {
-            color: #d35400;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin: 10px 0;
-            animation: pulse 1s infinite;
-        }
-        .confetti-text {
-            font-size: 22px;
-            color: #27ae60;
-            font-weight: 900;
-            text-shadow: 1px 1px 0px #fff;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
-        @keyframes wiggle {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(10deg); }
-            100% { transform: rotate(0deg); }
-        }
+        .money-icon { font-size: 45px; margin: 0 10px; display: inline-block; }
+        .pulse-text { color: #d35400; font-size: 28px; font-weight: bold; text-transform: uppercase; margin: 10px 0; animation: pulse 1s infinite; }
+        .confetti-text { font-size: 22px; color: #27ae60; font-weight: 900; text-shadow: 1px 1px 0px #fff; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        @keyframes wiggle { 0% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(0deg); } 75% { transform: rotate(10deg); } 100% { transform: rotate(0deg); } }
         .wiggle { animation: wiggle 0.5s infinite; }
 
         .modal {
@@ -379,16 +353,20 @@
         <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
         <h2>📖 How It Works & Parent Guide</h2>
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+        
         <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🏆 Defining Mastery</h3>
         <p style="font-size: 14px; margin-top: 0;"><strong>Mastery means all the words on the list are spelled absolutely perfectly without a single error on the first try.</strong> If a child uses a text hint or makes even one mistake on a word, they must practice until they can complete the list flawlessly.</p>
+
         <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">🧠 The Pain-Free Mastery Loop</h3>
         <ul style="font-size: 14px; padding-left: 20px; line-height: 1.5;">
             <li><strong>Permanent Visual Clues:</strong> Syllable counts and Word Types are permanently displayed on screen from the start, providing immediate visual reinforcement without giving away the word!</li>
             <li><strong>The 4-Heart Hint Lock:</strong> Clever mnemonics and target word spellings are strictly locked. A child must struggle independently and lose <strong>4 hearts</strong> before the text hint unlocks.</li>
             <li><strong>Visual Decoy Training:</strong> Missed words trigger a multiple-choice review against dynamically generated decoy spellings, training visual word recognition before re-spelling.</li>
         </ul>
+
         <h3 style="color: var(--primary); text-align: left; margin-bottom: 5px;">💰 Piggy Bank Economy</h3>
         <p style="font-size: 14px; margin-top: 0;">Active practice earns background time that converts into tangible household rewards. To earn the $1.00 Jackpot and ⭐ Mastered Badge, a child must achieve full Mastery!</p>
+        
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
         </div>
@@ -403,6 +381,7 @@
         <p><strong>Want to add your child's exact weekly homework list?</strong></p>
         <p>For $5/week (or $15/month), we will hand-generate crisp, professional instructional audio files tailored directly to your child's weekly curriculum and push them directly to their in-game profile!</p>
         <p>To bridge the gap between hard work and real-world rewards, our <strong>in-game Piggy Bank Economy</strong> converts your child's active effort and flawless list mastery into tangible rewards you set at home. Daily spelling transforms overnight into a self-motivated, stress-free success!</p>
+        
         <div style="text-align: center; margin-top: 20px;">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScY1ybEDmxCTEvIVMBqzgM6_zut33K8Wsuv4n5xKWy7EObvoA/viewform" target="_blank" class="btn btn-warning" style="display: inline-block; width: 80%; margin-bottom: 10px; text-decoration: none;">📝 1. Submit Custom Weekly List</a>
             <br>
@@ -486,121 +465,58 @@
 </div>
 
 <script>
+// --- PREMIUM CUSTOM LIST DATA FOR ABIGAIL ---
 const premiumSpellingData = {
     "Abigail": {
-        "🏆 Week 11 Custom List": { folderId: "abigail_week11", words: ["gobble", "table", "single", "little", "purple", "simple", "startle", "wiggled", "staple", "cable", "raffle", "bubble", "tangle", "struggled", "cattle", "tackle", "buckle", "shuttle", "maple", "remarkable"] },
-        "🏆 Week 10 Custom List": { folderId: "abigail_week10", words: ["birthday", "hot dogs", "herself", "himself", "high school", "afternoon", "breakfast", "however", "anyone", "everything", "first-rate", "narrow-minded", "mind-boggling", "grandparents", "post office", "keyboard", "downstairs", "somewhere", "three-quarters", "worn-out"] },
-        "🏆 Week 9 Custom List": { folderId: "abigail_week9", words: ["earth", "early", "important", "sturdy", "shirt", "search", "world", "worse", "doctor", "curly", "forests", "charcoal", "northeast", "waterproof", "surface", "collar", "birches", "coverings", "wonder", "shower"] },
-        "🏆 Week 8 Custom List": { folderId: "abigail_week8", words: ["dismay", "hail", "plea", "likewise", "deceive", "ragamuffin", "valiant", "resolve", "nimble", "contemptuously"] },
+        "🏆 Week 13 Custom List": { folderId: "abigail_week13", words: ["carbon", "energy", "dancer", "damage", "circle", "gallon", "police", "pencil", "general", "camping", "dragon", "glass", "current", "engine", "substance", "generate", "electricity", "importance", "regular", "gasoline"] },
         "🏆 Week 7 Custom List": { folderId: "abigail_week7", words: ["deter", "location", "noticed", "decided", "local", "nature", "prevent", "legal", "lazy", "before", "gigantic", "item", "flavor", "pilot", "program", "obey", "climate", "future", "label", "nation"] },
-        "🏆 Week 6 Custom List": { folderId: "abigail_week6", words: ["magnet", "invented", "fifteen", "computer", "chicken", "traffic", "wallet", "summer", "rapid", "pencil", "kitchen", "fantasy", "enchanted", "sugar", "collar", "medal", "kitten", "spunky", "mixture", "princess"] },
-        "🏆 Week 5 Custom List": { folderId: "abigail_week5", words: ["used", "adult", "uncover", "blush", "crunch", "uncle", "cute", "human", "future", "usual", "grumpy", "umpire", "abundant", "fuel", "communicate", "cubicle", "refused", "continued", "usually", "uniform"] },
-        "🏆 Week 4 Custom List": { folderId: "abigail_week4", words: ["lying", "brick", "since", "picnic", "title", "mind", "wild", "decide", "right", "lightning", "admitted", "ordinary", "sixty-six", "crocodile", "skyscraper", "gigantic", "terrified", "cypress", "bicycle", "wicked"] },
-        "🏆 Week 3 Custom List": { folderId: "abigail_week3", words: ["bowl", "goes", "most", "dome", "plot", "shopping", "toast", "copy", "problem", "bottom", "floating", "whole", "explode", "governor", "coach", "throat", "shown", "foe", "cloth", "donut"] },
-        "🏆 Week 2 Custom List": { folderId: "abigail_week2", words: ["everyone", "easy", "these", "piece", "believe", "people", "then", "else", "edge", "tenth", "fifteen", "receive", "centuries", "geography", "representative", "squeeze", "empty", "eager", "overseas", "residents"] },
-        "🏆 Week 1 Custom List": { folderId: "abigail_week1", words: ["staff", "locate", "spray", "explain", "relay", "amaze", "fact", "began", "clasp", "rapid", "greatly", "maintain", "natural", "national", "trails", "stranger", "display", "freight", "weigh", "neighbor"] }
+        "🏆 Week 6 Custom List": { folderId: "abigail_week6", words: ["magnet", "invented", "fifteen", "computer", "chicken", "traffic", "wallet", "summer", "rapid", "pencil", "kitchen", "fantasy", "enchanted", "sugar", "collar", "medal", "kitten", "spunky", "mixture", "princess"] }
     }
 };
 
 const spellingDictionary = {
-    "🏆 Week 11 Custom List": {
-        "gobble": "2 Syllables (Verb) Hint: Not spelled gobel.",
-        "table": "2 Syllables (Noun) Hint: Not spelled tabel.",
-        "single": "2 Syllables (Adjective) Hint: Not spelled singel.",
-        "little": "2 Syllables (Adjective) Hint: Not spelled litel.",
-        "purple": "2 Syllables (Adjective) Hint: Not spelled purpel.",
-        "simple": "2 Syllables (Adjective) Hint: Not spelled simpel.",
-        "startle": "2 Syllables (Verb) Hint: Not spelled startel.",
-        "wiggled": "2 Syllables (Verb) Hint: Not spelled wigeled.",
-        "staple": "2 Syllables (Noun) Hint: Not spelled stapel.",
-        "cable": "2 Syllables (Noun) Hint: Not spelled cabel.",
-        "raffle": "2 Syllables (Noun) Hint: Not spelled rafel.",
-        "bubble": "2 Syllables (Noun) Hint: Not spelled bubel.",
-        "tangle": "2 Syllables (Verb) Hint: Not spelled tangel.",
-        "struggled": "2 Syllables (Verb) Hint: Not spelled strugeled.",
-        "cattle": "2 Syllables (Noun) Hint: Not spelled catel.",
-        "tackle": "2 Syllables (Verb) Hint: Not spelled takle.",
-        "buckle": "2 Syllables (Verb) Hint: Not spelled bukel.",
-        "shuttle": "2 Syllables (Noun) Hint: Not spelled shutel.",
-        "maple": "2 Syllables (Noun) Hint: Not spelled mapel.",
-        "remarkable": "4 Syllables (Adjective) Hint: Not spelled remarkabel."
-    },
-    "🏆 Week 10 Custom List": {
-        "birthday": "2 Syllables (Noun) Hint: Not spelled burthday.",
-        "hot dogs": "2 Syllables (Noun) Hint: Not spelled hot dogz.",
-        "herself": "2 Syllables (Pronoun) Hint: Not spelled hurself.",
-        "himself": "2 Syllables (Pronoun) Hint: Not spelled humself.",
-        "high school": "2 Syllables (Noun) Hint: Not spelled hi skool.",
-        "afternoon": "3 Syllables (Noun) Hint: Not spelled afternune.",
-        "breakfast": "2 Syllables (Noun) Hint: Not spelled brekfast.",
-        "however": "3 Syllables (Adverb) Hint: Not spelled howevir.",
-        "anyone": "3 Syllables (Pronoun) Hint: Not spelled enyone.",
-        "everything": "4 Syllables (Pronoun) Hint: Not spelled evrything.",
-        "first-rate": "2 Syllables (Adjective) Hint: Not spelled furst-rate.",
-        "narrow-minded": "4 Syllables (Adjective) Hint: Not spelled narrow-mindid.",
-        "mind-boggling": "3 Syllables (Adjective) Hint: Not spelled mind-bogling.",
-        "grandparents": "3 Syllables (Noun) Hint: Not spelled granparents.",
-        "post office": "3 Syllables (Noun) Hint: Not spelled post ofice.",
-        "keyboard": "2 Syllables (Noun) Hint: Not spelled keebord.",
-        "downstairs": "2 Syllables (Adverb) Hint: Not spelled downstares.",
-        "somewhere": "2 Syllables (Adverb) Hint: Not spelled sumwhere.",
-        "three-quarters": "3 Syllables (Noun) Hint: Not spelled three-qwarters.",
-        "worn-out": "2 Syllables (Adjective) Hint: Not spelled warn-out."
-    },
-    "🏆 Week 9 Custom List": {
-        "earth": "1 Syllable (Noun) Hint: Not spelled urth.",
-        "early": "2 Syllables (Adverb) Hint: Not spelled urlee.",
-        "important": "3 Syllables (Adjective) Hint: Not spelled importent.",
-        "sturdy": "2 Syllables (Adjective) Hint: Not spelled sturdee.",
-        "shirt": "1 Syllable (Noun) Hint: Not spelled shurt.",
-        "search": "1 Syllable (Verb) Hint: Not spelled serch.",
-        "world": "1 Syllable (Noun) Hint: Not spelled wurld.",
-        "worse": "1 Syllable (Adjective) Hint: Not spelled wers.",
-        "doctor": "2 Syllables (Noun) Hint: Not spelled docter.",
-        "curly": "2 Syllables (Adjective) Hint: Not spelled curlee.",
-        "forests": "2 Syllables (Noun) Hint: Not spelled forists.",
-        "charcoal": "2 Syllables (Noun) Hint: Not spelled charcole.",
-        "northeast": "2 Syllables (Noun) Hint: Not spelled northest.",
-        "waterproof": "3 Syllables (Adjective) Hint: Not spelled waterpruf.",
-        "surface": "2 Syllables (Noun) Hint: Not spelled surfis.",
-        "collar": "2 Syllables (Noun) Hint: Not spelled coller.",
-        "birches": "2 Syllables (Noun) Hint: Not spelled burchis.",
-        "coverings": "3 Syllables (Noun) Hint: Not spelled cuverings.",
-        "wonder": "2 Syllables (Verb) Hint: Not spelled wunder.",
-        "shower": "2 Syllables (Noun) Hint: Not spelled shour."
-    },
-    "🏆 Week 8 Custom List": {
-        "dismay": "2 Syllables (Noun) Hint: Not spelled dismai.",
-        "hail": "1 Syllable (Noun) Hint: Not spelled hale.",
-        "plea": "1 Syllable (Noun) Hint: Not spelled plee.",
-        "likewise": "2 Syllables (Adverb) Hint: Not spelled likewize.",
-        "deceive": "2 Syllables (Verb) Hint: Not spelled decieve.",
-        "ragamuffin": "4 Syllables (Noun) Hint: Not spelled ragamufin.",
-        "valiant": "3 Syllables (Adjective) Hint: Not spelled valyant.",
-        "resolve": "2 Syllables (Verb) Hint: Not spelled rezolve.",
-        "nimble": "2 Syllables (Adjective) Hint: Not spelled nimbel.",
-        "contemptuously": "5 Syllables (Adverb) Hint: Not spelled contemptuouslee."
+    "🏆 Week 13 Custom List": {
+        "carbon": "2 Syllables (Noun) Hint: Not spelled karbon.",
+        "energy": "3 Syllables (Noun) Hint: Not spelled enerjy.",
+        "dancer": "2 Syllables (Noun) Hint: Not spelled danser.",
+        "damage": "2 Syllables (Noun) Hint: Not spelled damige.",
+        "circle": "2 Syllables (Noun) Hint: Not spelled sircle.",
+        "gallon": "2 Syllables (Noun) Hint: Not spelled galon.",
+        "police": "2 Syllables (Noun) Hint: Not spelled poleece.",
+        "pencil": "2 Syllables (Noun) Hint: Not spelled pensil.",
+        "general": "3 Syllables (Noun) Hint: Not spelled jeneral.",
+        "camping": "2 Syllables (Verb) Hint: Not spelled kamping.",
+        "dragon": "2 Syllables (Noun) Hint: Not spelled dragin.",
+        "glass": "1 Syllable (Noun) Hint: Not spelled glas.",
+        "current": "2 Syllables (Noun) Hint: Not spelled curent.",
+        "engine": "2 Syllables (Noun) Hint: Not spelled injin.",
+        "substance": "2 Syllables (Noun) Hint: Not spelled substanse.",
+        "generate": "3 Syllables (Verb) Hint: Not spelled jenerate.",
+        "electricity": "5 Syllables (Noun) Hint: Not spelled electrisity.",
+        "importance": "3 Syllables (Noun) Hint: Not spelled importanse.",
+        "regular": "3 Syllables (Adjective) Hint: Not spelled regeler.",
+        "gasoline": "3 Syllables (Noun) Hint: Not spelled gasoleen."
     },
     "🏆 Week 7 Custom List": {
         "deter": "2 Syllables (Verb) Hint: Not spelled detur.",
-        "location": "3 Syllables (Noun) Hint: Not spelled lokashon.",
-        "noticed": "2 Syllables (Verb) Hint: Not spelled notist.",
+        "location": "3 Syllables (Noun) Hint: Not spelled locashon.",
+        "noticed": "2 Syllables (Verb) Hint: Not spelled notisd.",
         "decided": "3 Syllables (Verb) Hint: Not spelled desided.",
         "local": "2 Syllables (Adjective) Hint: Not spelled lokel.",
-        "nature": "2 Syllables (Noun) Hint: Not spelled nachur.",
+        "nature": "2 Syllables (Noun) Hint: Not spelled nacher.",
         "prevent": "2 Syllables (Verb) Hint: Not spelled privent.",
-        "legal": "2 Syllables (Adjective) Hint: Not spelled leegul.",
+        "legal": "2 Syllables (Adjective) Hint: Not spelled leegle.",
         "lazy": "2 Syllables (Adjective) Hint: Not spelled lazee.",
         "before": "2 Syllables (Preposition) Hint: Not spelled befor.",
-        "gigantic": "3 Syllables (Adjective) Hint: Not spelled jigantic.",
+        "gigantic": "3 Syllables (Adjective) Hint: Not spelled jiegantic.",
         "item": "2 Syllables (Noun) Hint: Not spelled itum.",
         "flavor": "2 Syllables (Noun) Hint: Not spelled flaver.",
         "pilot": "2 Syllables (Noun) Hint: Not spelled pilit.",
         "program": "2 Syllables (Noun) Hint: Not spelled progrum.",
         "obey": "2 Syllables (Verb) Hint: Not spelled obay.",
         "climate": "2 Syllables (Noun) Hint: Not spelled climit.",
-        "future": "2 Syllables (Noun) Hint: Not spelled fuchur.",
-        "label": "2 Syllables (Noun) Hint: Not spelled lable.",
+        "future": "2 Syllables (Noun) Hint: Not spelled foocher.",
+        "label": "2 Syllables (Noun) Hint: Not spelled labul.",
         "nation": "2 Syllables (Noun) Hint: Not spelled nashon."
     },
     "🏆 Week 6 Custom List": {
@@ -624,116 +540,6 @@ const spellingDictionary = {
         "spunky": "2 Syllables (Adjective) Hint: A spunk + y puppy!",
         "mixture": "2 Syllables (Noun) Hint: A mix + ture of colors! (The 'ture' sounds like 'cher')",
         "princess": "2 Syllables (Noun) Hint: The prin + cess wears a crown! (Double 's')"
-    },
-    "🏆 Week 5 Custom List": {
-        "used": "1 Syllable (Verb) Hint: I used to use that! (use + d)",
-        "adult": "2 Syllables (Noun) Hint: A dull adult! (a + dult)",
-        "uncover": "3 Syllables (Verb) Hint: Uncover the cover! (un + cover)",
-        "blush": "1 Syllable (Verb) Hint: Don't rush to blush! (b + lush)",
-        "crunch": "1 Syllable (Verb) Hint: Captain Crunch! (c + run + ch)",
-        "uncle": "2 Syllables (Noun) Hint: Un + cle! (Don't forget the 'c' before 'le')",
-        "cute": "1 Syllable (Adjective) Hint: A cute little mute! (The magic 'e' makes the 'u' say its name!)",
-        "human": "2 Syllables (Noun) Hint: Every human is partly a man! (hu + man)",
-        "future": "2 Syllables (Noun) Hint: Fu + ture! (The 'ture' sounds like 'cher')",
-        "usual": "3 Syllables (Adjective) Hint: It is usual to use an umbrella! (u + su + al)",
-        "grumpy": "2 Syllables (Adjective) Hint: The grumpy grandpa! (grump + y)",
-        "umpire": "2 Syllables (Noun) Hint: An umpire in the empire! (um + pire)",
-        "abundant": "3 Syllables (Adjective) Hint: A bun ant is abundant! (a + bun + dant)",
-        "fuel": "2 Syllables (Noun) Hint: Don't duel over fuel! (f + u + e + l)",
-        "communicate": "4 Syllables (Verb) Hint: We communicate with the community! (Double 'm'!)",
-        "cubicle": "3 Syllables (Noun) Hint: A cub in a cubicle! (cub + i + cle)",
-        "refused": "2 Syllables (Verb) Hint: Re + fused!",
-        "continued": "3 Syllables (Verb) Hint: Con + tin + ued!",
-        "usually": "4 Syllables (Adverb) Hint: Usual + ly! (Don't forget the double 'l')",
-        "uniform": "3 Syllables (Noun) Hint: Uni + form! (Like a unicorn in uniform)"
-    },
-    "🏆 Week 4 Custom List": {
-        "lying": "2 Syllables (Verb) Hint: Don't tell a lie while lying down! (lie becomes ly + ing)",
-        "brick": "1 Syllable (Noun) Hint: Rick threw a brick! (b + rick)",
-        "since": "1 Syllable (Preposition) Hint: I have been here since the prince left! (rhymes with prince)",
-        "picnic": "2 Syllables (Noun) Hint: Pick a nice spot for a picnic! (pic + nic)",
-        "title": "2 Syllables (Noun) Hint: A little title! (ti + tle)",
-        "mind": "1 Syllable (Noun) Hint: Be kind to your mind! (m + ind)",
-        "wild": "1 Syllable (Adjective) Hint: The wild child!",
-        "decide": "2 Syllables (Verb) Hint: You must decide where to hide! (de + cide)",
-        "right": "1 Syllable (Adjective) Hint: Turn on the light right now! (contains igh)",
-        "lightning": "2 Syllables (Noun) Hint: The light is striking in the sky! (light + ning - no 'e'!)",
-        "admitted": "3 Syllables (Verb) Hint: Ed admitted he did it. (ad + mit + ted - double the 't'!)",
-        "ordinary": "4 Syllables (Adjective) Hint: Mary had an ordinary day. (or + di + na + ry)",
-        "sixty-six": "3 Syllables (Noun) Hint: Six tens and six ones! (Don't forget the hyphen '-')",
-        "crocodile": "3 Syllables (Noun) Hint: Crocodiles smile for a while! (croc + o + dile)",
-        "skyscraper": "3 Syllables (Noun) Hint: A building so tall it scrapes the sky! (sky + scraper)",
-        "gigantic": "3 Syllables (Adjective) Hint: A giant ant is gigantic! (gig + ant + ic)",
-        "terrified": "3 Syllables (Adjective) Hint: Terri was terrified of the dark! (terri + fied, 'y' changes to 'i')",
-        "cypress": "2 Syllables (Noun) Hint: Press the bark of the cypress tree! (cy + press)",
-        "bicycle": "3 Syllables (Noun) Hint: Bi means two, and cycle means wheels! (bi + cy + cle)",
-        "wicked": "2 Syllables (Adjective) Hint: The wicked witch lit the candle wick! (wick + ed)"
-    },
-    "🏆 Week 3 Custom List": {
-        "bowl": "1 Syllable (Noun) Hint: There is an owl inside the bowl! (b + owl)",
-        "goes": "1 Syllable (Verb) Hint: He goes to get some shoes! (Don't forget the 'es')",
-        "most": "1 Syllable (Adjective) Hint: Almost has most inside it!",
-        "dome": "1 Syllable (Noun) Hint: Come home to the dome!",
-        "plot": "1 Syllable (Noun) Hint: A lot of plot!",
-        "shopping": "2 Syllables (Verb) Hint: The shop needs a double 'p' before you add 'ing'!",
-        "toast": "1 Syllable (Noun) Hint: I like to boast about my toast! (contains oa)",
-        "copy": "2 Syllables (Verb) Hint: Cops like to copy!",
-        "problem": "2 Syllables (Noun) Hint: Sound it out carefully: prob + lem.",
-        "bottom": "2 Syllables (Noun) Hint: A bot at the bottom! (Remember the double 't')",
-        "floating": "2 Syllables (Verb) Hint: A boat is floating! (contains oa)",
-        "whole": "1 Syllable (Adjective) Hint: Who ate the whole thing? (Starts with a silent 'w')",
-        "explode": "2 Syllables (Verb) Hint: Ex + plode! Don't forget the silent 'e' at the end.",
-        "governor": "3 Syllables (Noun) Hint: The govern + or!",
-        "coach": "1 Syllable (Noun) Hint: A roach on the coach! (contains oa)",
-        "throat": "1 Syllable (Noun) Hint: A boat is stuck in my throat! (contains oa)",
-        "shown": "1 Syllable (Verb) Hint: I was shown the show! (show + n)",
-        "foe": "1 Syllable (Noun) Hint: My foe stubbed his toe! (contains oe)",
-        "cloth": "1 Syllable (Noun) Hint: A lot of cloth!",
-        "donut": "2 Syllables (Noun) Hint: Do not drop the donut! (do + nut)"
-    },
-    "🏆 Week 2 Custom List": {
-        "everyone": "3 Syllables (Pronoun) Hint: Every one of us loves spelling! (every + one)",
-        "easy": "2 Syllables (Adjective) Hint: It is easy to drink tEAsy! (eas + y)",
-        "these": "1 Syllable (Pronoun) Hint: The letter 'e' is hiding inside the word 'the' to make these!",
-        "piece": "1 Syllable (Noun) Hint: I would love a PIEce of PIE! (contains pie)",
-        "believe": "2 Syllables (Verb) Hint: Never beLIEve a LIE. (contains lie)",
-        "people": "2 Syllables (Noun) Hint: People Eat Omelets, People Like Eggs! (P-E-O-P-L-E)",
-        "then": "1 Syllable (Adverb) Hint: The hen is over then! (the + hen)",
-        "else": "1 Syllable (Adverb) Hint: Everybody Loves Seeing Elephants! (E-L-S-E)",
-        "edge": "1 Syllable (Noun) Hint: Ed gets everywhere! Don't forget the silent 'd'.",
-        "tenth": "1 Syllable (Noun) Hint: There are ten inside a tent! (ten + th)",
-        "fifteen": "2 Syllables (Noun) Hint: It's not five-teen, it's fif-teen!",
-        "receive": "2 Syllables (Verb) Hint: Remember the rhyme: 'e' before 'i' except after 'c'!",
-        "centuries": "3 Syllables (Noun) Hint: Cent means 100, just like 100 years! (cent + uries)",
-        "geography": "4 Syllables (Noun) Hint: George Eats Old Gray Rats And Paints Houses Yellow.",
-        "representative": "5 Syllables (Noun) Hint: Re-present-a-tive! 'present' is hiding right in the middle.",
-        "squeeze": "1 Syllable (Verb) Hint: 'q' always needs its best friend 'u' to stick together like glue!",
-        "empty": "2 Syllables (Adjective) Hint: Don't forget the silent 'p' hiding before the 'ty'!",
-        "eager": "2 Syllables (Adjective) Hint: An eagle is eager to fly! (both start with ea)",
-        "overseas": "3 Syllables (Adjective) Hint: When you travel to another country, you go over the seas.",
-        "residents": "3 Syllables (Noun) Hint: The p-residents without the 'p'!"
-    },
-    "🏆 Week 1 Custom List": {
-        "staff": "1 Syllable (Noun) Hint: Not spelled staf.",
-        "locate": "2 Syllables (Verb) Hint: Not spelled lokate.",
-        "spray": "1 Syllable (Verb) Hint: Not spelled sprai.",
-        "explain": "2 Syllables (Verb) Hint: Not spelled explane.",
-        "relay": "2 Syllables (Verb) Hint: Not spelled relai.",
-        "amaze": "2 Syllables (Verb) Hint: Not spelled amaze.",
-        "fact": "1 Syllable (Noun) Hint: Not spelled fackt.",
-        "began": "2 Syllables (Verb) Hint: Not spelled begen.",
-        "clasp": "1 Syllable (Noun) Hint: Not spelled clast.",
-        "rapid": "2 Syllables (Adjective) Hint: Not spelled rapped.",
-        "greatly": "2 Syllables (Adverb) Hint: Not spelled gratelee.",
-        "maintain": "2 Syllables (Verb) Hint: Not spelled maintane.",
-        "natural": "3 Syllables (Adjective) Hint: Not spelled nachural.",
-        "national": "3 Syllables (Adjective) Hint: Not spelled nashinal.",
-        "trails": "1 Syllable (Noun) Hint: Not spelled trales.",
-        "stranger": "2 Syllables (Noun) Hint: Not spelled straynger.",
-        "display": "2 Syllables (Noun) Hint: Not spelled displai.",
-        "freight": "1 Syllable (Noun) Hint: Not spelled frate.",
-        "weigh": "1 Syllable (Verb) Hint: Not spelled way.",
-        "neighbor": "2 Syllables (Noun) Hint: Not spelled naybor."
     }
 };
 
@@ -832,7 +638,7 @@ function loadUserData() {
     const select = document.getElementById('categorySelect');
     select.innerHTML = '';
     
-    for (let category in premiumSpellingData[currentUser]) {
+    for (let category in spellingDictionary) {
         let option = document.createElement('option');
         option.value = category;
         if (masteredCategories.includes(category)) {
@@ -904,6 +710,7 @@ function resetIdleTimer() {
 
 window.onload = function() {
     loadUserData();
+    
     setInterval(() => {
         if (isTimerRunning) {
             idleSeconds++;
@@ -932,6 +739,7 @@ function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
 function openMathGate() {
     let guess = prompt("Enter Parent PIN to access controls:");
+    
     if (guess === parentPin) {
         renderAuditLog();
         let currentDollars = (Math.floor(activePlayingSeconds / 900) * econCoinVal).toFixed(2);
@@ -1060,7 +868,7 @@ function startGame() {
     
     if (userWeeks && userWeeks[currentCategory]) {
         fullCustomList = userWeeks[currentCategory].words;
-        currentQueue = fullCustomList.slice(0, 10); // First 10 words only
+        currentQueue = fullCustomList.slice(0, 10); 
         isBonusMode = false;
     } else {
         fullCustomList = [];
@@ -1088,7 +896,7 @@ function startGame() {
 }
 
 function startBonusRound() {
-    currentQueue = fullCustomList.slice(10); // The 10 bonus words
+    currentQueue = fullCustomList.slice(10); 
     totalWordsToSpell = currentQueue.length;
     isFirstPass = true;
     firstTryPerfectCount = 0;
@@ -1114,18 +922,9 @@ function startSpellingPhase() {
     loadWord();
 }
 
-// Skips non-letters (spaces and hyphens) so they automatically show up
-function advanceToNextLetter() {
-    while (currentLetterIndex < currentWord.length && !/^[A-Z]$/.test(currentWord[currentLetterIndex])) {
-        currentLetterIndex++;
-    }
-}
-
 function loadWord() {
     currentWord = currentQueue[currentWordIndex].toUpperCase();
     currentLetterIndex = 0;
-    advanceToNextLetter(); // Auto-skip any leading spaces or hyphens
-    
     mistakes = 0;
     mistakesOnCurrentLetter = 0;
     wordFailedThisRound = false;
@@ -1136,6 +935,7 @@ function loadWord() {
     document.getElementById('keyboard').style.pointerEvents = "auto";
     
     let wordLower = currentWord.toLowerCase();
+    
     let rawHint = "💡 Listen closely to the sounds!";
     if (spellingDictionary[currentCategory] && spellingDictionary[currentCategory][wordLower]) {
         rawHint = spellingDictionary[currentCategory][wordLower];
@@ -1164,9 +964,6 @@ function updateWordDisplay() {
     for (let i = 0; i < currentWord.length; i++) {
         if (i < currentLetterIndex) {
             displayString += (currentWord[i] === " " ? "\xa0\xa0" : currentWord[i]) + " ";
-        } else if (!/^[A-Z]$/.test(currentWord[i])) {
-            // Reveal spaces and hyphens that haven't been reached yet
-            displayString += (currentWord[i] === " " ? "\xa0\xa0" : currentWord[i]) + " ";
         } else {
             displayString += "_ ";
         }
@@ -1192,7 +989,7 @@ function triggerHint() {
     resetIdleTimer();
 
     if (!isFirstPass) {
-        document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the visual clue!";
+        document.getElementById('message').innerText = "🔒 Text hints are disabled in Review! Use your ears and the permanent visual clue!";
         return;
     }
     
@@ -1229,7 +1026,6 @@ function handleGuess(letter, btnElement) {
     
     if (letter === currentWord[currentLetterIndex]) {
         currentLetterIndex++;
-        advanceToNextLetter(); // Jump over any spaces or hyphens immediately
         mistakesOnCurrentLetter = 0;
         updateWordDisplay();
     } else {
@@ -1298,21 +1094,14 @@ function loadReviewWord() {
     
     let options = new Set([currentWord]);
     let vowels = "AEIOU".split("");
-    
-    // Grab the first actual letter to replace for decoys
-    let firstLetterIdx = 0;
-    while(firstLetterIdx < currentWord.length && !/^[A-Z]$/.test(currentWord[firstLetterIdx])) {
-        firstLetterIdx++;
-    }
-    let expectedLetter = currentWord[firstLetterIdx];
-    
+    let expectedLetter = currentWord[0];
     let pool = vowels.includes(expectedLetter) ? vowels : "BCDFGHJKLMNPQRSTVWXYZ".split("");
     pool = pool.sort(() => 0.5 - Math.random());
     
     for (let char of pool) {
         if (options.size >= 4) break;
         if (char !== expectedLetter) {
-            options.add(currentWord.substring(0, firstLetterIdx) + char + currentWord.substring(firstLetterIdx + 1));
+            options.add(char + currentWord.substring(1));
         }
     }
     
